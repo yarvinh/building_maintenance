@@ -1,0 +1,2 @@
+class PayRolesController < ApplicationController
+end
