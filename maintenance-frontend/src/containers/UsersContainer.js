@@ -7,7 +7,7 @@ class UsersContainer extends Component {
 
   creatingUser = (user)=>{
     this.props.createUser(user)   
-    } 
+  } 
   
 
   render() {

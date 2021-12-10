@@ -7,13 +7,13 @@ class Employee < ApplicationRecord
     has_many :comments
     has_many :buildings, through: :work_orders
 
-    validates :name, :email, :date_of_birth, presence: true
-    validates  :email,  uniqueness: true
+    validates :name, :email, :username,  presence: true
+    validates  :email, :username, uniqueness: true
 
     validates :password, :presence =>true, :confirmation =>true , :if => :password_required?
     validates_confirmation_of :password , :if => :password_required?
     
-    scope :find_employees, -> {order(:name) }
+    # scope :find_employees, -> {order(:name) }
     protected
 
 
@@ -26,6 +26,8 @@ class Employee < ApplicationRecord
       employees = Employee.all
       if !employees.empty? && user
         employees.select{|emp|emp.user_id.to_s === user.id.to_s}
+      else
+        employees = {error_message: ["No employees has been created."]}
       end
     end
 end

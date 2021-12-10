@@ -6,6 +6,9 @@ class EmployeesSerializer
 
   def to_serialized_json
       options = {
+        include:{
+            user: {only: [:id]}
+        },
         except: [:updated_at, :created_at]
       }
       @employees.to_json(options)

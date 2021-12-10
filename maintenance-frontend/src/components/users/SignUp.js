@@ -4,17 +4,30 @@ import React, { Component } from 'react';
 import '../../styles/styles.css'
 
 class SignUp extends Component {
+  state = {
+    company_name: "",
+    email: "",
+    username: "",
+    password: "",
+    password_confirmation: ""
+  }
+
   handleOnSubmit = (e) => {
       e.preventDefault()
-      const userInf = { 
-        user: {company_name: e.target.children[1].value,
-          email: e.target.children[4].value,
-          username:  e.target.children[7].value,
-          password:  e.target.children[10].value,
-          password_confirmation:  e.target.children[13].value
-        }
-      } 
-      this.props.creatingUser(userInf)
+      this.props.creatingUser({user: this.state})
+      this.setState({
+        company_name: "",
+        email: "",
+        username: "",
+        password: "",
+        password_confirmation: ""
+      })
+  }
+
+  handleOnChange = (e) => {
+    this.setState({
+       [e.target.name]: e.target.value 
+    })
   }
 
   errorMessages=()=>{
@@ -32,15 +45,15 @@ class SignUp extends Component {
         <div className="container d-flex justify-content-center align-items-center">
           <form onSubmit={this.handleOnSubmit} className="form">
             <label className="mt-5"> Company Name: </label>
-            <input className="form-control" type='text'/> <br/>
+            <input onChange={this.handleOnChange} className="form-control" value={this.state.company_name} name="company_name" type='text'/> <br/>
             <label >Email:</label >
-            <input  className="form-control" type='text'/> <br/>
+            <input  onChange={this.handleOnChange} className="form-control" value={this.state.email} name="email" type='text'/> <br/>
             <label >Username:</label >
-            <input className="form-control"  type='text'/> <br/>
+            <input onChange={this.handleOnChange} className="form-control"  value={this.state.username} name="username" type='text'/> <br/>
             <label > Password: </label >
-            <input className="form-control"  type='password'/> <br/>
+            <input onChange={this.handleOnChange} className="form-control"  value={this.state.password} name="password" type='password'/> <br/>
             <label > Confirm password:</label >
-            <input className="form-control"  type='password'/> <br/>
+            <input onChange={this.handleOnChange} className="form-control"  value={this.state.password_confirmation} name="password_confirmation" type='password'/> <br/>
             <button type='submit' className="btn btn-primary">Submit</button>
           </form>
           

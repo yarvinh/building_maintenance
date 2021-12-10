@@ -6,7 +6,7 @@ class CreateEmployees < ActiveRecord::Migration[6.0]
       t.string :date_of_birth
       t.string :email
       t.string :image
-      # t.string :uid
+      t.string :username
       t.integer :user_id
       t.timestamps
     end

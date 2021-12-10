@@ -44,7 +44,7 @@ class App extends Component{
             <Route exact path='/login' element={<LogIn/>} />
             <Route exact path='/signout' element={<LogOut/>}/>
             <Route exact path='/signup'  element={<UsersContainer />}/>
-            <Route exact path='/employees'  element={<EmployeesContainer />}/>
+            <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
           </Routes>
         </div>

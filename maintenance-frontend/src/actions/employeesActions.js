@@ -9,3 +9,15 @@ import axios from 'axios'
       })
     }
   }
+
+  export const createEmployee = (employee) => {
+      return (dispatch) => {
+          dispatch({type: "LOADING_EMPLOYEE"})
+          axios.post('http://localhost:3000/employees', employee ,{withCredentials: true})
+          .then(response => {
+              console.log(response.data)
+              dispatch({ type: 'ADD_EMPLOYEES', employees: response.data})
+          })
+      }
+    
+  }

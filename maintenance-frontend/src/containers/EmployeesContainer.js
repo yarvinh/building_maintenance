@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchEmployees } from '../actions/employeesActions'
+import CreateEmployees from '../components/employees/CreateEmployees'
 
 class EmployeesContainer extends Component {
 
@@ -9,17 +10,29 @@ class EmployeesContainer extends Component {
     }
 
     renderEmployees = () => {
-       return  this.props.employees.employees.map((emp)=>{
+        if (this.props.employees.employees.error_message){
+           
+                return this.props.employees.employees.error_message.map((err, i)=>{
+                    return <li key={i}>{err}</li>
+                })
+                
+            
+        }else{
+            return  this.props.employees.employees.map((emp)=>{
                return (
                    <li key={emp.id}>{emp.name}</li>
                )
            })   
+        }
+ 
     }
 
     render = () => {
-       
        return (
            <div>
+               <div>
+                   <CreateEmployees user={this.props.user} />
+               </div>
                <ul>{this.renderEmployees()}</ul>
            </div>
        )
