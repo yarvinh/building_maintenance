@@ -15,6 +15,7 @@ class CreateEmployees extends Component {
         username: "",
         password: "",
         password_confirmation: "",
+        phone: ""
         },
         acordion: 'display_accordion', 
         display: 'hide_elements',
@@ -44,11 +45,12 @@ class CreateEmployees extends Component {
             username: "",
             password: "",
             password_confirmation: "",
+            phone: "",
           }
          })
     }
 
-    handleOnSubmit = (e) =>{  
+    handleOnChange = (e) =>{  
         this.setState({
            employee: {...this.state.employee, [e.target.name]: e.target.value,}
         })
@@ -61,16 +63,18 @@ class CreateEmployees extends Component {
             <div className={this.state.display}>
             <div className="container d-flex justify-content-center align-items-center">
                 <form onSubmit={this.handleOnsubmit}>
-                    <label>Name:</label>
-                    <input onChange={this.handleOnSubmit} id="e_name" name="name" className="form-control" type="text" value={this.state.name}/><br/>
+                    <label>Name</label>
+                    <input onChange={this.handleOnChange}  name="name" className="form-control" type="text" value={this.state.employee.name}/><br/>
+                    <label>Phone Number</label>
+                    <input onChange={this.handleOnChange} name="phone" className="form-control" type="phone" value={this.state.employee.phone}/><br/>
                     <label>Email</label>
-                    <input onChange={this.handleOnSubmit} id="e_email" name="email" className="form-control" type="email" value={this.state.email}/><br/>
+                    <input onChange={this.handleOnChange}  name="email" className="form-control" type="email" value={this.state.employee.email}/><br/>
                     <label>Username:</label>
-                    <input onChange={this.handleOnSubmit} id="e_username" name="username" className="form-control" type="text" value={this.state.username}/><br/>
+                    <input onChange={this.handleOnChange}  name="username" className="form-control" type="text" value={this.state.employee.username}/><br/>
                     <label>Password:</label>
-                    <input onChange={this.handleOnSubmit} id="e_password" name="password" className="form-control" type="password" value={this.state.password}/><br/>
+                    <input onChange={this.handleOnChange} name="password" className="form-control" type="password" value={this.state.employee.password}/><br/>
                     <label>Confirm Password:</label>
-                    <input onChange={this.handleOnSubmit} id="e_confirm_password" name="password_confirmation" className="form-control" type="password" value={this.state.password_confirmation}/><br/>
+                    <input onChange={this.handleOnChange}  name="password_confirmation" className="form-control" type="password" value={this.state.employee.password_confirmation}/><br/>
                     <button type='submit' className="btn btn-primary">Submit</button>
                 </form>     
             </div>

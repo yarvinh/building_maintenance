@@ -44,9 +44,54 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
+  const EmployeeReducer = (state = { employee: {}, loading: false }, action)=>{
+    switch(action.type) {
+      case 'LOADING_EMPLOYEE':
+      return state = {
+        ...state,
+        employee: state.employee,
+        loading: true,    
+      }
+
+      case 'ADD_EMPLOYEE':
+        return {
+           ...state,
+          employee: action.employee,
+          loading: false
+      } 
+
+    default:
+      return state;
+    }
+  }
+
+
+  const BuildingsReducer = (state = { buildings: [], loading: false }, action) => {
+    switch(action.type) {
+        case 'LOADING_BUILDINGS':
+        return state ={
+          ...state,
+          buildings: state.buildings,
+          loading: true,    
+        }
+ 
+        case 'ADD_BUILDINGS':
+          return {
+             ...state,
+            buildings: action.buildings,
+            loading: false
+        } 
+
+      default:
+        return state;
+    }
+  }
+
 const rootReducer = combineReducers({
    user: UserReducer,  
    employees: EmployeesReducer,
+   employee: EmployeeReducer,
+   buildings: BuildingsReducer,
 });
    
   export default rootReducer;

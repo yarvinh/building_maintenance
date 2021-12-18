@@ -1,45 +1,40 @@
-import React, { Component } from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchEmployees } from '../actions/employeesActions'
+import { fetchEmployees} from '../actions/employeesActions'
 import CreateEmployees from '../components/employees/CreateEmployees'
+import Employee from "../components/employees/Employee"
+import {useParams} from 'react-router-dom';
 
-class EmployeesContainer extends Component {
-
-    componentDidMount(){
-        this.props.fetchEmployees()  
-    }
-
-    renderEmployees = () => {
-        if (this.props.employees.employees.error_message){
-           
-                return this.props.employees.employees.error_message.map((err, i)=>{
+const EmployeesContainer = (props) => {
+    const {employees} = props.employees
+    const {id} = useParams()
+    useEffect(() => {
+        props.fetchEmployees() 
+    },[ props.fetchEmployees ]);
+     
+    const renderEmployees = () => {   
+        if (employees.error_message){ 
+                return employees.error_message.map((err, i)=>{
                     return <li key={i}>{err}</li>
-                })
-                
-            
+                })      
         }else{
-            return  this.props.employees.employees.map((emp)=>{
-               return (
-                   <li key={emp.id}>{emp.name}</li>
-               )
+            return  employees.map((emp)=>{
+               return <Employee key={emp.id} employee={emp}/>  
            })   
         }
- 
     }
 
-    render = () => {
-       return (
-           <div>
-               <div>
-                   <CreateEmployees user={this.props.user} />
-               </div>
-               <ul>{this.renderEmployees()}</ul>
-           </div>
-       )
-    }
-
-
+    return (
+        <div>
+          
+            {!id?<CreateEmployees user={props.user} />: null }
+            <div>
+              {!id? renderEmployees(): null }
+            </div>
+        </div>
+    )
 }
+
 
 const mapStateToProps = state => { 
     return {

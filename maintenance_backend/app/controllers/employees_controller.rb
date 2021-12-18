@@ -1,4 +1,9 @@
 class EmployeesController < ApplicationController
+  def show
+    user = User.find_by_id(session[:user_id]) 
+    employee = user.employees.find_by_id(params[:id])
+    render json: employee
+  end
   def index
     employees = Employee.current_user_employees(session[:user_id])
     render json:EmployeesSerializer.new(employees).to_serialized_json
@@ -15,10 +20,22 @@ class EmployeesController < ApplicationController
     end
   end
 
+  def update
+    user = User.find_by_id(session[:user_id]) 
+     if user
+      employee = user.employees.find_by_id(params[:id])
+      if employee.update(employee_params)
+        render json: employee
+      else
+      render json: {error: employee.errors.full_messages}
+      end
+    end
+  end
+
   private
 
   def employee_params
-        params.require(:employee).permit(:name, :password, :password_confirmation, :username, :email)
+        params.require(:employee).permit(:name, :password, :password_confirmation, :username, :email, :phone, :old_password)
   end
 
 end

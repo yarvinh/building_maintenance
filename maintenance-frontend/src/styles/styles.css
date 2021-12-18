@@ -1,5 +1,4 @@
-.form {
-    
+.form {  
     width:100%;
     max-width: 500px;
 }
@@ -40,6 +39,6 @@
 
   .card-container {
       width:700px;
-      background-color:#4E6FC9;
+      background-color: #eee;
       
   }

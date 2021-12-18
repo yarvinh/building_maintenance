@@ -5,4 +5,14 @@ class Building < ApplicationRecord
 
     validates :super_name, :address, :phone_number, presence: true
     validates :address, uniqueness: true
+
+    def self.current_user_buildings(id)
+        user = User.find_by_id(id)
+        buildings = Building.all
+        if !buildings.empty? && user
+          buildings.select{|b|b.user_id.to_s === user.id.to_s}
+        else
+         buildings = {error_message: ["No buildings has been created."]}
+        end
+      end
 end
