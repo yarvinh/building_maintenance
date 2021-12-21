@@ -87,11 +87,35 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
+
+  const BuildingReducer = (state = { building: {}, loading: false }, action)=>{
+    switch(action.type) {
+      case 'LOADING_BUILDING':
+      return state = {
+        ...state,
+        building: state.building,
+        loading: true,    
+      }
+
+      case 'ADD_BUILDING':
+        return {
+           ...state,
+          building: action.building,
+          loading: false
+      } 
+
+    default:
+      return state;
+    }
+  }
+
+
 const rootReducer = combineReducers({
    user: UserReducer,  
    employees: EmployeesReducer,
    employee: EmployeeReducer,
    buildings: BuildingsReducer,
+   building: BuildingReducer,
 });
    
   export default rootReducer;

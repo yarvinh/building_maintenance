@@ -87,3 +87,13 @@
   justify-items: center;
 } */
 
+.auto_height { 
+  width: 70%;
+  min-height: 46px;
+  border-width: 5px;
+  border-style: solid;
+  border-color:  #777;
+  border-radius: .8rem;
+  font-size: 12px;
+}
+

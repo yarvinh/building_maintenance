@@ -14,7 +14,7 @@ const Employee = (props)=>{
         if(id){
             props.fetchEmployee(id) 
         }
-    },[props.fetchEmployee ]);
+    },[props.fetchEmployee]);
 
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee

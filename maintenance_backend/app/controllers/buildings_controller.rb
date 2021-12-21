@@ -1,4 +1,13 @@
 class BuildingsController < ApplicationController
+    def show
+        user = User.find_by_id(session[:user_id])
+        if user 
+            building = user.buildings.find_by_id(params[:id])
+            render json: building
+        else
+            render json: {error_message: ["No building was found"]}
+        end
+    end
     def index
         buildings = Building.current_user_buildings(session[:user_id])
         render json:BuildingsSerializer.new(buildings).to_serialized_json
@@ -14,6 +23,20 @@ class BuildingsController < ApplicationController
             render json:BuildingsSerializer.new(buildings).to_serialized_json
         else
              render json: {id: "error_1", error_message: building.errors.full_messages}
+        end
+      end
+
+      def update
+        user = User.find_by_id(session[:user_id])
+        if user
+            building = user.buildings.find_by_id(params[:id])
+            if building.update(building_params)
+              render json: building
+            else
+            render json: {error: building.errors.full_messages}
+            end
+        else
+            render json: {error_message: ["No building was found"]}
         end
       end
 

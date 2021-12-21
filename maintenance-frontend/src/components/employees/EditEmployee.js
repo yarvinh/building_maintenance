@@ -51,7 +51,8 @@ const EditEmployee = (props) =>{
             setEmployee({
                 ...employee,[type]: ""
             }) 
-        }    
+        }
+    
     }
 
   return(   
