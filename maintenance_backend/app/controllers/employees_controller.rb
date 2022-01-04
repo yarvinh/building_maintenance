@@ -2,7 +2,7 @@ class EmployeesController < ApplicationController
   def show
     user = User.find_by_id(session[:user_id]) 
     employee = user.employees.find_by_id(params[:id])
-    render json: employee
+    render json:EmployeeSerializer.new(employee).to_serialized_json
   end
   def index
     employees = Employee.current_user_employees(session[:user_id])

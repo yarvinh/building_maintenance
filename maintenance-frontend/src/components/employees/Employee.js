@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
 import {useParams} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
+import WorkOrder  from '../workorders/WorkOrder';
 import '../../styles/styles.css'
 
 
@@ -18,8 +19,10 @@ const Employee = (props)=>{
 
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
-
-
+    const workOrders = ()=>{
+       return employee.work_orders &&  employee.work_orders.map(wo => <WorkOrder key={wo.id} workOrder={wo}/>) 
+    }
+    console.log(employee)
     return (
         <div>
             <div>
@@ -37,7 +40,12 @@ const Employee = (props)=>{
                         <p>{employee.email}</p>
                         <p>{employee.phone}</p>
                     </div>   
+     
                 </div>
+            </div>
+            <div>
+                {/* {id?<h3>Work Orders</h3>:null}
+                {id?workOrders():null} */}
             </div>
         </div>
             

@@ -1,6 +1,6 @@
-class EmployeesSerializer
-    def initialize(employees_object)
-       @employees = employees_object
+class EmployeeSerializer
+    def initialize(object)
+       @employee = object
    
     end
 
@@ -9,10 +9,11 @@ class EmployeesSerializer
         include:{
             user: {only: [:id]},
             work_orders: {}
+
         },
         except: [:updated_at, :created_at]
       }
-      @employees.to_json(options)
+      @employee.to_json(options)
     end
   
   end

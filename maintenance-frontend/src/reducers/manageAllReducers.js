@@ -109,6 +109,49 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
+  const WorkOrdersReducer = (state = { workOrders: [], loading: false }, action) => {
+    switch(action.type) {
+        case 'LOADING_WORK_ORDERS':
+        return state ={
+          ...state,
+          workOrders: state.workOrders,
+          loading: true,    
+        }
+ 
+        case 'ADD_WORK_ORDERS':
+          return {
+             ...state,
+            workOrders: action.workOrders,
+            loading: false
+        } 
+
+      default:
+        return state;
+    }
+  }
+
+
+  const WorkOrderReducer = (state = { workOrder: {}, loading: false }, action)=>{
+    switch(action.type) {
+      case 'LOADING_WORK_ORDER':
+      return state = {
+        ...state,
+        workOrder: state.workOrder,
+        loading: true,    
+      }
+
+      case 'ADD_WORK_ORDER':
+        return {
+           ...state,
+          workOrder: action.workOrder,
+          loading: false
+      } 
+
+    default:
+      return state;
+    }
+  }
+
 
 const rootReducer = combineReducers({
    user: UserReducer,  
@@ -116,6 +159,8 @@ const rootReducer = combineReducers({
    employee: EmployeeReducer,
    buildings: BuildingsReducer,
    building: BuildingReducer,
+   workOrders: WorkOrdersReducer,
+   workOrder: WorkOrderReducer,
 });
    
   export default rootReducer;

@@ -13,6 +13,7 @@ import BuildingsContainer from './containers/BuildingsContainer'
 import { fetchCurrentUser } from './actions/usersActions'
 import UsersContainer from './containers/UsersContainer'
 import './styles/styles.css'
+import WorkOrder from './components/workorders/WorkOrder';
 
 
 class App extends Component{
@@ -33,7 +34,7 @@ class App extends Component{
           <div className="container"> 
               <p className="navbar-brand">Maintenance</p>
               {this.props.user.is_login? <Link to='/buildings' className="nav-link custom-nav-link">Buildings</Link>: null}
-              {this.props.user.is_login? <Link to='/workorders' className="nav-link custom-nav-link">Work Orders</Link>: null}
+              {this.props.user.is_login? <Link to='/work_orders' className="nav-link custom-nav-link">Work Orders</Link>: null}
               {this.props.user.is_login? <Link to='/employees' className="nav-link custom-nav-link">employees</Link>: null}
               {!this.props.user.is_login? <Link to='/signup' className="nav-link custom-nav-link">Sign Up</Link>: null}
               {!this.props.user.is_login? <Link to='/login' className="nav-link custom-nav-link">Log In</Link>:  <Link to='/signout' className="nav-link custom-nav-link">Sign Out</Link>  }
@@ -45,10 +46,11 @@ class App extends Component{
             <Route exact path='/signup'  element={<UsersContainer />}/>
             <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
             <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-            <Route exact path='/workorders'  element={<WorkOdersContainer user={this.props.user}/>}/>
+            <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
             <Route exact path='/employees/:id' element={<Employee/>}/>
             <Route exact path='/buildings/:id' element={<Building/>}/>
+            <Route exact path='/work_orders/:id' element={<WorkOrder/>}/>
           </Routes>
         </div>
         </BrowserRouter>

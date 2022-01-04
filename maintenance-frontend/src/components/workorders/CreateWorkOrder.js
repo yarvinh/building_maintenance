@@ -1,11 +1,12 @@
 
 import React, {useState } from 'react';
-import { connect } from 'react-redux';
+import {connect } from 'react-redux';
+import {createWorkOrder} from '../../actions/workOrdersActions'
 import '../../styles/styles.css'
 
 const CreateWorkOrder = (props) => {
     const {employees,buildings} = props
-    const [workOrder, setWorkOder] = useState({
+    const [workOrder, setWorkOrder] = useState({
         task: "",
         date: "",
         building_id: "",
@@ -34,6 +35,13 @@ const CreateWorkOrder = (props) => {
 
     const handleOnSubmit=(e)=>{
       e.preventDefault()
+      props.createWorkOrder(workOrder)
+      setWorkOrder({
+        task: "",
+        date: "",
+        building_id: "",
+        employee_id: "",
+      })
     }
 
     const handleOnChange=(e)=>{
@@ -42,7 +50,7 @@ const CreateWorkOrder = (props) => {
             e.target.style.height = (e.target.scrollHeight)+"px"; 
         }
   
-        setWorkOder({
+        setWorkOrder({
             ...workOrder,[e.target.name]: e.target.value
         })
 
@@ -76,17 +84,10 @@ const CreateWorkOrder = (props) => {
 }
 
 
-// const mapStateToProps = state => { 
-//     return {
-//         // employeees: state.employees,
-//         // loading: state.buildings.loading
-//     }
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        createWorkOrder: (action) => dispatch(createWorkOrder(action)),
+    }
+}   
       
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         createBuilding: (action) => dispatch(createBuilding(action)),
-//     }
-// }   
-      
-export default connect(null, null)(CreateWorkOrder)
+export default connect(null, mapDispatchToProps)(CreateWorkOrder)
