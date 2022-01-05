@@ -27,8 +27,8 @@ import WorkOrder from "../components/workorders/WorkOrder"
                     return <li key={i}>{err}</li>
                 })      
         }else{
-            return  workOrders.map((workOrder) => {
-               return <WorkOrder key={workOrder.id} workOrder={workOrder}/>  
+            return  workOrders.map((workOrder,index) => {
+               return <WorkOrder key={workOrder.id} index={index + 1} workOrder={workOrder}/>  
             })   
         }
     
@@ -40,9 +40,21 @@ import WorkOrder from "../components/workorders/WorkOrder"
            <div>
                <CreateWorkOrder employees={employees} buildings={buildings}/>
            </div>
-           <div>
-              {!id? renderWorkOrders(): null }
-            </div>
+           
+        <table className="table table-striped" >
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">Summary</th>
+                <th scope="col">Assigned </th>
+            </tr>
+            </thead>
+        <tbody>
+        {!id? renderWorkOrders(): null }
+        </tbody>
+        </table>
        </div>
    )
 }

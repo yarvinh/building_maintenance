@@ -28,13 +28,14 @@ const WorkOrder = (props)=>{
         }
    
     }
-    return (
-        <div>
-            <div>
-              {/* {id?<EditWorkOrder/>:null} */}
-            </div>
-            <div className="container d-flex justify-content-center">
-                <div className="card-container mb-3">
+    if(id){
+        return (
+                    <div> 
+           <div> 
+             {/* {id?<EditWorkOrder/>:null}  */}
+           </div> 
+           <div className="container d-flex justify-content-center"> 
+               <div className="card-container mb-3">
                     <div>
                     <Link to={`/work_orders/${workOrder.id}`}>  
                         <h3 className="card-header">{date()}</h3>
@@ -52,12 +53,24 @@ const WorkOrder = (props)=>{
                        
                     </div>   
                 </div>
-            </div>
-        </div>
-            
+                         </div> 
+         </div>
         )
- 
-
+    } else {
+        return (
+           <>
+                <tr>
+                    <th scope="row">{props.index}</th>
+                    <td> <Link to={`/work_orders/${workOrder.id}`}>  
+                            <p>{date()}</p>
+                        </Link></td>
+                    <td><Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link></td>
+                    <td>{props.index}</td>
+                    <td><Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link></td>
+                </tr>
+            </>
+        )
+    }
 };
 
 
