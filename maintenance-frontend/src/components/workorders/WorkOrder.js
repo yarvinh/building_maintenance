@@ -19,7 +19,7 @@ const WorkOrder = (props)=>{
  
     let workOrder = null
     id? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
-   
+    console.log(workOrder)
     const date = ()=>{
         let date = workOrder.date
         if (date){
@@ -30,30 +30,32 @@ const WorkOrder = (props)=>{
     }
     if(id){
         return (
-                    <div> 
-           <div> 
+            <div> 
+            <div> 
              {/* {id?<EditWorkOrder/>:null}  */}
-           </div> 
-           <div className="container d-flex justify-content-center"> 
-               <div className="card-container mb-3">
-                    <div>
-                    <Link to={`/work_orders/${workOrder.id}`}>  
-                        <h3 className="card-header">{date()}</h3>
-                    </Link>
+            </div> 
+
+           {/* <h3 className="card-header">{date()}</h3> */}
+            <div className="container d-flex justify-content-center"> 
+                <div className="card-container mb-3">
+                     <div className="card-header">
+                        <h4>{date()}</h4>
+                        {workOrder.employee?<Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link>:null}
+                        {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> <p>{workOrder.building.super_name}</p><p>{workOrder.building.phone_number}</p></Link> :null}
                     </div>
-                    <div className="card-body">
-                       <div>
-                           {err? err.map(e => e):null}
-                           {workOrder.employee?<Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link>:null}
-                           {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link>:null}
-                       </div>
-                       <div>
-                           {id? <p>{workOrder.task}</p>: null}
-                       </div>
-                       
-                    </div>   
+                <div>
+            </div>
+            <div className="card-body">
+                <div>
+                    {err? err.map(e => e):null}
                 </div>
-                         </div> 
+                <div>
+                    <p>{workOrder.task}</p>
+                </div>
+                       
+            </div>   
+            </div>
+            </div> 
          </div>
         )
     } else {
@@ -65,7 +67,7 @@ const WorkOrder = (props)=>{
                             <p>{date()}</p>
                         </Link></td>
                     <td><Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link></td>
-                    <td>{props.index}</td>
+                    <td>{workOrder.title}</td>
                     <td><Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link></td>
                 </tr>
             </>

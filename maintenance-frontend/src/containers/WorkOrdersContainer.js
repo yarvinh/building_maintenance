@@ -24,12 +24,27 @@ import WorkOrder from "../components/workorders/WorkOrder"
     const renderWorkOrders = () => {    
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
-                    return <li key={i}>{err}</li>
+                    return <p key={i}>{err}</p>
                 })      
         }else{
-            return  workOrders.map((workOrder,index) => {
-               return <WorkOrder key={workOrder.id} index={index + 1} workOrder={workOrder}/>  
-            })   
+            return (
+                <>
+            <table className="table table-striped" > 
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Due Date</th>
+                <th scope="col">Address</th>
+                <th scope="col">Summary</th>
+                <th scope="col">Assigned </th>
+            </tr>
+            </thead>
+            <tbody>
+              {workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} index={index + 1} workOrder={workOrder}/>)}) }
+            </tbody>
+            </table>
+            </>
+             ) 
         }
     
     }
@@ -41,20 +56,9 @@ import WorkOrder from "../components/workorders/WorkOrder"
                <CreateWorkOrder employees={employees} buildings={buildings}/>
            </div>
            
-        <table className="table table-striped" >
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Due Date</th>
-                <th scope="col">Address</th>
-                <th scope="col">Summary</th>
-                <th scope="col">Assigned </th>
-            </tr>
-            </thead>
-        <tbody>
-        {!id? renderWorkOrders(): null }
-        </tbody>
-        </table>
+      
+           {!id? renderWorkOrders(): null } 
+       
        </div>
    )
 }

@@ -8,6 +8,7 @@ class CreateWorkOrders < ActiveRecord::Migration[6.0]
       t.integer :user_id
       t.integer :building_id
       t.integer :employee_id
+      t.string :title
       t.boolean :status, default: false
       t.timestamps
     end
