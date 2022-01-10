@@ -40,7 +40,7 @@ import WorkOrder from "../components/workorders/WorkOrder"
             </tr>
             </thead>
             <tbody>
-              {workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} index={index + 1} workOrder={workOrder}/>)}) }
+              {workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} employees={employees} index={index + 1} workOrder={workOrder} buildings={buildings}/>)}) }
             </tbody>
             </table>
             </>
@@ -55,10 +55,7 @@ import WorkOrder from "../components/workorders/WorkOrder"
            <div>
                <CreateWorkOrder employees={employees} buildings={buildings}/>
            </div>
-           
-      
-           {!id? renderWorkOrders(): null } 
-       
+           {!id? renderWorkOrders(): null }   
        </div>
    )
 }

@@ -1,14 +1,15 @@
 import React, {useEffect } from 'react';
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
-import {useParams} from 'react-router-dom';
+import {Link,useParams,useLocation} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
 import WorkOrder  from '../workorders/WorkOrder';
 import '../../styles/styles.css'
 
 
 const Employee = (props)=>{
+    const path = useLocation()
     const {id} = useParams()
     let err = props.employeeById.employee.error
     useEffect(() => {
@@ -19,12 +20,28 @@ const Employee = (props)=>{
 
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
+    
     const workOrders = ()=>{
-       return employee.work_orders &&  employee.work_orders.map(wo => <WorkOrder key={wo.id} workOrder={wo}/>) 
+        return(
+        <table className="table table-striped" > 
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Address</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Assigned </th>
+        </tr>
+        </thead>
+        <tbody>
+           {employee.work_orders &&  employee.work_orders.map((wo,index) => {return <WorkOrder key={wo.id} index={index + 1} workOrder={wo}/>}) }
+        </tbody>
+        </table>
+        )
     }
-    console.log(employee)
+
     return (
-        <div>
+        <>
             <div>
               {id?<EditEmployee/>:null}
             </div>
@@ -43,11 +60,9 @@ const Employee = (props)=>{
      
                 </div>
             </div>
-            <div>
-                {/* {id?<h3>Work Orders</h3>:null}
-                {id?workOrders():null} */}
-            </div>
-        </div>
+            {id?<h3>Work Orders</h3>:null}
+            {id  ?workOrders():null}    
+        </>
             
         )
  
