@@ -1,15 +1,26 @@
 class BuildingsController < ApplicationController
     def show
         user = User.find_by_id(session[:user_id])
+        employee = Employee.find_by_id(session[:employee_id])
         if user 
+            building = user.buildings.find_by_id(params[:id])
+            render json: building
+        elsif employee
+            user = employee.user
             building = user.buildings.find_by_id(params[:id])
             render json: building
         else
             render json: {error_message: ["No building was found"]}
         end
     end
+
     def index
-        buildings = Building.current_user_buildings(session[:user_id])
+        id =  session[:user_id]
+        employee = Employee.find_by_id(session[:employee_id])
+        if employee
+          id ||= employee.user_id
+        end 
+        buildings = Building.current_user_buildings(id)
         render json:BuildingsSerializer.new(buildings).to_serialized_json
     end
 

@@ -5,7 +5,9 @@ import CreateEmployees from '../components/employees/CreateEmployees'
 import Employee from "../components/employees/Employee"
 import {useParams} from 'react-router-dom';
 
+
 const EmployeesContainer = (props) => {
+    let {admin} = props.user
     const {employees} = props.employees
     const {id} = useParams()
     useEffect(() => {
@@ -27,7 +29,7 @@ const EmployeesContainer = (props) => {
     return (
         <div>
           
-            {!id?<CreateEmployees user={props.user} />: null }
+            {!id && admin?<CreateEmployees user={props.user} />: null }
             <div>
               {!id? renderEmployees(): null }
             </div>

@@ -1,11 +1,23 @@
 class EmployeesController < ApplicationController
   def show
     user = User.find_by_id(session[:user_id]) 
-    employee = user.employees.find_by_id(params[:id])
-    render json:EmployeeSerializer.new(employee).to_serialized_json
+    employee = Employee.find_by_id(session[:employee_id])
+    if user
+      employee = user.employees.find_by_id(params[:id])
+      render json:EmployeeSerializer.new(employee).to_serialized_json
+    elsif employee
+      employee = Employee.find_by_id(params[:id])
+      render json:EmployeeSerializer.new(employee).to_serialized_json
+    end
+    
   end
   def index
-    employees = Employee.current_user_employees(session[:user_id])
+    id =  session[:user_id]
+    employee = Employee.find_by_id(session[:employee_id])
+    if employee
+      id ||= employee.user_id
+    end 
+    employees = Employee.current_user_employees(id)
     render json:EmployeesSerializer.new(employees).to_serialized_json
   end
   def create

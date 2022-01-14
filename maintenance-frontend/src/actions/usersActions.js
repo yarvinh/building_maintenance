@@ -32,7 +32,6 @@ export const createUser = (user) => {
         axios.delete('http://localhost:3000/logout', 
          {withCredentials: true})
         .then(response=> {
-          console.log("R",response)
             dispatch({ type: 'ADD_USER', user: response.data })
       
         })
@@ -40,10 +39,10 @@ export const createUser = (user) => {
 
   }
 
-  export const fetchLogIn=(user)=> {
+  export const fetchLogIn=(user,url)=> {
     return (dispatch) => {
       dispatch({ type: 'LOADING_USER'})
-        axios.post('http://localhost:3000/login', 
+        axios.post(url, 
         {user}, {withCredentials: true})
         .then(response=> {
             dispatch({ type: 'ADD_USER', user: response.data })

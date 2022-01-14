@@ -1,5 +1,4 @@
 import React, {useEffect } from 'react';
-// import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
 import {Link,useParams,useLocation} from 'react-router-dom';
@@ -9,6 +8,7 @@ import '../../styles/styles.css'
 
 
 const Employee = (props)=>{
+    console.log(props)
     const path = useLocation()
     const {id} = useParams()
     let err = props.employeeById.employee.error

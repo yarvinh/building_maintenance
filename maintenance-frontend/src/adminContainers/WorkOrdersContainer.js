@@ -49,11 +49,10 @@ import WorkOrder from "../components/workorders/WorkOrder"
     
     }
 
-
    return(
        <div>
            <div>
-               <CreateWorkOrder employees={employees} buildings={buildings}/>
+              {props.user.admin ?<CreateWorkOrder employees={employees} buildings={buildings}/>:null}
            </div>
            {!id? renderWorkOrders(): null }   
        </div>

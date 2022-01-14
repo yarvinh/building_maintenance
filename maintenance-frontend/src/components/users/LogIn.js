@@ -9,6 +9,7 @@ class LogIn extends Component {
     state = {
        username: '',
        password: '',
+       admin: false,
     }
 
     redirect = ()=>{
@@ -20,6 +21,7 @@ class LogIn extends Component {
     }
    
     handleOnChangePassword = (e) => {
+      
         this.setState({
             password: e.target.value
         })
@@ -32,9 +34,20 @@ class LogIn extends Component {
 
     }
 
+    handleOnChangeAdmin = (e) => {
+      this.setState({
+          admin: true,
+      })
+
+  }
+
     handleOnSubmit = (e) => {
        e.preventDefault()
-       this.props.fetchLogIn(this.state)  
+       if (this.state.admin){
+         this.props.fetchLogIn(this.state,'http://localhost:3000/admins_login')  
+       } else {
+        this.props.fetchLogIn(this.state,'http://localhost:3000/employees_login') 
+       }
     }
 
   render() {
@@ -42,6 +55,9 @@ class LogIn extends Component {
       <div>
       <div className="container h-100  d-flex  justify-content-center align-items-center">
         <form onSubmit={this.handleOnSubmit} className="form">
+            <label className="mt-3 form-label">Admin</label>
+            <input  onChange={this.handleOnChangeAdmin} type="checkbox" value={this.state.username}/> 
+            <br/>
             <label className="mt-3 form-label">Username</label>
             <input className="form-control" onChange={this.handleOnChangeUsername} type="text" value={this.state.username}/>
             <label className="form-label">Password</label >
@@ -72,7 +88,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchLogIn: (action) => dispatch(fetchLogIn(action)),
+    fetchLogIn: (action,url) => dispatch(fetchLogIn(action,url)),
   }
 }
 

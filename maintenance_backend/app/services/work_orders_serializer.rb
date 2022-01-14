@@ -10,7 +10,6 @@ class WorkOrdersSerializer
             user: {only: [:id]},
             employee: {},
             building: {}
-
         },
         except: [:updated_at, :created_at]
       }

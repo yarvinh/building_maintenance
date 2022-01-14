@@ -9,7 +9,6 @@ import '../../styles/styles.css'
 
 
 const WorkOrder = (props)=>{
-    
     const {id} = useParams()
     const {pathname} = useLocation()
     let workOrder = null
@@ -34,7 +33,7 @@ const WorkOrder = (props)=>{
         return (
             <div> 
                 <div> 
-                  {id && workOrder.employee?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null} 
+                  {id && workOrder.employee && props.user.admin?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null} 
                 </div> 
 
                 <div className="container d-flex justify-content-center"> 

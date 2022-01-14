@@ -1,8 +1,12 @@
 class WorkOrdersController < ApplicationController
   def show
     user = User.find_by_id(session[:user_id])
+    employee = Employee.find_by_id(session[:employee_id])
     if user
       work_order = user.work_orders.find_by_id(params[:id])
+      render json:WorkOrderSerializer.new(work_order).to_serialized_json
+    elsif employee
+      work_order = employee.work_orders.find_by_id(params[:id])
       render json:WorkOrderSerializer.new(work_order).to_serialized_json
     else
         render json: {error_message: ["No work orders was found"]}
@@ -10,7 +14,12 @@ class WorkOrdersController < ApplicationController
   end
 
   def index
-    work_orders = WorkOrder.current_user_work_orders(session[:user_id])
+    id =  session[:user_id]
+    employee = Employee.find_by_id(session[:employee_id])
+    if employee
+      id ||= employee.user_id
+    end 
+    work_orders = WorkOrder.current_user_work_orders(id)
     render json:WorkOrdersSerializer.new(work_orders).to_serialized_json
   end
 
@@ -37,7 +46,6 @@ class WorkOrdersController < ApplicationController
       render json: {error: work_order.errors.full_messages}
       end
     end
-    # render json: {test: "testing"}
   end
 
   def work_order_params

@@ -9,6 +9,8 @@ import { fetchBuilding } from '../../actions/buildingsActions';
 
 
 const Building = (props)=>{
+    console.log(props)
+    // let {admin} = props.user
     const {id} = useParams()
     let err = props.buildingById.building.error
     useEffect(() => {
@@ -23,7 +25,7 @@ const Building = (props)=>{
     return (
         <div>
             <div>
-              {id?<EditBuilding/>:null}
+              {id && props.user.admin?<EditBuilding/>:null}
             </div>
             <div className="container d-flex justify-content-center">
                 <div className="card-container mb-3">

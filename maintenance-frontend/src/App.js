@@ -7,11 +7,11 @@ import LogOut from './components/users/LogOut'
 import LogIn from './components/users/LogIn'
 import Employee from './components/employees/Employee'
 import Building from './components/buildings/Building'
-import EmployeesContainer from './containers/EmployeesContainer'
-import WorkOdersContainer from './containers/WorkOrdersContainer'
-import BuildingsContainer from './containers/BuildingsContainer'
+import EmployeesContainer from './adminContainers/EmployeesContainer'
+import WorkOdersContainer from './adminContainers/WorkOrdersContainer'
+import BuildingsContainer from './adminContainers/BuildingsContainer'
 import { fetchCurrentUser } from './actions/usersActions'
-import UsersContainer from './containers/UsersContainer'
+import UsersContainer from './adminContainers/UsersContainer'
 import './styles/styles.css'
 import WorkOrder from './components/workorders/WorkOrder';
 
@@ -48,9 +48,9 @@ class App extends Component{
             <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
             <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
-            <Route exact path='/employees/:id' element={<Employee/>}/>
-            <Route exact path='/buildings/:id' element={<Building/>}/>
-            <Route exact path='/work_orders/:id' element={<WorkOrder/>}/>
+            <Route exact path='/employees/:id' element={<Employee user={this.props.user}/>}/>
+            <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
+            <Route exact path='/work_orders/:id' element={<WorkOrder user={this.props.user}/>}/>
           </Routes>
         </div>
         </BrowserRouter>

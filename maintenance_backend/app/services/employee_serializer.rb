@@ -1,7 +1,6 @@
 class EmployeeSerializer
     def initialize(object)
        @employee = object
-   
     end
 
   def to_serialized_json

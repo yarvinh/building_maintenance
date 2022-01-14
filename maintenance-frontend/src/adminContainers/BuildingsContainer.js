@@ -6,6 +6,7 @@ import Building from "../components/buildings/Building"
 import {useParams} from 'react-router-dom';
 
 const BuildingsContainer = (props) => {
+    let {admin} = props.user
     const {buildings} = props.buildings
     const {id} = useParams()
     useEffect(() => {
@@ -28,7 +29,7 @@ const BuildingsContainer = (props) => {
     return (
         <div>
           
-            {!id?<CreateBuilding user={props.user} />: null }
+            {!id && admin?<CreateBuilding user={props.user} />: null }
             <div>
               {!id? renderBuildings(): null }
             </div>
