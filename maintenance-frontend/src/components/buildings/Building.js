@@ -1,7 +1,6 @@
 import React, {useEffect } from 'react';
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
-// import {fetchBuilding } from '../../actions/employeesActions'
 import {useParams} from 'react-router-dom';
 import EditBuilding from "./EditBuilding"
 import '../../styles/styles.css'
@@ -10,7 +9,6 @@ import { fetchBuilding } from '../../actions/buildingsActions';
 
 const Building = (props)=>{
     console.log(props)
-    // let {admin} = props.user
     const {id} = useParams()
     let err = props.buildingById.building.error
     useEffect(() => {
@@ -21,7 +19,7 @@ const Building = (props)=>{
  
     let building = null
     id? building = props.buildingById.building: building = props.building
-
+    if(id){
     return (
         <div>
             <div>
@@ -44,6 +42,22 @@ const Building = (props)=>{
         </div>
             
         )
+    } else{
+        return (
+            <>
+                <tr>
+                    <td>{props.index}</td>
+                    <td>
+                       <Link to={`/buildings/${building.id}`}><p >{building.address}</p>  </Link>
+                    </td>
+                    {/* {err? err.map(e => e):null} */}
+                    <td><p>{building.super_name}</p></td>
+                    <td><p>{building.phone_number}</p></td>
+                </tr>
+       
+            </>
+        )
+    }
  
 
 };

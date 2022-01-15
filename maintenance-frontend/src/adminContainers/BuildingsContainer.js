@@ -20,9 +20,26 @@ const BuildingsContainer = (props) => {
                     return <li key={i}>{err}</li>
                 })      
         }else{
-            return  buildings.map((building)=>{
-               return <Building key={building.id} building={building}/>  
-           })   
+           return (
+            <>
+            <table className="table table-striped" > 
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Address</th>
+                <th scope="col">Superintendent</th>
+                <th scope="col">Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+              {buildings.map((building,index) => {return (<Building key={building.id} building={building} index={index + 1} />)}) }
+            </tbody>
+            </table>
+            </>
+           )
+        //     return  buildings.map((building)=>{
+        //        return <Building key={building.id} building={building}/>  
+        //    })   
         }
     }
 
@@ -35,6 +52,8 @@ const BuildingsContainer = (props) => {
             </div>
         </div>
     )
+
+    
 }
 
 

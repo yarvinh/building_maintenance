@@ -25,7 +25,6 @@ import axios from 'axios'
       dispatch({ type: 'LOADING_WORK_ORDER'})
       axios.get(`http://localhost:3000/work_orders/${id}`,{withCredentials: true})
       .then(response => {
-        // console.log(response)
         dispatch({ type: 'ADD_WORK_ORDER', workOrder: response.data})
       })    
     }

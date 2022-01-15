@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {Link,useParams,useLocation} from 'react-router-dom';
 import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
+import Comment from '../comments/Comment'
 import '../../styles/styles.css'
-// import { fetchWorkOrder } from '../../actions/buildingsActions';
 
 
 const WorkOrder = (props)=>{
@@ -51,11 +51,15 @@ const WorkOrder = (props)=>{
                             {err? err.map(e => e):null}
                           </div>
                           <div>
+                              <h3>Job Title: {workOrder.title}</h3>
                             <p>{workOrder.task}</p>
                           </div>
                         </div> 
                     </div>
                 </div> 
+                <div>
+                    <Comment/>
+                </div>
             </div>
         )
     } else {

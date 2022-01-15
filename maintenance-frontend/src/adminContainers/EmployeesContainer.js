@@ -20,11 +20,28 @@ const EmployeesContainer = (props) => {
                     return <li key={i}>{err}</li>
                 })      
         }else{
-            return  employees.map((emp)=>{
-               return <Employee key={emp.id} employee={emp}/>  
-           })   
+            return (
+                <>
+            <table className="table table-striped" > 
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+            </tr>
+            </thead>
+            <tbody>
+              {employees.map((employee,index) => {return (<Employee key={employee.id} employee={employee} index={index + 1} />)}) }
+            </tbody>
+            </table>
+            </>
+             ) 
+
         }
     }
+
+
 
     return (
         <div>

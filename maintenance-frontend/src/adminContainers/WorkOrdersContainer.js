@@ -8,7 +8,7 @@ import { fetchWorkOrders} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
  const WorkOrdersContainer = (props)=>{
     const {id} = useParams()
-     const {workOrders} = props.workOrders
+    const {workOrders} = props.workOrders
     const {employees} = props.employees
     const {buildings} = props.buildings
     useEffect(() => {

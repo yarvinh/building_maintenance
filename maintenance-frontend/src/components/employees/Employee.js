@@ -8,7 +8,6 @@ import '../../styles/styles.css'
 
 
 const Employee = (props)=>{
-    console.log(props)
     const path = useLocation()
     const {id} = useParams()
     let err = props.employeeById.employee.error
@@ -17,10 +16,8 @@ const Employee = (props)=>{
             props.fetchEmployee(id) 
         }
     },[props.fetchEmployee]);
-
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
-    
     const workOrders = ()=>{
         return(
         <table className="table table-striped" > 
@@ -39,34 +36,46 @@ const Employee = (props)=>{
         </table>
         )
     }
-
-    return (
-        <>
-            <div>
-              {id?<EditEmployee/>:null}
-            </div>
-            <div className="container d-flex justify-content-center">
-                <div className="card-container mb-3">
-                    <div>
-                    <Link to={`/employees/${employee.id}`}>  
-                        <h3 className="card-header">{employee.name}</h3>
-                    </Link>
-                    </div>
-                    <div className="card-body">
-                        {err? err.map(e => e):null}
-                        <p>{employee.email}</p>
-                        <p>{employee.phone}</p>
-                    </div>   
-     
+    if (id){
+        return (
+            <>
+                <div>
+                  {<EditEmployee/>}
                 </div>
-            </div>
-            {id?<h3>Work Orders</h3>:null}
-            {id  ?workOrders():null}    
+                <div className="container d-flex justify-content-center">
+                    <div className="card-container mb-3"> 
+                        <div>
+                           <h3 className="card-header">{employee.name}</h3>
+                        </div> 
+                        <div className="card-body">
+                           {err? err.map(e => e):null}
+                           <p>{employee.email}</p>
+                           <p>{employee.phone}</p>
+                        </div>    
+                    </div>
+                </div> 
+                {<h3>Work Orders</h3>}
+                {workOrders()}     
+            </>
+        )
+    } else {
+    return (
+
+        <>
+            <tr>
+                <td>{props.index}</td>
+                <td>
+                    <Link to={`/employees/${employee.id}`}>   <p >{employee.name}</p>  </Link>
+                </td>
+                {err? err.map(e => e):null}
+                <td><p>{employee.email}</p></td>
+                <td><p>{employee.phone}</p></td>
+            </tr>
+   
         </>
             
         )
- 
-
+    }
 };
 
 
