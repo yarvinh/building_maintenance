@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import {Link,useParams,useLocation} from 'react-router-dom';
 import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
-import Comment from '../comments/Comment'
+import CommentsContainer from '../../adminContainers/CommentsContainer'
 import '../../styles/styles.css'
 
 
 const WorkOrder = (props)=>{
+    const {loading} = props
     const {id} = useParams()
     const {pathname} = useLocation()
     let workOrder = null
@@ -28,8 +29,10 @@ const WorkOrder = (props)=>{
           return date.toDateString()
         }
     }
-   
-    if(pathname === `/work_orders/${id}`){
+
+    if(pathname === `/work_orders/${id}` && !loading){
+        let {user} = props.user
+        let {admin} = props.user
         return (
             <div> 
                 <div> 
@@ -58,11 +61,11 @@ const WorkOrder = (props)=>{
                     </div>
                 </div> 
                 <div>
-                    <Comment/>
+                    {user? <CommentsContainer user={user} admin={admin}/>:null}
                 </div>
             </div>
         )
-    } else {
+    } else if(!loading) {
         return (
            <>
                 <tr>
@@ -82,6 +85,8 @@ const WorkOrder = (props)=>{
                 </tr>
             </>
         )
+    }else{
+        return <></>
     }
 };
 

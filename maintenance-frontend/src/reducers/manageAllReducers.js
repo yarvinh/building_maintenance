@@ -152,6 +152,25 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
+const CommentsReducer=(state={comments: [],loading: false},action)=>{
+  switch(action.type) {
+    case 'LOADING_COMMENTS':
+    return state = {
+      ...state,
+      comments: state.comments,
+      loading: true,    
+    }
+    case 'ADD_COMMENTS':
+      return {
+         ...state,
+        comments: action.comments,
+        loading: false
+    } 
+  default:
+    return state;
+  }
+}
+
 
 const rootReducer = combineReducers({
    user: UserReducer,  
@@ -161,6 +180,7 @@ const rootReducer = combineReducers({
    building: BuildingReducer,
    workOrders: WorkOrdersReducer,
    workOrder: WorkOrderReducer,
+   comments: CommentsReducer,
 });
    
   export default rootReducer;

@@ -7,6 +7,7 @@ import { fetchEmployees} from '../actions/employeesActions'
 import { fetchWorkOrders} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
  const WorkOrdersContainer = (props)=>{
+     let {loading} = props
     const {id} = useParams()
     const {workOrders} = props.workOrders
     const {employees} = props.employees
@@ -26,7 +27,7 @@ import WorkOrder from "../components/workorders/WorkOrder"
                 return workOrders.error_message.map((err, i)=>{
                     return <p key={i}>{err}</p>
                 })      
-        }else{
+        }else if(!loading){
             return (
                 <>
             <table className="table table-striped" > 
@@ -62,10 +63,12 @@ import WorkOrder from "../components/workorders/WorkOrder"
 
 
 const mapStateToProps = state => { 
+
     return {
         employees: state.employees,
         buildings: state.buildings,
         workOrders: state.workOrders,
+        loading: state.workOrders.loading
     }
 }
       

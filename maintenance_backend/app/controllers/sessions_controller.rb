@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
 
-    def show
-        
+    def show   
         if logged_in? 
             user = User.find_by_id(session[:user_id])
             employee = Employee.find_by_id(session[:employee_id])
@@ -13,7 +12,6 @@ class SessionsController < ApplicationController
         else
             render json: {is_login: false}
        end
-
     end  
     # def new
     #     if logged_in?
@@ -46,7 +44,6 @@ class SessionsController < ApplicationController
         else
             render json: {is_login: false, status: 401, messages: ['wrong password or username'] }
         end  
-
     end
 
     def employees_login
@@ -57,7 +54,6 @@ class SessionsController < ApplicationController
         else
             render json: {is_login: false, status: 401, messages: ['wrong password or username'] }
         end  
-
     end
   
     def destroy

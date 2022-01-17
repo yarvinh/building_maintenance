@@ -8,7 +8,6 @@ import { fetchBuilding } from '../../actions/buildingsActions';
 
 
 const Building = (props)=>{
-    console.log(props)
     const {id} = useParams()
     let err = props.buildingById.building.error
     useEffect(() => {
