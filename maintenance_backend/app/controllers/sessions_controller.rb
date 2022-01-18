@@ -13,6 +13,7 @@ class SessionsController < ApplicationController
             render json: {is_login: false}
        end
     end  
+    
     # def new
     #     if logged_in?
     #         user = User.find(session[:user_id])

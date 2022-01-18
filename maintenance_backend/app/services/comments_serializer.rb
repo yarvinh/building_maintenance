@@ -8,9 +8,9 @@ class CommentsSerializer
       options = {
         include:{
             user: {},
-            employee:{}
+            employee:{},
         },
-        except: [:updated_at, :created_at]
+        # except: [:updated_at, :created_at]
       }
       @comments.to_json(options)
     end

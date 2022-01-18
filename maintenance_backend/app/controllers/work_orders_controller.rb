@@ -6,7 +6,7 @@ class WorkOrdersController < ApplicationController
       work_order = user.work_orders.find_by_id(params[:id])
       render json:WorkOrderSerializer.new(work_order).to_serialized_json
     elsif employee
-      work_order = employee.work_orders.find_by_id(params[:id])
+      work_order = employee.user.work_orders.find_by_id(params[:id])
       render json:WorkOrderSerializer.new(work_order).to_serialized_json
     else
         render json: {error_message: ["No work orders was found"]}

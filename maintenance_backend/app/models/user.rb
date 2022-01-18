@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
     has_many :work_orders
+    has_many :comments
     has_many :employees#, through: :work_orders
     has_many :buildings#, through: :work_orders
     has_many :replies

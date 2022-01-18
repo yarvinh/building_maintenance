@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {Link,useParams,useLocation} from 'react-router-dom';
 import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
-import CommentsContainer from '../../adminContainers/CommentsContainer'
+import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
 
 
@@ -16,7 +16,7 @@ const WorkOrder = (props)=>{
     pathname === `/work_orders/${id}`? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
     
     let {buildings,employees} = props
-    let err =  props.workOrderById.workOrder.error
+    // let err =  props.workOrderById.workOrder.error
     useEffect(() => {
         if(pathname === `/work_orders/${id}`){
             props.fetchWorkOrder(id) 
@@ -29,16 +29,17 @@ const WorkOrder = (props)=>{
           return date.toDateString()
         }
     }
-
+   
     if(pathname === `/work_orders/${id}` && !loading){
         let {user} = props.user
         let {admin} = props.user
+        
         return (
             <div> 
                 <div> 
                   {id && workOrder.employee && props.user.admin?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null} 
                 </div> 
-
+                
                 <div className="container d-flex justify-content-center"> 
                     <div className="card-container mb-3">
                         <div className="card-header">
@@ -51,7 +52,7 @@ const WorkOrder = (props)=>{
 
                         <div className="card-body">
                           <div>
-                            {err? err.map(e => e):null}
+                            {/* {err? err.map(e => e):null} */}
                           </div>
                           <div>
                               <h3>Job Title: {workOrder.title}</h3>
@@ -61,7 +62,8 @@ const WorkOrder = (props)=>{
                     </div>
                 </div> 
                 <div>
-                    {user? <CommentsContainer user={user} admin={admin}/>:null}
+
+                    {user && Object.keys(workOrder).length > 0? <CommentsContainer comments={workOrder.comments} user={user} admin={admin}/>:null}
                 </div>
             </div>
         )

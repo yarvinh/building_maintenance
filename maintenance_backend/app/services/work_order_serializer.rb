@@ -9,8 +9,13 @@ class WorkOrderSerializer
         include:{
             user: {only: [:id]},
             employee: {},
-            building: {}
-
+            building: {},
+            comments: {
+             include:{
+               employee: {},
+               user: {}
+             }
+            }
         },
         except: [:updated_at, :created_at]
       }
