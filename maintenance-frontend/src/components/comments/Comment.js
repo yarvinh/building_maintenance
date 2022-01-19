@@ -1,6 +1,6 @@
 const Comment = (props)=>{
  
-   let {comment} = props
+   let {comment,admin,user} = props
     const dateAndTime = ()=>{
         const date = new Date(comment.created_at)
         const time = new Date(comment.created_at)
@@ -11,19 +11,35 @@ const Comment = (props)=>{
           </div>
         )
       }
-  
+   
+      const handleOnClick = (e) =>{
+
+      }
+      const deleteComment = ()=>{
+        if(admin && user.id.toString() === comment.user_id){
+           return <button onClick={handleOnClick} className='delete' value={comment.id}>X</button>
+        }else if(user.id.toString() === comment.employee_id){
+          return <button onClick={handleOnClick} className='delete' value={comment.id}>X</button>
+        }
+      }
+   
       const comments = () =>{    
         return ( 
         //   this.props.game && this.display10Comments().map((comment)=>{
             // return  (    
               <div   className='post' key={comment.id}> 
                 <div >
-                  {/* {this.props.currentUser && comment.user.id === this.props.currentUser.id? <button onClick={this.handleDeleteOnClick} className='delete' value={comment.id}>X</button>:null} */}
-                  <span >Posted by: {comment.employee.name} {dateAndTime()}</span>
+                  {deleteComment()}
+                  {comment.user?<span >Posted by: {comment.user.company_name} {dateAndTime()}</span>:<span >Posted by: {comment.employee.name} {dateAndTime()}</span>}
                 </div>
-  
+                <div className='subject'>
+                    <h3 className="comment_subject">{comment.subject}</h3>
+                </div>
                 <div className='comments'>
-                  <p>{comment.comment}</p>
+                     <div>
+                        <p>{comment.comment}</p> 
+                     </div>
+                     
                 </div> 
   
                 <div>

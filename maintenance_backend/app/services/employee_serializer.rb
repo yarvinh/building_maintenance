@@ -17,7 +17,7 @@ class EmployeeSerializer
 
   
         }
-        except: [:updated_at, :created_at]
+        # except: [:updated_at, :created_at]
       }
       @employee.to_json(options)
     end

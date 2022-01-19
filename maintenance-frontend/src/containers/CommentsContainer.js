@@ -11,7 +11,8 @@ import Comment  from '../components/comments/Comment';
 
 const CommentsContainer = (props)=>{
   const {id} = useParams()
-  let {error,comments} = props
+
+  let {user,admin,error,comments} = props
   let placehoderObj = {subject: "Subject", comment: "Write a comment"}
   const [comment, setComment] = useState({
     work_order_id: id,
@@ -41,7 +42,7 @@ const CommentsContainer = (props)=>{
       comment: '',
     })
   }
-  console.log(comments)
+
   const renderComments = () => {
      if (error) {
         error.map((err) => {
@@ -55,7 +56,7 @@ const CommentsContainer = (props)=>{
      } else if (comments){
        return comments.map((comment)=>{
          return (
-            <Comment key={comment.id} comment={comment}/> 
+            <Comment user={user} admin={admin} key={comment.id} comment={comment}/> 
          )
        }) 
      }

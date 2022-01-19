@@ -112,7 +112,7 @@
   height: auto;
   text-align: left;
   outline: none;
-  font-size: 12px;
+  font-size: 14px;
   transition: 0.4s;
   border-radius: .6rem;
   overflow-wrap: break-word;
@@ -162,8 +162,7 @@
   border-style: solid;
   border-color: rgb(252, 247, 247);
   text-align: left;
-  font-size: 10px;
- 
+  font-size: 12px; 
 }
 
 .comments_container {
@@ -171,3 +170,44 @@
   width: 100%;
 }
 
+.subject { 
+  background-color: white;
+  /* color: #444; */
+  /* padding: 0px; */
+  width: 100%;
+  height: auto;
+  text-align: left;
+  outline: none;
+  /* font-size: px; */
+  /* transition: 0.4s; */
+  /* border-radius: .6rem; */
+  overflow-wrap: break-word;
+ 
+}
+
+
+.comment_subject{
+  padding-left: 0;
+  font-size: 16px; 
+}
+
+
+.delete{ 
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  cursor: pointer;
+  padding: 0px;
+  width: 15px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(15, 13, 13); 
+  text-align: center;
+  /* outline: none; */
+  font-size: 8px;
+  /* transition: 0.4s; */
+  border-radius: .20rem;
+  margin-left: 98%;
+
+  
+}
