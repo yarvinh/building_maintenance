@@ -15,6 +15,7 @@ const Comment = (props)=>{
       const handleOnClick = (e) =>{
 
       }
+
       const deleteComment = ()=>{
         if(admin && user.id.toString() === comment.user_id){
            return <button onClick={handleOnClick} className='delete' value={comment.id}>X</button>
@@ -23,10 +24,9 @@ const Comment = (props)=>{
         }
       }
    
-      const comments = () =>{    
-        return ( 
-        //   this.props.game && this.display10Comments().map((comment)=>{
-            // return  (    
+         
+        return (   
+          <div  className='comments_container'> 
               <div   className='post' key={comment.id}> 
                 <div >
                   {deleteComment()}
@@ -36,10 +36,9 @@ const Comment = (props)=>{
                     <h3 className="comment_subject">{comment.subject}</h3>
                 </div>
                 <div className='comments'>
-                     <div>
+                     {/* <div> */}
                         <p>{comment.comment}</p> 
-                     </div>
-                     
+                     {/* </div>      */}
                 </div> 
   
                 <div>
@@ -54,18 +53,8 @@ const Comment = (props)=>{
                 </div>
   
               </div>
-           
+           </div>
             )    
-        //   })
-        // )
-    }
-  
-    return (
-      <div  className='comments_container'>
-         {comments()}
-      </div>
-  
-    )
   }
 
   export default Comment

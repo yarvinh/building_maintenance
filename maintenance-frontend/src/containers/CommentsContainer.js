@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import {createComment,fetchComments} from '../actions/commentsActions'
 import {Link,useParams,useLocation} from 'react-router-dom';
 // import {Link,useParams,useLocation} from 'react-router-dom';
-// import EditEmployee from "./EditEmployee"
 import Comment  from '../components/comments/Comment';
-// import '../../styles/styles.css'
+
 
 
 const CommentsContainer = (props)=>{
