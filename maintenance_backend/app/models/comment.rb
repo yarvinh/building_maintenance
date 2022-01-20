@@ -5,9 +5,9 @@ class Comment < ApplicationRecord
     has_many :replies
     validates :subject, :comment, presence: true
 
-    def replies_by_date()
-        self.replies.reverse{|reply|
-            reply.created_at
+    def self.sort_comments_by_date(comments)
+        comments.reverse{|comment|
+           comment.created_at
         }
     end
 end

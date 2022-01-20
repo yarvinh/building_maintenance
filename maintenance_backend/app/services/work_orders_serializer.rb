@@ -9,7 +9,7 @@ class WorkOrdersSerializer
         include:{
             user: {only: [:id]},
             employee: {},
-            building: {}
+            building: {},
         },
         except: [:updated_at, :created_at]
       }

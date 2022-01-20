@@ -1,5 +1,7 @@
+import { connect } from 'react-redux';
+import {Link,useParams,useLocation} from 'react-router-dom';
+import {deleteComment} from '../../actions/commentsActions'
 const Comment = (props)=>{
- 
    let {comment,admin,user} = props
     const dateAndTime = ()=>{
         const date = new Date(comment.created_at)
@@ -11,20 +13,17 @@ const Comment = (props)=>{
           </div>
         )
       }
-   
-      const handleOnClick = (e) =>{
 
+      const handleOnClick = (e) =>{
+          props.deleteComment(comment.id)
       }
 
       const deleteComment = ()=>{
-        if(admin && user.id.toString() === comment.user_id){
+        if(admin && user.id.toString() === comment.user_id || user.id.toString() === comment.employee_id){
            return <button onClick={handleOnClick} className='delete' value={comment.id}>X</button>
-        }else if(user.id.toString() === comment.employee_id){
-          return <button onClick={handleOnClick} className='delete' value={comment.id}>X</button>
         }
-      }
-   
-         
+      } 
+
         return (   
           <div  className='comments_container'> 
               <div   className='post' key={comment.id}> 
@@ -36,9 +35,7 @@ const Comment = (props)=>{
                     <h3 className="comment_subject">{comment.subject}</h3>
                 </div>
                 <div className='comments'>
-                     {/* <div> */}
-                        <p>{comment.comment}</p> 
-                     {/* </div>      */}
+                    <p>{comment.comment}</p> 
                 </div> 
   
                 <div>
@@ -51,10 +48,28 @@ const Comment = (props)=>{
                   </div>  
   
                 </div>
-  
               </div>
            </div>
             )    
   }
 
-  export default Comment
+  // const mapStateToProps = state => { 
+
+  //   if(state.comment.comment.id){
+  //       return {
+  //      comment: state.comment.comment,
+  //     //  loading: state.comment.loading
+  //      }
+  //   }else{
+  //     return {
+  //       loading: state.comment.loading
+  //     }
+  //   }
+  // }
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      deleteComment: (action) => dispatch(deleteComment(action))
+    }
+  }
+  export default connect( null, mapDispatchToProps)(Comment)

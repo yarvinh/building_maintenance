@@ -18,6 +18,11 @@ const CommentsContainer = (props)=>{
     subject: '',
     comment: '',
   })
+
+  useEffect(() => {
+    props.fetchComments(id)
+
+  },[ ]);
   
   const [placehoder,setPlacehoder] = useState(placehoderObj)
   const handleOnChange = (e) => {
@@ -81,22 +86,23 @@ const CommentsContainer = (props)=>{
 }
 
 const mapStateToProps = state => {  
-  if(state.comments.comments.length !== 0){
+  // if(state.comments.comments.length !== 0){
     return {
       comments: state.comments.comments,
       loading: state.comments.loading,
       error: state.comments.comments.error
     }
-  } else {
-    return {
-      loading: state.comments.loading
-    }
-  }
+  // } else {
+  //   return {
+  //     loading: state.comments.loading
+  //   }
+  // }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    createComment: (action) => dispatch(createComment(action))
+    createComment: (action) => dispatch(createComment(action)),
+    fetchComments: (action) => dispatch(fetchComments(action))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CommentsContainer)

@@ -1,5 +1,19 @@
 import axios from 'axios'
 
+export const fetchComments = (id) => {
+    const params = {
+        answer: { toJSON: () => id },
+        id:id
+      };
+      
+    return (dispatch) => {
+        dispatch({type: "LOADING_COMMENTS"})
+        axios.get('http://localhost:3000/comments', {params}, {withCredentials: true})
+        .then(response => {
+            dispatch({ type: 'ADD_COMMENTS', comments: response.data})
+        })
+    }  
+}
 
 export const createComment = (comment) => {
     return (dispatch) => {
@@ -10,3 +24,14 @@ export const createComment = (comment) => {
         })
     }  
 }
+
+
+export const deleteComment = (id) => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING_COMMENTS'})
+      axios.delete(`http://localhost:3000/comments/${id}`,
+      ).then(response => {   
+        dispatch({ type: 'ADD_COMMENTS', comments: response.data })
+      })
+    }
+  }

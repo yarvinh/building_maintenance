@@ -5,6 +5,12 @@ class WorkOrder < ApplicationRecord
     has_many :comments
 
     validates :task, :date, presence: true
+    
+    def self.sort_comments_by_date()
+        self.comments.reverse{|comment|
+           comment.created_at
+        }
+    end
 
     def self.current_user_work_orders(id) 
         user = User.find_by_id(id)

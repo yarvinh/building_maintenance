@@ -63,7 +63,7 @@ const WorkOrder = (props)=>{
                 </div> 
                 <div>
 
-                    {user && Object.keys(workOrder).length > 0? <CommentsContainer comments={workOrder.comments} user={user} admin={admin}/>:null}
+                    {user && Object.keys(workOrder).length > 0? <CommentsContainer  user={user} admin={admin}/>:null}
                 </div>
             </div>
         )
