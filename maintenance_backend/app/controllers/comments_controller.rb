@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
     def index
         work_order = WorkOrder.find_by_id(params[:id])
-        render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json
+        render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json   
     end
     def show
        comment = Comment.find_by_id(params[:id])
@@ -16,18 +16,16 @@ class CommentsController < ApplicationController
         if user && comment.valid?
            comment.user = user
            comment.save
-         
            render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json
         #    render json:CommentSerializer.new(comment).to_serialized_json
         elsif employee && comment.valid?
            comment.employee = employee
            comment.save
-           
            render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json
         #    render json:CommentSerializer.new(comment).to_serialized_json
 
         else
-            render json: {error: comment.errors.full_messages}
+            render json:{comments:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)), error: comment.errors.full_messages}
         end 
     end
 

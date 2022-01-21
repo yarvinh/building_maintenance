@@ -1,16 +1,17 @@
 class CommentsSerializer
     def initialize(comments_object)
        @comments = comments_object
-   
     end
 
-  def to_serialized_json
+    def to_serialized_json
       options = {
-        include:{
+        include:{   
             user: {},
             employee:{}
         }
       }
       @comments.to_json(options)
     end
+
+
   end

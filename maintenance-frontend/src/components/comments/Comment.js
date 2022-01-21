@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {Link,useParams,useLocation} from 'react-router-dom';
 import {deleteComment} from '../../actions/commentsActions'
 const Comment = (props)=>{
+
    let {comment,admin,user} = props
     const dateAndTime = ()=>{
         const date = new Date(comment.created_at)
@@ -13,7 +14,7 @@ const Comment = (props)=>{
           </div>
         )
       }
-
+    
       const handleOnClick = (e) =>{
           props.deleteComment(comment.id)
       }
@@ -54,11 +55,11 @@ const Comment = (props)=>{
   }
 
   // const mapStateToProps = state => { 
-
+  
   //   if(state.comment.comment.id){
   //       return {
   //      comment: state.comment.comment,
-  //     //  loading: state.comment.loading
+  //      loading: state.comment.loading
   //      }
   //   }else{
   //     return {
@@ -72,4 +73,4 @@ const Comment = (props)=>{
       deleteComment: (action) => dispatch(deleteComment(action))
     }
   }
-  export default connect( null, mapDispatchToProps)(Comment)
+  export default connect(null, mapDispatchToProps)(Comment)
