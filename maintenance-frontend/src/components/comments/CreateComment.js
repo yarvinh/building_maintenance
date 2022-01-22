@@ -8,7 +8,7 @@ import Comment from './Comment';
 const CreateComment = (props) => {
 
     const {id} = useParams()
-    let {error} = props.comments
+    let {error} = props.comment
     // let {user,admin} = props
     // let commentToProps = props.comment
   
@@ -43,6 +43,10 @@ const CreateComment = (props) => {
           subject: '',
           comment: '',
         })
+        setPlacehoder({
+            subject: "Subject",
+            comment: "Write a comment"
+        })
       }
 
     const renderComment=()=>{
@@ -55,8 +59,6 @@ const CreateComment = (props) => {
                     })
                 }
             })
-        // }else if(commentToProps.id){
-        //     return <Comment user={user} admin={admin} key={commentToProps.id} comment={commentToProps}/>
         }
     }
 
@@ -78,10 +80,9 @@ const CreateComment = (props) => {
 
   const mapStateToProps = state => { 
         return {
-          comments: state.comments.comments,
+          comment: state.comment.comment,
           loading: state.comment.loading
        }
-
   }
 
 

@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
     def index
+       
         work_order = WorkOrder.find_by_id(params[:id])
         render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json   
     end
@@ -25,7 +26,7 @@ class CommentsController < ApplicationController
         #    render json:CommentSerializer.new(comment).to_serialized_json
 
         else
-            render json:{comments:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)), error: comment.errors.full_messages}
+            render json:{error: comment.errors.full_messages}
         end 
     end
 

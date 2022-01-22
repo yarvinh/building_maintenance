@@ -192,6 +192,46 @@ const commentReducer = (state = { comment: {}, loading: false }, action)=>{
   }
 }
 
+const RepliesReducer = (state={replies: [],loading: false},action)=>{
+  switch(action.type) {
+    case 'LOADING_REPLIES':
+    return state = {
+      ...state,
+      replies: state.replies,
+      loading: true,    
+    }
+    case 'ADD_REPLIES':
+      return {
+         ...state,
+        replies: action.replies,
+        loading: false
+    } 
+  default:
+    return state;
+  }
+}
+
+const ReplyReducer = (state = { reply: {}, loading: false }, action)=>{
+  switch(action.type) {
+    case 'LOADING_REPLY':
+    return state = {
+      ...state,
+      reply: state.reply,
+      loading: true,    
+    }
+
+    case 'ADD_REPLY':
+      return {
+         ...state,
+        reply: action.reply,
+        loading: false
+    } 
+
+  default:
+    return state;
+  }
+}
+
 
 const rootReducer = combineReducers({
    user: UserReducer,  
@@ -202,7 +242,9 @@ const rootReducer = combineReducers({
    workOrders: WorkOrdersReducer,
    workOrder: WorkOrderReducer,
    comments: CommentsReducer,
-   comment:  commentReducer 
+   comment:  commentReducer,
+   replies: RepliesReducer,
+   reply: ReplyReducer 
 });
    
   export default rootReducer;

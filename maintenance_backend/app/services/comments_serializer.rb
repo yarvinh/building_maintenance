@@ -7,11 +7,15 @@ class CommentsSerializer
       options = {
         include:{   
             user: {},
-            employee:{}
+            employee:{},
+            replies: {
+               include: {
+                 employee: {},
+                 user: {}
+               }
+            }
         }
       }
       @comments.to_json(options)
     end
-
-
   end

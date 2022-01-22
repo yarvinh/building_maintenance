@@ -20,7 +20,8 @@ export const createComment = (comment) => {
         dispatch({type: "LOADING_COMMENTS"})
         axios.post('http://localhost:3000/comments', comment ,{withCredentials: true})
         .then(response => {
-            dispatch({ type: 'ADD_COMMENTS', comments: response.data})
+            const error = response.data.error
+           error? dispatch({ type: 'ADD_COMMENT', comment: response.data}) : dispatch({ type: 'ADD_COMMENTS', comments: response.data})
         })
     }  
 }
@@ -34,4 +35,4 @@ export const deleteComment = (id) => {
         dispatch({ type: 'ADD_COMMENTS', comments: response.data })
       })
     }
-  }
+}
