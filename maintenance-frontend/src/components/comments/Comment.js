@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import {deleteComment} from '../../actions/commentsActions'
 import RepliesContainer from '../../containers/RepliesContainer';
-const Comment = (props)=>{
-   
+const Comment = (props)=>{ 
    let {comment,admin,user} = props
     const dateAndTime = ()=>{
         const date = new Date(comment.created_at)
@@ -15,6 +14,29 @@ const Comment = (props)=>{
           </div>
         )
       }
+
+      // handleOnclick = (e)=>{
+      //   if(this.state.acordion !== 'replies_accordion active'){
+      //   this.setState({
+      //     acordion: 'replies_accordion active',
+      //     displayAcordion: 'display_replies'
+      //   })
+      // }else{
+      //   this.setState({
+      //     acordion: 'replies_accordion',
+      //     displayAcordion: 'hide_replies'
+      //   })
+      // }
+      // }
+
+      // const RepliesDisplayButton = ()=>{
+      //   return (
+      //   <form onSubmit={handleOnSubmit} >  
+      //     <input  className='reload' type='submit' value='Reload more comments'/> 
+      //   </form>
+      //   )
+   
+      // }
     
       const handleOnClick = (e) =>{
           props.deleteComment(comment.id)
@@ -42,10 +64,11 @@ const Comment = (props)=>{
   
                 <div>
                   <div>
+                    <p>Future Likes</p>
                     {/* {this.props.loggedIn ?<Likes likes={comment.likes} comment_id={comment.id} user_id={this.props.currentUser.id} gameCommentOrReply={comment}/>: null} */}
                   </div>
   
-                  <div>
+                  <div >
                     {user && Object.keys(comment).length > 0? <RepliesContainer comment={comment} admin={admin} user={user}/>: null}
                   </div>  
   

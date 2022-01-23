@@ -29,7 +29,6 @@ class App extends Component{
       return (
         <BrowserRouter >
         <div className="App">
-
             <nav  className="navbar navbar-dark bg-primary">
           <div className="container"> 
               <p className="navbar-brand">Maintenance</p>

@@ -7,74 +7,61 @@ import {useParams} from 'react-router-dom';
 
 const CreateReply = (props) => {
 
-    const {id} = useParams()
-    let {error} = props.reply
-  
-    let placeholderObj = {reply: "Write a comment"}
+    const {id,admin,user} = useParams()
+    // let {error} = props.reply
+    let {comment} = props
+
+    let placeholderObj = {reply: "Write a reply"}
     const [reply, setReply] = useState({
-      comment_id: id,
-      reply: '',
+        reply: "",
+        comment_id: comment.id
     })
 
     const [placeholder,setPlacehoder] = useState(placeholderObj)
 
     const handleOnChange = (e) => {
-    if (e.target.name === 'reply'){
         e.target.style.height = "1px";
         e.target.style.height = (e.target.scrollHeight)+"px";
-    }
-    
-    setReply({
-        ...reply,
-        [e.target.name]: e.target.value,
-    })
-    }
-
-
-
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
-        props.createReply({reply})
         setReply({
-          ...reply,
-          reply: '',
+            ...reply,
+            [e.target.name]: e.target.value
         })
-        setPlacehoder({
-            reply: "Write a Reply"
-        })
+    }
+
+
+
+    const handleOnKeyUp = (e) => {
+        e.preventDefault()
+        if (e.code  === 'Enter'){
+            props.createReply({reply})
+            setReply({
+                ...reply,
+                reply: ""
+            })
+            setPlacehoder({
+                reply: "Write a Reply",
+            })
+            e.target.style.height = "30px"
+        }
       }
 
-    const renderReply=()=>{
-        if (error) {
-            error.map((err) => {
-                if( placeholder[err.split(" ")[0].toLowerCase()] === placeholderObj[err.split(" ")[0].toLowerCase()]){
-                    setPlacehoder({
-                       ...placeholder,
-                       [ err.split(" ")[0].toLowerCase()]: err,
-                    })
-                }
-            })
-        }
-    }
 
+    
     return (
         <div>
-            <form className="title-form" onSubmit={handleOnSubmit} >
-                <div className="d-flex mb-3">
-                    <input onChange={handleOnChange} placeholder={placeholder.subject} name="reply" type="text" value={reply.reply}/><br/>
-                </div>
+            <form onKeyUp={handleOnKeyUp}>
+               <textarea  onChange={handleOnChange} className='auto_height_for_reply' placeholder={placeholder.reply} name="reply" type="text" value={reply.reply} style={{height: "30px"}}/><br/>
             </form>
-            {renderReply()}
         </div>
     )
 }
 
-  const mapStateToProps = state => { 
-        return {
-          comment: state.reply.reply,
-          loading: state.reply.loading
-       }
-  }
+//   const mapStateToProps = state => { 
+//         return {
+//           comment: state.reply.reply,
+//           loading: state.reply.loading
+//        }
+//   }
 
 
   const mapDispatchToProps = dispatch => {
@@ -82,4 +69,4 @@ const CreateReply = (props) => {
         createReply: (action) => dispatch(createReply(action))
     }
   }
-  export default connect( mapStateToProps, mapDispatchToProps)(CreateReply)
+  export default connect(null, mapDispatchToProps)(CreateReply)

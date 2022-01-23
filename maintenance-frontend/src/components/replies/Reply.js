@@ -4,7 +4,6 @@ import {deleteReply} from '../../actions/repliesActions'
 const Reply = (props)=>{
    
    let {reply,admin,user} = props
-   console.log(reply.employee_id)
     const dateAndTime = ()=>{
         const date = new Date(reply.created_at)
         const time = new Date(reply.created_at)
@@ -14,26 +13,26 @@ const Reply = (props)=>{
               <span>{time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</span>
           </div>
         )
-      }
+    }
     
-      const handleOnClick = (e) =>{
-          props.deleteComment(reply.id)
-      }
+    const handleOnClick = (e) =>{
+        props.deleteComment(reply.id)
+    }
 
-      const deleteReply = ()=>{
+    const deleteReply = ()=>{
         if(admin && user.id.toString() === reply.user_id || user.id.toString() === reply.employee_id){
            return <button onClick={handleOnClick} className='delete' value={reply.id}>X</button>
         }
-      } 
+    } 
 
         return (   
-          <div  className='comments_container'> 
-              <div   className='post' key={reply.id}> 
-                <div >
+          <div className={'replies'}> 
+              <div    key={reply.id}> 
+                <div>
                   {deleteReply()}
                   {reply.user? <span >Reply by: {reply.user.company_name} {dateAndTime()}</span>:<span >Reply by: <Link to={`/employees/${reply.employee_id}`}>{reply.employee.name}</Link> {dateAndTime()}</span>}
                 </div>
-                <div className='comments'>
+                <div className='reply'>
                     <p>{reply.reply}</p> 
                 </div> 
   
