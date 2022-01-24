@@ -31,7 +31,7 @@ import axios from 'axios'
   }
 
   export const editWorkOrder = (work_order) => {
-    console.log(work_order)
+
     return (dispatch) => {
         dispatch({type: "LOADING_WORK_ORDER"})
         axios.patch(`http://localhost:3000/work_orders/${work_order.id}`, work_order ,{withCredentials: true})
@@ -41,4 +41,6 @@ import axios from 'axios'
     }
   
 }
+
+
 

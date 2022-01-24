@@ -6,6 +6,7 @@ import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
 import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
+import CloseWorkOrder from './CloseWorkOrder';
 
 
 const WorkOrder = (props)=>{
@@ -16,24 +17,29 @@ const WorkOrder = (props)=>{
     pathname === `/work_orders/${id}`? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
     
     let {buildings,employees} = props
-    // let err =  props.workOrderById.workOrder.error
     useEffect(() => {
         if(pathname === `/work_orders/${id}`){
             props.fetchWorkOrder(id) 
         }
     },[]);
-    const date = ()=>{
+    const date = () => {
         let date = workOrder.date
         if (date){
             date = new Date(date)
           return date.toDateString()
         }
     }
-   
-    if(pathname === `/work_orders/${id}` && !loading){
+
+    const closeOrderButton = (user) => {    
+      if(user) {
+        return workOrder.employee_id === user.id  || workOrder.user_id === user.id ? <CloseWorkOrder workOrder={workOrder}/>:null
+      }
+    }
+       
+    if(pathname === `/work_orders/${id}` && !loading ){
         let {user} = props.user
         let {admin} = props.user
-        
+  
         return (
             <div> 
                 <div> 
@@ -55,14 +61,14 @@ const WorkOrder = (props)=>{
                             {/* {err? err.map(e => e):null} */}
                           </div>
                           <div>
-                              <h3>Job Title: {workOrder.title}</h3>
+                            <h3>Job Title: {workOrder.title}</h3>
                             <p>{workOrder.task}</p>
                           </div>
+                           {closeOrderButton(user) }
                         </div> 
                     </div>
                 </div> 
                 <div>
-
                     {user && Object.keys(workOrder).length > 0? <CommentsContainer  user={user} admin={admin}/>:null}
                 </div>
             </div>

@@ -12,4 +12,5 @@ class Reply < ApplicationRecord
            reply.created_at
         }
     end
+    
 end

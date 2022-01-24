@@ -4,13 +4,12 @@ export const fetchReplies = (id) => {
     const params = {
         answer: { toJSON: () => id },
         id:id
-      };
-      
+      };   
     return (dispatch) => {
-        dispatch({type: "LOADING_COMMENTS"})
+        dispatch({type: "LOADING_REPLIES"})
         axios.get('http://localhost:3000/replies', {params}, {withCredentials: true})
         .then(response => {
-            dispatch({ type: 'ADD_COMMENTS', comments: response.data})
+            dispatch({ type: 'ADD_REPLIES', replies: response.data})
         })
     }  
 }
@@ -31,10 +30,10 @@ export const createReply = (reply) => {
 
 export const deleteReply = (id) => {
     return (dispatch) => {
-      dispatch({ type: 'LOADING_REPLIES'})
+      dispatch({ type: 'LOADING_COMMENTS'})
       axios.delete(`http://localhost:3000/replies/${id}`,
       ).then(response => {   
-        dispatch({ type: 'ADD_REPLIES', replies: response.data })
+        dispatch({ type: 'ADD_COMMENTS', comments: response.data })
       })
     }
 }

@@ -16,7 +16,7 @@ const Reply = (props)=>{
     }
     
     const handleOnClick = (e) =>{
-        props.deleteComment(reply.id)
+        props.deleteReply(reply.id)
     }
 
     const deleteReply = ()=>{

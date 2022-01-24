@@ -1,4 +1,8 @@
 class RepliesController < ApplicationController
+    def index
+        comment = Comment.find_by_id(params[:id])
+        render json:RepliesSerializer.new(Reply.sort_replies_by_date(comment.replies)).to_serialized_json   
+    end
 
     def create
         user = User.find_by_id(session[:user_id])
@@ -18,9 +22,22 @@ class RepliesController < ApplicationController
         end 
     end
 
+    def destroy
+        reply = Reply.find_by_id(params[:id])
+
+        if reply
+            # reply.likes.each{|like|like.delete}
+            work_order = reply.comment.work_order
+            reply.delete
+        end
+        render json:CommentsSerializer.new(Comment.sort_comments_by_date(work_order.comments)).to_serialized_json
+    end
+
+   
+
     private
     def reply_params
-          params.require(:reply).permit(:comment_id,:reply)
+          params.require(:reply).permit(:comment_id, :reply)
     end
 
 end

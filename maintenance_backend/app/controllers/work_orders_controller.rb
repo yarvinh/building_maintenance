@@ -46,9 +46,10 @@ class WorkOrdersController < ApplicationController
       render json: {error: work_order.errors.full_messages}
       end
     end
+ 
   end
 
   def work_order_params
-    params.require(:work_order).permit(:title,:task,:date,:building_id,:employee_id)
+    params.require(:work_order).permit(:title,:task,:date,:building_id,:employee_id, :status)
   end
 end

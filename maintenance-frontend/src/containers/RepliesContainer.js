@@ -19,6 +19,10 @@ const RepliesContainer = (props)=>{
   let {replies} = props.comment
   let {user,admin,comment,loading} = props
 
+  // useEffect(() => {
+  //   props.fetchReplies(comment.id) 
+  // },[ ]);
+
   const handleOnclickReply = (e)=>{
     if(accordion.accordion !== 'replies_accordion active'){
     setAccordion({
