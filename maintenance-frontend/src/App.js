@@ -26,6 +26,7 @@ class App extends Component{
   }
 
     render = () => {
+  
       return (
         <BrowserRouter >
         <div className="App">
@@ -45,11 +46,11 @@ class App extends Component{
             <Route exact path='/signup'  element={<UsersContainer />}/>
             <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
             <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-            <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
+             <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
             <Route exact path='/employees/:id' element={<Employee user={this.props.user}/>}/>
             <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
-            <Route exact path='/work_orders/:id' element={<WorkOrder user={this.props.user}/>}/>
+            {Object.keys(this.props.user).length > 0?<Route exact path='/work_orders/:id' element={<WorkOrder user={this.props.user}/>}/>: null}
           </Routes>
         </div>
         </BrowserRouter>

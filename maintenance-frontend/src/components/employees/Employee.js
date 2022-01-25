@@ -18,7 +18,9 @@ const Employee = (props)=>{
     },[props.fetchEmployee]);
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
+    console.log(employee)
     const workOrders = ()=>{
+        
         return(
         <table className="table table-striped" > 
         <thead>
@@ -31,7 +33,7 @@ const Employee = (props)=>{
         </tr>
         </thead>
         <tbody>
-           {employee.work_orders &&  employee.work_orders.map((wo,index) => {return <WorkOrder key={wo.id} index={index + 1} workOrder={wo}/>}) }
+           {Object.keys(employee).length > 0 &&  employee.work_orders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
         </tbody>
         </table>
         )
@@ -54,8 +56,16 @@ const Employee = (props)=>{
                         </div>    
                     </div>
                 </div> 
+                <div>
+                    <select  className="form-select my-3 mx-auto"> 
+                        <option value='all'>All</option>
+                        <option value='Closed work orders'>Closed work orders</option>
+                        <option value='Pending Work Orders'>Pending Work Orders</option>
+                        <option value='Expire work orders'>Expire work orders</option>
+                    </select>
+                </div>
                 {<h3>Work Orders</h3>}
-                {workOrders()}     
+                {!err?workOrders():null}     
             </>
         )
     } else {
@@ -84,7 +94,7 @@ const mapStateToProps = state => {
        employeeById: state.employee,
        loading: state.employee.loading
     }
-  }
+}
 
 const mapDispatchToProps = dispatch => {
     return {

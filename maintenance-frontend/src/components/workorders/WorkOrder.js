@@ -1,7 +1,7 @@
 import React, {useEffect } from 'react';
 // import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
-import {Link,useParams,useLocation} from 'react-router-dom';
+import {Link,useParams} from 'react-router-dom';
 import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
 import CommentsContainer from '../../containers/CommentsContainer'
@@ -10,15 +10,14 @@ import CloseWorkOrder from './CloseWorkOrder';
 
 
 const WorkOrder = (props)=>{
-    const {loading} = props
+    const {loading,employee} = props
     const {id} = useParams()
-    const {pathname} = useLocation()
     let workOrder = null
-    pathname === `/work_orders/${id}`? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
+    id && !employee ? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
     
     let {buildings,employees} = props
     useEffect(() => {
-        if(pathname === `/work_orders/${id}`){
+        if(id && !employee){
             props.fetchWorkOrder(id) 
         }
     },[]);
@@ -29,14 +28,8 @@ const WorkOrder = (props)=>{
           return date.toDateString()
         }
     }
-
-    const closeOrderButton = (user) => {    
-      if(user) {
-        return workOrder.employee_id === user.id  || workOrder.user_id === user.id ? <CloseWorkOrder workOrder={workOrder}/>:null
-      }
-    }
-       
-    if(pathname === `/work_orders/${id}` && !loading ){
+ 
+    if(id && !employee){
         let {user} = props.user
         let {admin} = props.user
   
@@ -64,7 +57,7 @@ const WorkOrder = (props)=>{
                             <h3>Job Title: {workOrder.title}</h3>
                             <p>{workOrder.task}</p>
                           </div>
-                           {closeOrderButton(user) }
+                          {workOrder.employee_id === user.id  || workOrder.user_id === user.id ? <CloseWorkOrder workOrder={workOrder}/>:null}
                         </div> 
                     </div>
                 </div> 

@@ -55,6 +55,14 @@ import WorkOrder from "../components/workorders/WorkOrder"
            <div>
               {props.user.admin ?<CreateWorkOrder employees={employees} buildings={buildings}/>:null}
            </div>
+           <div>
+                <select  className="form-select my-3 mx-auto"> 
+                <option value='all'>All</option>
+                <option value='Closed work orders'>Closed work orders</option>
+                <option value='Pending Work Orders'>Pending Work Orders</option>
+                <option value='Expire work orders'>Expire work orders</option>
+                </select>
+            </div>
            {!id? renderWorkOrders(): null }   
        </div>
    )

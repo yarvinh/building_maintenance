@@ -22,7 +22,7 @@ const CloseWorkOrder = (props) => {
            }
     }
     const handleOnClick = (e) => { 
-       e.preventDefault()
+        e.preventDefault()
        if (!workOrder.status){
         props.editWorkOrder({status: true, id: workOrder.id })
         e.target.value = "Open Work Order"

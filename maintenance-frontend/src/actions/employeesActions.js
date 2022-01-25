@@ -26,7 +26,6 @@ import axios from 'axios'
         dispatch({type: "LOADING_EMPLOYEE"})
         axios.patch(`http://localhost:3000/employees/${params.id}`, params ,{withCredentials: true})
         .then(response => {
-          console.log(response)
             dispatch({ type: 'ADD_EMPLOYEE', employee: response.data})
         })
     }
