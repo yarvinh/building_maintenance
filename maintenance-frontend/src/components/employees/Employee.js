@@ -18,7 +18,6 @@ const Employee = (props)=>{
     },[props.fetchEmployee]);
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
-    console.log(employee)
     const workOrders = ()=>{
         
         return(

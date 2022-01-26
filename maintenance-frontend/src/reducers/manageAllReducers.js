@@ -109,12 +109,14 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
-  const WorkOrdersReducer = (state = { workOrders: [], loading: false }, action) => {
+  const WorkOrdersReducer = (state = { workOrders: [], loading: false ,filter_by: ""}, action) => {
+    // console.log(action)
     switch(action.type) {
         case 'LOADING_WORK_ORDERS':
         return state ={
           ...state,
           workOrders: state.workOrders,
+          filter_by: state.filter_by,
           loading: true,    
         }
  
@@ -122,6 +124,7 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
           return {
              ...state,
             workOrders: action.workOrders,
+            filter_by: action.filter_by,
             loading: false
         } 
 

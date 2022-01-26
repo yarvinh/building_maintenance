@@ -4,10 +4,11 @@ import {useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchBuildings} from '../actions/buildingsActions'
 import { fetchEmployees} from '../actions/employeesActions'
-import { fetchWorkOrders} from '../actions/workOrdersActions'
+import { fetchWorkOrders,workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
+import workOrderSelector from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
-     let {loading} = props
+    let {loading} = props
     const {id} = useParams()
     const {workOrders} = props.workOrders
     const {employees} = props.employees
@@ -20,7 +21,7 @@ import WorkOrder from "../components/workorders/WorkOrder"
         if (buildings.length === 0){
            props.fetchBuildings() 
         }
-    },[ ]);
+    },[]);
 
     const renderWorkOrders = () => {    
         if (workOrders.error_message){ 
@@ -50,17 +51,22 @@ import WorkOrder from "../components/workorders/WorkOrder"
     
     }
 
+    const handleOnclick = (e) => {
+        // console.log(e.target.value)
+       props.workOrderFilter({workOrders, filter_by:e.target.value})
+    }
+
    return(
        <div>
            <div>
               {props.user.admin ?<CreateWorkOrder employees={employees} buildings={buildings}/>:null}
            </div>
            <div>
-                <select  className="form-select my-3 mx-auto"> 
-                <option value='all'>All</option>
-                <option value='Closed work orders'>Closed work orders</option>
-                <option value='Pending Work Orders'>Pending Work Orders</option>
-                <option value='Expire work orders'>Expire work orders</option>
+                <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
+                    <option value='all'>All</option>
+                    <option value='Closed_workorders'>Closed work orders</option>
+                    <option value='Pending_WorkOrders'>Pending Work Orders</option>
+                    <option value='Expire_workorders'>Expire work orders</option>
                 </select>
             </div>
            {!id? renderWorkOrders(): null }   
@@ -71,11 +77,11 @@ import WorkOrder from "../components/workorders/WorkOrder"
 
 
 const mapStateToProps = state => { 
-
+    console.log(state)
     return {
         employees: state.employees,
         buildings: state.buildings,
-        workOrders: state.workOrders,
+        workOrders: workOrderSelector(state.workOrders,state.filter_by),
         loading: state.workOrders.loading
     }
 }
@@ -85,7 +91,7 @@ const mapDispatchToProps = dispatch => {
         fetchBuildings: (action) => dispatch(fetchBuildings(action)),
         fetchEmployees: (action) => dispatch(fetchEmployees(action)),
         fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
-        
+        workOrderFilter: (action) => dispatch(workOrderFilter(action))   
     }
 }   
       

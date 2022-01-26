@@ -42,5 +42,10 @@ import axios from 'axios'
   
 }
 
+export const  workOrderFilter = (workOrders) => {
+
+  return ({ type: 'ADD_WORK_ORDERS', workOrders: workOrders.workOrders,filter_by: workOrders.filter_by})
+}
+
 
 

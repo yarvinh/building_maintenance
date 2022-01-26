@@ -10,8 +10,8 @@ class WorkOrdersSerializer
             user: {only: [:id]},
             employee: {},
             building: {},
-        },
-        except: [:updated_at, :created_at]
+        }
+      
       }
       @work_orders.to_json(options)
     end
