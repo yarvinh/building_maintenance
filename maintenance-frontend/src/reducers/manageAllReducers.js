@@ -110,7 +110,7 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
   }
 
   const WorkOrdersReducer = (state = { workOrders: [], loading: false ,filter_by: ""}, action) => {
-    // console.log(action)
+
     switch(action.type) {
         case 'LOADING_WORK_ORDERS':
         return state ={

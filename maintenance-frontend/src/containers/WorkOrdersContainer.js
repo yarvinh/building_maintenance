@@ -10,7 +10,7 @@ import workOrderSelector from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
     let {loading} = props
     const {id} = useParams()
-    const {workOrders} = props.workOrders
+    const {workOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
     useEffect(() => {
@@ -52,7 +52,6 @@ import workOrderSelector from '../selectors/workOrderSelector'
     }
 
     const handleOnclick = (e) => {
-        // console.log(e.target.value)
        props.workOrderFilter({workOrders, filter_by:e.target.value})
     }
 
@@ -64,9 +63,9 @@ import workOrderSelector from '../selectors/workOrderSelector'
            <div>
                 <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                     <option value='all'>All</option>
-                    <option value='Closed_workorders'>Closed work orders</option>
-                    <option value='Pending_WorkOrders'>Pending Work Orders</option>
-                    <option value='Expire_workorders'>Expire work orders</option>
+                    <option value='closed'>Closed work orders</option>
+                    <option value='pending'>Pending Work Orders</option>
+                    <option value='expire'>Expire work orders</option>
                 </select>
             </div>
            {!id? renderWorkOrders(): null }   
@@ -77,11 +76,10 @@ import workOrderSelector from '../selectors/workOrderSelector'
 
 
 const mapStateToProps = state => { 
-    console.log(state)
     return {
         employees: state.employees,
         buildings: state.buildings,
-        workOrders: workOrderSelector(state.workOrders,state.filter_by),
+        workOrders: workOrderSelector(state.workOrders.workOrders,state.workOrders.filter_by),
         loading: state.workOrders.loading
     }
 }
