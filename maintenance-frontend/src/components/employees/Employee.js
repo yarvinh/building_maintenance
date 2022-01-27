@@ -4,23 +4,32 @@ import {fetchEmployee } from '../../actions/employeesActions'
 import {Link,useParams,useLocation} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
 import WorkOrder  from '../workorders/WorkOrder';
+import workOrderSelector from '../../selectors/workOrderSelector'
+import {workOrderFilter} from '../../actions/workOrdersActions'
 import '../../styles/styles.css'
 
 
 const Employee = (props)=>{
     const path = useLocation()
     const {id} = useParams()
+    let {filteredWorkOrders} = props
     let err = props.employeeById.employee.error
+    let employee = null
+    id? employee = props.employeeById.employee: employee = props.employee
+
+    const handleOnclick = (e) => {
+        const workOrders = employee.work_orders
+        props.workOrderFilter({workOrders: workOrders, filter_by: e.target.value})
+    }
+  
     useEffect(() => {
         if(id){
             props.fetchEmployee(id) 
         }
     },[props.fetchEmployee]);
-    let employee = null
-    id? employee = props.employeeById.employee: employee = props.employee
-    const workOrders = ()=>{
-        
-        return(
+
+    const workOrders = ()=>{ 
+       return(
         <table className="table table-striped" > 
         <thead>
         <tr>
@@ -32,7 +41,7 @@ const Employee = (props)=>{
         </tr>
         </thead>
         <tbody>
-           {Object.keys(employee).length > 0 &&  employee.work_orders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
+           {Object.keys(employee).length > 0 &&  filteredWorkOrders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
         </tbody>
         </table>
         )
@@ -55,15 +64,15 @@ const Employee = (props)=>{
                         </div>    
                     </div>
                 </div> 
+                {<h3>Work Orders</h3>}
                 <div>
-                    <select  className="form-select my-3 mx-auto"> 
+                    <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                         <option value='all'>All</option>
-                        <option value='Closed work orders'>Closed work orders</option>
-                        <option value='Pending Work Orders'>Pending Work Orders</option>
-                        <option value='Expire work orders'>Expire work orders</option>
+                        <option value='closed'>Closed work orders</option>
+                        <option value='pending'>Pending Work Orders</option>
+                        <option value='expire'>Expire work orders</option>
                     </select>
                 </div>
-                {<h3>Work Orders</h3>}
                 {!err?workOrders():null}     
             </>
         )
@@ -89,15 +98,18 @@ const Employee = (props)=>{
 
 
 const mapStateToProps = state => { 
+
     return {
        employeeById: state.employee,
+       filteredWorkOrders: state.employee.employee && workOrderSelector(state.employee.employee.work_orders,state.workOrders.filter_by),
        loading: state.employee.loading
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-       fetchEmployee: (action) => dispatch(fetchEmployee(action))
+       fetchEmployee: (action) => dispatch(fetchEmployee(action)),
+       workOrderFilter: (action) => dispatch(workOrderFilter(action))   
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(Employee)

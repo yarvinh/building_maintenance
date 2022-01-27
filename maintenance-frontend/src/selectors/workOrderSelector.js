@@ -1,10 +1,8 @@
 const workOrderSelector = (workOrders,filterBy)=>{
-    console.log(workOrders.workOrders)
-    const today= new Date().toDateString()
-    console.log(filterBy)
+    const today = new Date()
         if (filterBy === "expire"){
         return workOrders.filter((workOrder)=>{
-            return new Date(workOrder.created_at).toDateString() > today
+            return new Date(workOrder.date) < today
         })
 
         } else if (filterBy === 'pending'){

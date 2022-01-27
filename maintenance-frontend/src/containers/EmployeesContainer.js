@@ -44,8 +44,7 @@ const EmployeesContainer = (props) => {
 
 
     return (
-        <div>
-          
+        <div> 
             {!id && admin?<CreateEmployees user={props.user} />: null }
             <div>
               {!id? renderEmployees(): null }

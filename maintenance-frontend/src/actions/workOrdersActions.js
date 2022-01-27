@@ -1,5 +1,4 @@
 import axios from 'axios'
-
   export const fetchWorkOrders = () => {
     return (dispatch) => {
       dispatch({ type: 'LOADING_WORK_ORDERS'})
@@ -38,8 +37,7 @@ import axios from 'axios'
         .then(response => {
             dispatch({ type: 'ADD_WORK_ORDER', workOrder: response.data})
         })
-    }
-  
+    } 
 }
 
 export const  workOrderFilter = (workOrders) => {

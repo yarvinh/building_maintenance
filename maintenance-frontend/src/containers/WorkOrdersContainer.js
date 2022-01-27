@@ -10,7 +10,7 @@ import workOrderSelector from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
     let {loading} = props
     const {id} = useParams()
-    const {workOrders} = props
+    const {workOrders,filteredWorkOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
     useEffect(() => {
@@ -42,7 +42,7 @@ import workOrderSelector from '../selectors/workOrderSelector'
             </tr>
             </thead>
             <tbody>
-              {workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} employees={employees} index={index + 1} workOrder={workOrder} buildings={buildings}/>)}) }
+              {filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} employees={employees} index={index + 1} workOrder={workOrder} buildings={buildings}/>)}) }
             </tbody>
             </table>
             </>
@@ -79,7 +79,8 @@ const mapStateToProps = state => {
     return {
         employees: state.employees,
         buildings: state.buildings,
-        workOrders: workOrderSelector(state.workOrders.workOrders,state.workOrders.filter_by),
+        workOrders: state.workOrders.workOrders,
+        filteredWorkOrders: workOrderSelector(state.workOrders.workOrders,state.workOrders.filter_by),
         loading: state.workOrders.loading
     }
 }

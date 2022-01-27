@@ -1,5 +1,4 @@
 import React, {useEffect } from 'react';
-// import {Link} from 'react-router-dom'
 import { connect } from 'react-redux';
 import {Link,useParams} from 'react-router-dom';
 import {fetchWorkOrder} from  '../../actions/workOrdersActions'
@@ -10,17 +9,21 @@ import CloseWorkOrder from './CloseWorkOrder';
 
 
 const WorkOrder = (props)=>{
+    
     const {loading,employee} = props
     const {id} = useParams()
     let workOrder = null
     id && !employee ? workOrder = props.workOrderById.workOrder: workOrder = props.workOrder
-    
+
     let {buildings,employees} = props
+
     useEffect(() => {
+        console.log(workOrder)
         if(id && !employee){
             props.fetchWorkOrder(id) 
         }
     },[]);
+
     const date = () => {
         let date = workOrder.date
         if (date){
@@ -28,7 +31,7 @@ const WorkOrder = (props)=>{
           return date.toDateString()
         }
     }
- 
+
     if(id && !employee){
         let {user} = props.user
         let {admin} = props.user
