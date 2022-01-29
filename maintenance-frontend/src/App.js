@@ -13,7 +13,7 @@ import BuildingsContainer from './containers/BuildingsContainer'
 import { fetchCurrentUser } from './actions/usersActions'
 import UsersContainer from './containers/UsersContainer'
 import './styles/styles.css'
-import WorkOrder from './components/workorders/WorkOrder';
+import WorkOrderDetail from './components/workorders/WorkOrderDetail';
 
 
 class App extends Component{
@@ -50,7 +50,7 @@ class App extends Component{
             <Route exact path='/login' /> 
             <Route exact path='/employees/:id' element={<Employee user={this.props.user}/>}/>
             <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
-            {Object.keys(this.props.user).length > 0?<Route exact path='/work_orders/:id' element={<WorkOrder user={this.props.user}/>}/>: null}
+            {Object.keys(this.props.user).length > 0?<Route exact path='/work_orders/:id' element={<WorkOrderDetail user={this.props.user}/>}/>: null}
           </Routes>
         </div>
         </BrowserRouter>

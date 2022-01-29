@@ -106,13 +106,7 @@ const EditWorkOrder = (props) =>{
                   <button type='submit' className="btn btn-primary">Save</button>
                 </form>
             </div>
-
-
-            </div>
-
-
-
-          
+            </div>   
         </div>
       
   )

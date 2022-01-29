@@ -5,7 +5,9 @@ class UsersSerializer
 
   def to_serialized_json
       options = {
-        
+        include: {
+          work_orders: {}
+        }
         except: [:updated_at, :created_at]
       }
       @users.to_json(options)
