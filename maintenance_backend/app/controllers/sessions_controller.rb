@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
             if user
                 render json: {admin: true, is_login: true, user: user}
             else
+                user = User.find_by_id(employee.user_id)
                 render json: {admin: false, is_login: true, user: employee}
             end
         else
@@ -14,28 +15,7 @@ class SessionsController < ApplicationController
        end
     end  
     
-    # def new
-    #     if logged_in?
-    #         user = User.find(session[:user_id])
-    #         redirect_to user_path(user)
-    #     else
-    #         render "new"
-    #     end
-    # end
 
-    # def create  
-    #     @user = User.find_by(username: params[:user][:username])
-    #     if @user && @user.authenticate(params[:user][:password])
-    #         login!
-    #         if @user.admin
-    #           redirect_to user_path(@user)
-    #         else    
-    #            render json: {logged_in: true, user: @user }
-    #         end
-    #     else
-    #         redirect_to "/adminlogin"
-    #     end   
-    # end
 
     def admins_login
         @user = User.find_by(username: params[:user][:username])

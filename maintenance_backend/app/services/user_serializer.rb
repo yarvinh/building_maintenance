@@ -1,6 +1,6 @@
-class UsersSerializer
+class UserSerializer
     def initialize(user_object)
-       @users = user_object
+       @user = user_object
     end
 
   def to_serialized_json
@@ -8,9 +8,9 @@ class UsersSerializer
         include: {
           work_orders: {}
         }
-        except: [:updated_at, :created_at]
+        # except: [:password, :username, :updated_at, :created_at]
       }
-      @users.to_json(options)
+      @user.to_json(options)
     end
   
   end

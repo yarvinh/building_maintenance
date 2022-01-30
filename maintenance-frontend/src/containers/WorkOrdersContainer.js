@@ -2,9 +2,9 @@ import CreateWorkOrder from "../components/workorders/CreateWorkOrder"
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchBuildings} from '../actions/buildingsActions'
-import { fetchEmployees} from '../actions/employeesActions'
-import { fetchWorkOrders,workOrderFilter} from '../actions/workOrdersActions'
+// import { fetchBuildings} from '../actions/buildingsActions'
+// import { fetchEmployees} from '../actions/employeesActions'
+// import { workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import workOrderSelector from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
@@ -13,15 +13,16 @@ import workOrderSelector from '../selectors/workOrderSelector'
     const {workOrders,filteredWorkOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
-    useEffect(() => {
-        props.fetchWorkOrders() 
-        if (employees.length === 0){
-           props.fetchEmployees()
-        }
-        if (buildings.length === 0){
-           props.fetchBuildings() 
-        }
-    },[]);
+
+    // useEffect(() => {
+    //     props.fetchWorkOrders() 
+    //     if (employees.length === 0){
+    //        props.fetchEmployees()
+    //     }
+    //     if (buildings.length === 0){
+    //        props.fetchBuildings() 
+    //     }
+    // },[]);
 
     const renderWorkOrders = () => {    
         if (workOrders.error_message){ 
@@ -85,13 +86,13 @@ const mapStateToProps = state => {
     }
 }
       
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchBuildings: (action) => dispatch(fetchBuildings(action)),
-        fetchEmployees: (action) => dispatch(fetchEmployees(action)),
-        fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
-        workOrderFilter: (action) => dispatch(workOrderFilter(action))   
-    }
-}   
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         fetchBuildings: (action) => dispatch(fetchBuildings(action)),
+//         fetchEmployees: (action) => dispatch(fetchEmployees(action)),
+//         fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
+//         workOrderFilter: (action) => dispatch(workOrderFilter(action))   
+//     }
+// }   
       
-export default connect(mapStateToProps, mapDispatchToProps)(WorkOrdersContainer)
+export default connect(mapStateToProps, null)(WorkOrdersContainer)

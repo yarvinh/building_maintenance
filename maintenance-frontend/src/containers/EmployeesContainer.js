@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
-import { fetchEmployees} from '../actions/employeesActions'
+// import { fetchEmployees} from '../actions/employeesActions'
 import CreateEmployees from '../components/employees/CreateEmployees'
 import Employee from "../components/employees/Employee"
 import {useParams} from 'react-router-dom';
@@ -10,9 +10,9 @@ const EmployeesContainer = (props) => {
     let {admin} = props.user
     const {employees} = props.employees
     const {id} = useParams()
-    useEffect(() => {
-        props.fetchEmployees() 
-    },[ props.fetchEmployees ]);
+    // useEffect(() => {
+    //     props.fetchEmployees() 
+    // },[ props.fetchEmployees ]);
      
     const renderEmployees = () => {   
         if (employees.error_message){ 
@@ -61,10 +61,10 @@ const mapStateToProps = state => {
     }
   }
 
-const mapDispatchToProps = dispatch => {
-    return {
-       fetchEmployees: (action) => dispatch(fetchEmployees(action))
-    }
-  }
-  export default connect(mapStateToProps, mapDispatchToProps)(EmployeesContainer)
+// const mapDispatchToProps = dispatch => {
+//     return {
+//        fetchEmployees: (action) => dispatch(fetchEmployees(action))
+//     }
+//   }
+  export default connect(mapStateToProps, null)(EmployeesContainer)
   

@@ -8,8 +8,7 @@ import '../../styles/styles.css'
 import CloseWorkOrder from './CloseWorkOrder';
 
 
-const WorkOrderDatail = (props)=>{ 
-
+const WorkOrderDetail = (props)=>{ 
     const {loading,employee} = props
     const {id} = useParams()
     let {workOrder} = props
@@ -82,4 +81,4 @@ const mapDispatchToProps = dispatch => {
        fetchWorkOrder: (action) => dispatch(fetchWorkOrder(action))
     }
   }
-  export default connect(mapStateToProps , mapDispatchToProps)(WorkOrderDatail)
+  export default connect(mapStateToProps , mapDispatchToProps)(WorkOrderDetail)

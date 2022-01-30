@@ -11,7 +11,10 @@ import EmployeesContainer from './containers/EmployeesContainer'
 import WorkOdersContainer from './containers/WorkOrdersContainer'
 import BuildingsContainer from './containers/BuildingsContainer'
 import { fetchCurrentUser } from './actions/usersActions'
+import { fetchEmployees} from './actions/employeesActions'
+import { fetchWorkOrders} from './actions/workOrdersActions'
 import UsersContainer from './containers/UsersContainer'
+import { fetchBuildings} from './actions/buildingsActions'
 import './styles/styles.css'
 import WorkOrderDetail from './components/workorders/WorkOrderDetail';
 
@@ -23,10 +26,12 @@ class App extends Component{
   }
   componentDidMount(){
     this.fetchCurrentUser()  
+    this.props.fetchBuildings()
+    this.props.fetchEmployees()
+    this.props.fetchWorkOrders()
   }
 
     render = () => {
-  
       return (
         <BrowserRouter >
         <div className="App">
@@ -46,7 +51,7 @@ class App extends Component{
             <Route exact path='/signup'  element={<UsersContainer />}/>
             <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
             <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-             <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
+            <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
             <Route exact path='/employees/:id' element={<Employee user={this.props.user}/>}/>
             <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
@@ -72,6 +77,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCurrentUser: (action) => dispatch(fetchCurrentUser(action)),
+    fetchBuildings: (action) => dispatch(fetchBuildings(action)),
+    fetchEmployees: (action) => dispatch(fetchEmployees(action)),
+    fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
+
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App)

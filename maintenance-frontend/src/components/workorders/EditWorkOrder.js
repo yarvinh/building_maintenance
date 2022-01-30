@@ -18,10 +18,10 @@ const EditWorkOrder = (props) =>{
         title: "",
     })
 
-    useEffect(() => {
-           props.fetchEmployees()
-           props.fetchBuildings() 
-    },[ ]);
+    // useEffect(() => {
+    //        props.fetchEmployees()
+    //        props.fetchBuildings() 
+    // },[ ]);
 
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -123,8 +123,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         editWorkOrder: (action) => dispatch(editWorkOrder(action)),
-        fetchBuildings: (action) => dispatch(fetchBuildings(action)),
-        fetchEmployees: (action) => dispatch(fetchEmployees(action)),
+        // fetchBuildings: (action) => dispatch(fetchBuildings(action)),
+        // fetchEmployees: (action) => dispatch(fetchEmployees(action)),
     }
 }   
       
