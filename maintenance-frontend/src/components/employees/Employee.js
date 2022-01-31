@@ -4,79 +4,80 @@ import {fetchEmployee } from '../../actions/employeesActions'
 import {Link,useParams,useLocation} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
 import WorkOrder  from '../workorders/WorkOrder';
-import workOrderSelector from '../../selectors/workOrderSelector'
+import {workOrderSelector} from '../../selectors/workOrderSelector'
 import {workOrderFilter} from '../../actions/workOrdersActions'
 import '../../styles/styles.css'
 
 
 const Employee = (props)=>{
-    const path = useLocation()
+    // console.log(props)
     const {id} = useParams()
-    let {filteredWorkOrders} = props
+    let {filteredWorkOrders,employees} = props
     let err = props.employeeById.employee.error
     let employee = null
     id? employee = props.employeeById.employee: employee = props.employee
-
-    const handleOnclick = (e) => {
-        const workOrders = employee.work_orders
-        props.workOrderFilter({workOrders: workOrders, filter_by: e.target.value})
-    }
+    let test = employees.find(employee => employee.id.toString() === id)
+    // console.log(test)
+    // const handleOnclick = (e) => {
+    //     const workOrders = employee.work_orders
+    //     props.workOrderFilter({workOrders: workOrders, filter_by: e.target.value})
+    // }
   
-    useEffect(() => {
-        if(id){
-            props.fetchEmployee(id) 
-        }
-    },[props.fetchEmployee]);
+    // useEffect(() => {
+    //     if(id){
+    //         props.fetchEmployee(id) 
+    //     }
+    // },[props.fetchEmployee]);
 
-    const workOrders = ()=>{ 
-       return(
-        <table className="table table-striped" > 
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Due Date</th>
-            <th scope="col">Address</th>
-            <th scope="col">Summary</th>
-            <th scope="col">Assigned </th>
-        </tr>
-        </thead>
-        <tbody>
-           {Object.keys(employee).length > 0 &&  filteredWorkOrders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
-        </tbody>
-        </table>
-        )
-    }
-    if (id){
-        return (
-            <>
-                <div>
-                  {<EditEmployee/>}
-                </div>
-                <div className="container d-flex justify-content-center">
-                    <div className="card-container mb-3"> 
-                        <div>
-                           <h3 className="card-header">{employee.name}</h3>
-                        </div> 
-                        <div className="card-body">
-                           {err? err.map(e => e):null}
-                           <p>{employee.email}</p>
-                           <p>{employee.phone}</p>
-                        </div>    
-                    </div>
-                </div> 
-                {<h3>Work Orders</h3>}
-                <div>
-                    <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
-                        <option value='all'>All</option>
-                        <option value='closed'>Closed work orders</option>
-                        <option value='pending'>Pending Work Orders</option>
-                        <option value='expire'>Expire work orders</option>
-                    </select>
-                </div>
-                {!err?workOrders():null}     
-            </>
-        )
-    } else {
+    // const workOrders = ()=>{ 
+    //    return(
+    //     <table className="table table-striped" > 
+    //     <thead>
+    //     <tr>
+    //         <th scope="col">#</th>
+    //         <th scope="col">Due Date</th>
+    //         <th scope="col">Address</th>
+    //         <th scope="col">Summary</th>
+    //         <th scope="col">Assigned </th>
+    //     </tr>
+    //     </thead>
+    //     <tbody>
+    //        {Object.keys(employee).length > 0 &&  filteredWorkOrders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
+    //     </tbody>
+    //     </table>
+    //     )
+    // }
+    // if (id){
+        // return (
+        //     <>
+        //         <div>
+        //           {<EditEmployee/>}
+        //         </div>
+        //         <div className="container d-flex justify-content-center">
+        //             <div className="card-container mb-3"> 
+        //                 <div>
+        //                    <h3 className="card-header">{employee.name}</h3>
+        //                 </div> 
+        //                 <div className="card-body">
+        //                    {err? err.map(e => e):null}
+        //                    <p>{employee.email}</p>
+        //                    <p>{employee.phone}</p>
+        //                 </div>    
+        //             </div>
+        //         </div> 
+        //         {<h3>Work Orders</h3>}
+        //         <div>
+        //             <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
+        //                 <option value='all'>All</option>
+        //                 <option value='closed'>Closed work orders</option>
+        //                 <option value='pending'>Pending Work Orders</option>
+        //                 <option value='expire'>Expire work orders</option>
+        //             </select>
+        //         </div>
+        //         {!err?workOrders():null}     
+        //     </>
+        // )
+    // } else {
     return (
 
         <>
@@ -93,15 +94,16 @@ const Employee = (props)=>{
         </>
             
         )
-    }
+    // }
 };
 
 
 const mapStateToProps = state => { 
 
     return {
+       employees: state.employees.employees,
        employeeById: state.employee,
-       filteredWorkOrders: state.employee.employee && workOrderSelector(state.employee.employee.work_orders,state.workOrders.filter_by),
+    //    filteredWorkOrders: state.employee.employee && workOrderSelector(state.employee.employee.work_orders,state.workOrders.filter_by),
        loading: state.employee.loading
     }
 }

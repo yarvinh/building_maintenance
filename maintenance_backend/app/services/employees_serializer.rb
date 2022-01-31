@@ -8,7 +8,13 @@ class EmployeesSerializer
       options = {
         include:{
             user: {only: [:id]},
-            work_orders: {}
+            work_orders: {
+              include: {
+                building:{},
+                employee:{},
+                comments: {}
+              } 
+            }
         },
         except: [:updated_at, :created_at]
       }

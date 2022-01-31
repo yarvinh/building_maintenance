@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 import LogOut from './components/users/LogOut'
 import LogIn from './components/users/LogIn'
-import Employee from './components/employees/Employee'
+import EmployeeDetails from './components/employees/EmployeeDetails'
 import Building from './components/buildings/Building'
 import EmployeesContainer from './containers/EmployeesContainer'
 import WorkOdersContainer from './containers/WorkOrdersContainer'
@@ -15,6 +15,7 @@ import { fetchEmployees} from './actions/employeesActions'
 import { fetchWorkOrders} from './actions/workOrdersActions'
 import UsersContainer from './containers/UsersContainer'
 import { fetchBuildings} from './actions/buildingsActions'
+import {workOrderDetailsSelector} from './selectors/workOrderSelector';
 import './styles/styles.css'
 import WorkOrderDetail from './components/workorders/WorkOrderDetail';
 
@@ -25,6 +26,7 @@ class App extends Component{
     this.props.fetchCurrentUser()  
   }
   componentDidMount(){
+    
     this.fetchCurrentUser()  
     this.props.fetchBuildings()
     this.props.fetchEmployees()
@@ -32,6 +34,7 @@ class App extends Component{
   }
 
     render = () => {
+     
       return (
         <BrowserRouter >
         <div className="App">
@@ -45,6 +48,7 @@ class App extends Component{
               {!this.props.user.is_login? <Link to='/login' className="nav-link custom-nav-link">Log In</Link>:  <Link to='/signout' className="nav-link custom-nav-link">Sign Out</Link>  }
           </div>    
         </nav>
+        
         <Routes>
             <Route exact path='/login' element={<LogIn/>} />
             <Route exact path='/signout' element={<LogOut/>}/>
@@ -53,10 +57,11 @@ class App extends Component{
             <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
             <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
             <Route exact path='/login' /> 
-            <Route exact path='/employees/:id' element={<Employee user={this.props.user}/>}/>
+            {this.props.employees.length > 0?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
             <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
-            {Object.keys(this.props.user).length > 0?<Route exact path='/work_orders/:id' element={<WorkOrderDetail user={this.props.user}/>}/>: null}
-          </Routes>
+            {this.props.workOrders.length > 0? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
+        </Routes>
+ 
         </div>
         </BrowserRouter>
             
@@ -67,7 +72,9 @@ class App extends Component{
 
 const mapStateToProps = state => { 
   return {
+    employees: state.employees.employees,
     user: state.user.user,
+    workOrders: state.workOrders.workOrders,
     loading: state.user.loading
   }
 }

@@ -4,9 +4,9 @@ import {useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { fetchBuildings} from '../actions/buildingsActions'
 // import { fetchEmployees} from '../actions/employeesActions'
-// import { workOrderFilter} from '../actions/workOrdersActions'
+import { workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
-import workOrderSelector from '../selectors/workOrderSelector'
+import {workOrderSelector} from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
     let {loading} = props
     const {id} = useParams()
@@ -77,6 +77,7 @@ import workOrderSelector from '../selectors/workOrderSelector'
 
 
 const mapStateToProps = state => { 
+    
     return {
         employees: state.employees,
         buildings: state.buildings,
@@ -86,13 +87,13 @@ const mapStateToProps = state => {
     }
 }
       
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         fetchBuildings: (action) => dispatch(fetchBuildings(action)),
-//         fetchEmployees: (action) => dispatch(fetchEmployees(action)),
-//         fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
-//         workOrderFilter: (action) => dispatch(workOrderFilter(action))   
-//     }
-// }   
+const mapDispatchToProps = dispatch => {
+    return {
+        // fetchBuildings: (action) => dispatch(fetchBuildings(action)),
+        // fetchEmployees: (action) => dispatch(fetchEmployees(action)),
+        // fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
+        workOrderFilter: (action) => dispatch(workOrderFilter(action))   
+    }
+}   
       
-export default connect(mapStateToProps, null)(WorkOrdersContainer)
+export default connect(mapStateToProps,mapDispatchToProps  )(WorkOrdersContainer)

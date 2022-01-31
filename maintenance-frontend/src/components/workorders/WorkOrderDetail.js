@@ -1,24 +1,19 @@
-import React, {useEffect } from 'react';
+
 import { connect } from 'react-redux';
 import {Link,useParams} from 'react-router-dom';
-import {fetchWorkOrder} from  '../../actions/workOrdersActions'
 import EditWorkOrder from "./EditWorkOrder"
 import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
 import CloseWorkOrder from './CloseWorkOrder';
 
 
-const WorkOrderDetail = (props)=>{ 
-    const {loading,employee} = props
-    const {id} = useParams()
-    let {workOrder} = props
-    let {buildings,employees} = props
 
-    useEffect(() => {
-        if(id && !employee){
-            props.fetchWorkOrder(id) 
-        }
-    },[]);
+const WorkOrderDetails = (props)=>{ 
+    const {id} = useParams()
+    let {workOrders} = props
+    let {buildings,employees} = props
+    let workOrder = null
+    Object.keys(props.workOrder).length > 0 ? workOrder = props.workOrder : workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
 
     const date = () => {
         let date = workOrder.date
@@ -29,13 +24,12 @@ const WorkOrderDetail = (props)=>{
     }
 
     let {user} = props.user
-    let {admin} = props.user
-  
-       
+    let {admin} = props.user 
+
     return (
         <div> 
             <div> 
-              {id && workOrder.employee && props.user.admin?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null} 
+              <EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>
             </div> 
            
             <div className="container d-flex justify-content-center"> 
@@ -53,8 +47,8 @@ const WorkOrderDetail = (props)=>{
                         {/* {err? err.map(e => e):null} */}
                       </div>
                       <div>
-                        <h3>Job Title: {workOrder.title}</h3>
-                        <p>{workOrder.task}</p>
+                        <h3>Job Title: {workOrder.title}</h3> 
+                         <p>{workOrder.task}</p>
                       </div>
                       {workOrder.employee_id === user.id  || workOrder.user_id === user.id ? <CloseWorkOrder workOrder={workOrder}/>:null}
                     </div> 
@@ -69,16 +63,11 @@ const WorkOrderDetail = (props)=>{
 
 
 const mapStateToProps = state => { 
-    console.log(state)
     return {
+       workOrders: state.workOrders.workOrders,
        workOrder: state.workOrder.workOrder,
        loading: state.workOrder.loading
     }
   }
 
-const mapDispatchToProps = dispatch => {
-    return {
-       fetchWorkOrder: (action) => dispatch(fetchWorkOrder(action))
-    }
-  }
-  export default connect(mapStateToProps , mapDispatchToProps)(WorkOrderDetail)
+  export default connect(mapStateToProps ,null)(WorkOrderDetails)
