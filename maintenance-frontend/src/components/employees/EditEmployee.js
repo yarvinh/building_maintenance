@@ -104,12 +104,12 @@ const EditEmployee = (props) =>{
   )
 }
 
-const mapStateToProps = state => { 
-    return {
-        employees: state.employees,
-        loading: state.employees.loading
-    }
-}
+// const mapStateToProps = state => { 
+//     return {
+//         employees: state.employees,
+//         loading: state.employees.loading
+//     }
+// }
       
 const mapDispatchToProps = dispatch => {
     return {
@@ -117,7 +117,7 @@ const mapDispatchToProps = dispatch => {
     }
 }   
       
-export default connect(mapStateToProps , mapDispatchToProps)(EditEmployee)
+export default connect(null, mapDispatchToProps)(EditEmployee)
 
 
 

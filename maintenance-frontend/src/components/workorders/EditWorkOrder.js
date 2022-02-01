@@ -58,7 +58,7 @@ const EditWorkOrder = (props) =>{
 
   return(   
       <div >
-            <button onClick={handleOnclick} className={acordion.acordion}> Edit Employee</button>
+            <button onClick={handleOnclick} className={acordion.acordion}> Edit Work Order</button>
             <div className={acordion.display}>
             <div className="container d-flex justify-content-center align-items-center" > 
                 <form onSubmit={(e)=>handleOnSubmit(e,"employee_id")} >

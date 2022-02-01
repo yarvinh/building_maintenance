@@ -4,32 +4,24 @@ import {useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { fetchBuildings} from '../actions/buildingsActions'
 // import { fetchEmployees} from '../actions/employeesActions'
-import { workOrderFilter} from '../actions/workOrdersActions'
+import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
     let {loading} = props
     const {id} = useParams()
-    const {workOrders,filteredWorkOrders} = props
+    const {workOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
-
-    // useEffect(() => {
-    //     props.fetchWorkOrders() 
-    //     if (employees.length === 0){
-    //        props.fetchEmployees()
-    //     }
-    //     if (buildings.length === 0){
-    //        props.fetchBuildings() 
-    //     }
-    // },[]);
-
+    let filteredWorkOrders = null
+    id? filteredWorkOrders = workOrders.filter(workOrder => workOrder.employee_id.toString() === id): filteredWorkOrders = props.filteredWorkOrders
+    
     const renderWorkOrders = () => {    
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
                     return <p key={i}>{err}</p>
                 })      
-        }else if(!loading){
+        }else {
             return (
                 <>
             <table className="table table-striped" > 
@@ -47,13 +39,14 @@ import {workOrderSelector} from '../selectors/workOrderSelector'
             </tbody>
             </table>
             </>
-             ) 
+            ) 
         }
     
     }
 
     const handleOnclick = (e) => {
-       props.workOrderFilter({workOrders, filter_by:e.target.value})
+        console.log(e.target.value,workOrders)
+       props.workOrderFilter({workOrders, filter_by: e.target.value})
     }
 
    return(
@@ -69,7 +62,7 @@ import {workOrderSelector} from '../selectors/workOrderSelector'
                     <option value='expire'>Expire work orders</option>
                 </select>
             </div>
-           {!id? renderWorkOrders(): null }   
+            {renderWorkOrders()}  
        </div>
    )
 }
@@ -77,7 +70,7 @@ import {workOrderSelector} from '../selectors/workOrderSelector'
 
 
 const mapStateToProps = state => { 
-    
+    console.log("state",state)
     return {
         employees: state.employees,
         buildings: state.buildings,
