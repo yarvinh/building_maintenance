@@ -133,6 +133,23 @@ const UserReducer = (state = { user: {}, loading: false }, action) => {
     }
   }
 
+  const EmployeeWorkOrdersReducer = (state = { employeeWorkOrders: [], loading: false ,filter_by: ""}, action) => {
+    // console.log(action)
+    switch(action.type) {
+        case 'EMPLOYEE_WORK_ORDERS':
+          return {
+             ...state,
+            employeeWorkOrders: action.employeeWorkOrders,
+            filter_by: action.filter_by,
+            loading: false
+        } 
+
+      default:
+        return state;
+    }
+  }
+
+
 
   const WorkOrderReducer = (state = { workOrder: {}, loading: false }, action)=>{
     switch(action.type) {
@@ -236,6 +253,8 @@ const ReplyReducer = (state = { reply: {}, loading: false }, action)=>{
 }
 
 
+
+
 const rootReducer = combineReducers({
    user: UserReducer,  
    employees: EmployeesReducer,
@@ -243,6 +262,7 @@ const rootReducer = combineReducers({
    buildings: BuildingsReducer,
    building: BuildingReducer,
    workOrders: WorkOrdersReducer,
+   employeeWorkOrders: EmployeeWorkOrdersReducer,
    workOrder: WorkOrderReducer,
    comments: CommentsReducer,
    comment:  commentReducer,
