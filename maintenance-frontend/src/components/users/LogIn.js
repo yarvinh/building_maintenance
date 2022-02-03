@@ -81,7 +81,7 @@ class LogIn extends Component {
 const mapStateToProps = state => { 
   return {
     user: state.user,
-     loading: state.user.loading
+    loading: state.user.loading
   }
 }
  

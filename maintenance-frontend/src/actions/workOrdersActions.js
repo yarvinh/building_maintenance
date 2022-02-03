@@ -45,7 +45,6 @@ export const  workOrderFilter = (workOrders) => {
 }
 
 export const getEmployeeWorkOrders = (employeeWorkOrders) =>{
-  console.log('action',employeeWorkOrders)
   return ({ type: 'EMPLOYEE_WORK_ORDERS', employeeWorkOrders: employeeWorkOrders.workOrders, filter_by: employeeWorkOrders.filter_by})     
 }
 

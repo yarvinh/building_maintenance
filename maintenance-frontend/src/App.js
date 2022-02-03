@@ -22,19 +22,31 @@ import WorkOrderDetail from './components/workorders/WorkOrderDetail';
 
 class App extends Component{
 
-  fetchCurrentUser = () => {
+
+  fetchingInf = ()=>{
     this.props.fetchCurrentUser()  
-  }
-  componentDidMount(){
-    
-    this.fetchCurrentUser()  
     this.props.fetchBuildings()
     this.props.fetchEmployees()
     this.props.fetchWorkOrders()
   }
 
+  componentDidMount(){  
+    this.fetchingInf()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.user.is_login !== this.props.user.is_login && prevProps.user.is_login  !== undefined){
+      this.fetchingInf()
+    }
+
+  }
+
+  checkLogin = ()=>{
+
+  }
+
     render = () => {
-     
+      // console.log(this.props)
       return (
         <BrowserRouter >
         <div className="App">

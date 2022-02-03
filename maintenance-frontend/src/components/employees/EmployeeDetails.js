@@ -4,24 +4,20 @@ import {fetchEmployee } from '../../actions/employeesActions'
 import {Link,useParams} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
 import WorkOrder  from '../workorders/WorkOrder';
-// import {workOrderSelector} from '../../selectors/workOrderSelector'
+import {workOrderSelector} from '../../selectors/workOrderSelector'
 import {getEmployeeWorkOrders} from '../../actions/workOrdersActions'
-
 import '../../styles/styles.css'
-import WorkOrdersContainer from '../../containers/WorkOrdersContainer';
-// import WorkOrdersContainer from '../../containers/WorkOrdersContainer';
-
 
 const EmployeeDetails = (props)=>{
     const {id} = useParams()
-    let {employees,user} = props
+    let {employees,user,employeeWorkOrders} = props
     let err = props.employee.employee.error
     let employee = employees.find(employee => employee.id.toString() === id)
-    let workOrders = employee.work_orders
-
-    // const handleOnclick = (e) => {
-    //     props.getEmployeeWorkOrders({workOrders, filter_by: e.target.value})
-    // }
+    let workOrders = null
+    employeeWorkOrders.length > 0 ? workOrders = employeeWorkOrders : workOrders = employee.work_orders
+    const handleOnclick = (e) => {
+        props.getEmployeeWorkOrders({workOrders, filter_by: e.target.value})
+    }
   
     const renderWorkOrders = ()=>{ 
        return(
@@ -36,7 +32,7 @@ const EmployeeDetails = (props)=>{
         </tr>
         </thead>
         <tbody>
-           {Object.keys(employee).length > 0 &&  employee.work_orders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
+           {Object.keys(employee).length > 0 &&  workOrders.map((wo,index) => {return <WorkOrder employee={employee} key={wo.id} index={index + 1} workOrder={wo}/>}) }
         </tbody>
         </table>
         )
@@ -59,8 +55,8 @@ const EmployeeDetails = (props)=>{
                         </div>    
                     </div>
                 </div>
-                <WorkOrdersContainer employeeWorkOrders={workOrders} user={user}/>
-                {/* <h3>Work Orders</h3>
+
+                <h3>Work Orders</h3>
                 <div>
                     <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                         <option value='all'>All</option>
@@ -68,8 +64,8 @@ const EmployeeDetails = (props)=>{
                         <option value='pending'>Pending Work Orders</option>
                         <option value='expire'>Expire work orders</option>
                     </select>
-                </div> */}
-                {/* {!err?renderWorkOrders():null}    */}
+                </div> 
+               {!err?renderWorkOrders():null}   
             </>
         )
 
@@ -80,7 +76,7 @@ const mapStateToProps = state => {
     return {
        employees: state.employees.employees,
        employee: state.employee,
-    //    filteredWorkOrders: workOrderSelector(state.employeeWorkOrders.employeeWorkOrders,state.employeeWorkOrders.filter_by),
+       employeeWorkOrders: workOrderSelector(state.employeeWorkOrders.employeeWorkOrders,state.employeeWorkOrders.filter_by),
        loading: state.employee.loading
     }
 }
@@ -88,7 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
        fetchEmployee: (action) => dispatch(fetchEmployee(action)),
-    //    getEmployeeWorkOrders: (action) => dispatch(getEmployeeWorkOrders(action))   
+       getEmployeeWorkOrders: (action) => dispatch(getEmployeeWorkOrders(action))   
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDetails)

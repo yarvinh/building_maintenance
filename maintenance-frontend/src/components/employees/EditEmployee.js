@@ -15,8 +15,6 @@ const EditEmployee = (props) =>{
         old_password: '',
     })
 
-    
-
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
         display: 'hide_elements',
