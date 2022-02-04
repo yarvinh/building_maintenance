@@ -1,23 +1,16 @@
 import CreateWorkOrder from "../components/workorders/CreateWorkOrder"
-// import React, {useEffect} from 'react';
-// import {useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { fetchBuildings} from '../actions/buildingsActions'
-// import { fetchEmployees} from '../actions/employeesActions'
 import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
  const WorkOrdersContainer = (props)=>{
-    //  console.log(props)
-    // let {loading} = props
-    // const {id} = useParams()
-    const {workOrders,filteredWorkOrders } = props
+    const {workOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
-    // let filteredWorkOrders = null
-    // id? filteredWorkOrders = workOrders.filter(workOrder => workOrder.employee_id.toString() === id): filteredWorkOrders = props.filteredWorkOrders
-    
-    const renderWorkOrders = () => {    
+    let filteredWorkOrders = null
+    props.myWorkOrders ? filteredWorkOrders = props.myWorkOrders : filteredWorkOrders = props.filteredWorkOrders
+    console.log(props)
+    const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
                     return <p key={i}>{err}</p>
@@ -36,7 +29,7 @@ import {workOrderSelector} from '../selectors/workOrderSelector'
             </tr>
             </thead>
             <tbody>
-              {filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id} employees={employees} index={index + 1} workOrder={workOrder} buildings={buildings}/>)}) }
+              {filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)}) }
             </tbody>
             </table>
             </>
@@ -82,9 +75,6 @@ const mapStateToProps = state => {
       
 const mapDispatchToProps = dispatch => {
     return {
-        // fetchBuildings: (action) => dispatch(fetchBuildings(action)),
-        // fetchEmployees: (action) => dispatch(fetchEmployees(action)),
-        // fetchWorkOrders: (action) => dispatch(fetchWorkOrders(action)),
         workOrderFilter: (action) => dispatch(workOrderFilter(action))   
     }
 }   

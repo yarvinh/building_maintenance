@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 
-const UserReducer = (state = { user: {}, loading: false }, action) => {
+const UserReducer = (state = { user: {}, loading: true }, action) => {
     switch(action.type) {
         case 'LOADING_USER':
         return state ={

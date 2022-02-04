@@ -5,10 +5,10 @@ class SessionsController < ApplicationController
             user = User.find_by_id(session[:user_id])
             employee = Employee.find_by_id(session[:employee_id])
             if user
-                render json: {admin: true, is_login: true, user: user}
+                render json: {admin: true, is_login: true, user: user, work_orders: user.work_orders}
             else
                 user = User.find_by_id(employee.user_id)
-                render json: {admin: false, is_login: true, user: employee}
+                render json: {admin: false, is_login: true, user: employee , work_orders: employee.work_orders}
             end
         else
             render json: {is_login: false}
