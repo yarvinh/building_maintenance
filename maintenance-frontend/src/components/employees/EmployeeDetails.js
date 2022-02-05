@@ -1,7 +1,7 @@
 // import React, {useEffect } from 'react';
 import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
-import {Link,useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
 import WorkOrder  from '../workorders/WorkOrder';
 import {workOrderSelector} from '../../selectors/workOrderSelector'
@@ -9,10 +9,12 @@ import {getEmployeeWorkOrders} from '../../actions/workOrdersActions'
 import '../../styles/styles.css'
 
 const EmployeeDetails = (props)=>{
+    const {admin,user} = props.user
     const {id} = useParams()
-    let {employees,user,employeeWorkOrders} = props
-    let err = props.employee.employee.error
-    let employee = employees.find(employee => employee.id.toString() === id)
+    let {employees,employeeWorkOrders} = props
+    let err = props.employee.error
+    let employee = null
+    Object.keys(props.employee).length > 0 ? employee = props.employee : employee = employees.find(employee => employee.id.toString() === id)   
     let workOrders = null
     employeeWorkOrders.length > 0 ? workOrders = employeeWorkOrders : workOrders = employee.work_orders
     const handleOnclick = (e) => {
@@ -41,7 +43,7 @@ const EmployeeDetails = (props)=>{
         return (
             <>
                 <div>
-                  {<EditEmployee/>}
+                {employee.id === user.id  || admin ? <EditEmployee/> :null}
                 </div>
                 <div className="container d-flex justify-content-center">
                     <div className="card-container mb-3"> 
@@ -75,7 +77,7 @@ const EmployeeDetails = (props)=>{
 const mapStateToProps = state => { 
     return {
        employees: state.employees.employees,
-       employee: state.employee,
+       employee: state.employee.employee,
        employeeWorkOrders: workOrderSelector(state.employeeWorkOrders.employeeWorkOrders,state.employeeWorkOrders.filter_by),
        loading: state.employee.loading
     }

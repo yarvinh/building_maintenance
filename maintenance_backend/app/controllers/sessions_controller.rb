@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
                 render json: {admin: true, is_login: true, user: user, work_orders: user.work_orders}
             else
                 user = User.find_by_id(employee.user_id)
-                render json: {admin: false, is_login: true, user: employee , work_orders: employee.work_orders}
+                render json: SessionSerializer.new(employee, false).to_serialized_json
+                # render json: {admin: false, is_login: true, user: employee , work_orders: employee.work_orders}
             end
         else
             render json: {is_login: false}

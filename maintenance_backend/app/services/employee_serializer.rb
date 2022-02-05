@@ -11,7 +11,8 @@ class EmployeeSerializer
               include:{
                 user: {only: [:id]},
                 employee: {},
-                building: {}
+                building: {},
+
               }
         }
 

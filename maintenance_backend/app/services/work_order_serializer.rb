@@ -7,6 +7,7 @@ class WorkOrderSerializer
   def to_serialized_json
       options = {
         include:{
+         
             user: {only: [:id]},
             employee: {},
             building: {},
@@ -17,6 +18,7 @@ class WorkOrderSerializer
              }
             }
         },
+        
         except: [:updated_at, :created_at]
       }
       @work_order.to_json(options)

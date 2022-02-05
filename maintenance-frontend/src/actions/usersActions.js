@@ -26,7 +26,6 @@ export const createUser = (user) => {
   }
 
   export const fetchLogOut = () => {
-
     return (dispatch) => {
       dispatch({ type: 'LOADING_USER'})
         axios.delete('http://localhost:3000/logout', 

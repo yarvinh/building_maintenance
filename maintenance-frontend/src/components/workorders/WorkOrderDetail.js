@@ -25,11 +25,10 @@ const WorkOrderDetails = (props)=>{
 
     let {user} = props.user
     let {admin} = props.user 
-
     return (
         <div> 
             <div> 
-              <EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>
+            {workOrder.employee_id === user.id  || admin ?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null}
             </div> 
            
             <div className="container d-flex justify-content-center"> 
@@ -50,7 +49,7 @@ const WorkOrderDetails = (props)=>{
                         <h3>Job Title: {workOrder.title}</h3> 
                          <p>{workOrder.task}</p>
                       </div>
-                      {workOrder.employee_id === user.id  || workOrder.user_id === user.id ? <CloseWorkOrder workOrder={workOrder}/>:null}
+                      {workOrder.employee_id === user.id  || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}
                     </div> 
                 </div>
             </div> 

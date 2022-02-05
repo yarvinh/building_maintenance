@@ -7,6 +7,8 @@ class UserSerializer
       options = {
         include: {
           work_orders: {}
+          employees: {}
+          buildings: {}
         }
         # except: [:password, :username, :updated_at, :created_at]
       }

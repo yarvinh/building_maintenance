@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
- const WorkOrdersContainer = (props)=>{
-    const {workOrders} = props
+//  import {useParams} from 'react-router-dom';
+const WorkOrdersContainer = (props)=>{
+   
+    const {workOrders,myWorkOrders } = props
+    console.log(myWorkOrders)
     const {employees} = props.employees
     const {buildings} = props.buildings
     let filteredWorkOrders = null
-    props.myWorkOrders ? filteredWorkOrders = props.myWorkOrders : filteredWorkOrders = props.filteredWorkOrders
-    console.log(props)
+    myWorkOrders ? filteredWorkOrders = myWorkOrders : filteredWorkOrders = props.filteredWorkOrders
     const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
