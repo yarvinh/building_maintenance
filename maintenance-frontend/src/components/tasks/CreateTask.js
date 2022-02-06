@@ -6,7 +6,6 @@ import {useParams} from 'react-router-dom';
 
 
 const CreateTask = (props) => {
-
     const {id} = useParams()
     let {workOrder} = props
 

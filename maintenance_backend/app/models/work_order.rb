@@ -3,6 +3,7 @@ class WorkOrder < ApplicationRecord
     belongs_to :building
     belongs_to :employee
     has_many :comments
+    has_many :tasks
 
     validates :task, :date, presence: true
     
