@@ -5,6 +5,7 @@ import EditWorkOrder from "./EditWorkOrder"
 import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
 import CloseWorkOrder from './CloseWorkOrder';
+import TasksContainer from '../../containers/TasksContainer';
 
 
 
@@ -48,6 +49,9 @@ const WorkOrderDetails = (props)=>{
                       <div>
                         <h3>Job Title: {workOrder.title}</h3> 
                          <p>{workOrder.task}</p>
+                      </div>
+                      <div>
+                          <TasksContainer workOrder={workOrder} user={user} admin={admin}/>
                       </div>
                       {workOrder.employee_id === user.id  || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}
                     </div> 

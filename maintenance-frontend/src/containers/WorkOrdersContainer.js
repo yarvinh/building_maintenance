@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
-//  import {useParams} from 'react-router-dom';
-const WorkOrdersContainer = (props)=>{
-   
+
+const WorkOrdersContainer = (props)=>{  
     const {workOrders,myWorkOrders } = props
-    console.log(myWorkOrders)
     const {employees} = props.employees
     const {buildings} = props.buildings
     let filteredWorkOrders = null
@@ -28,6 +26,7 @@ const WorkOrdersContainer = (props)=>{
                 <th scope="col">Address</th>
                 <th scope="col">Summary</th>
                 <th scope="col">Assigned </th>
+                <th scope="col">status</th>
             </tr>
             </thead>
             <tbody>

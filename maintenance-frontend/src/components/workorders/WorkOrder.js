@@ -29,6 +29,9 @@ const WorkOrder = (props)=>{
                     </td>
                     
                     <td><Link to={`/employees/${workOrder.employee_id}`}><p>{workOrder.employee.name}</p></Link></td>
+                    <td>  
+                        {workOrder.status ?<p style={{color: "red"}}>Closed</p>: <p style={{color: "green"}}>Pending</p>}
+                    </td>
                 </tr>
             </>
         )

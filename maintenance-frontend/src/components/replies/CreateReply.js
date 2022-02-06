@@ -7,8 +7,7 @@ import {useParams} from 'react-router-dom';
 
 const CreateReply = (props) => {
 
-    const {id,admin,user} = useParams()
-    // let {error} = props.reply
+    // const {id,admin,user} = useParams()
     let {comment} = props
 
     let placeholderObj = {reply: "Write a reply"}
@@ -55,13 +54,6 @@ const CreateReply = (props) => {
         </div>
     )
 }
-
-//   const mapStateToProps = state => { 
-//         return {
-//           comment: state.reply.reply,
-//           loading: state.reply.loading
-//        }
-//   }
 
 
   const mapDispatchToProps = dispatch => {
