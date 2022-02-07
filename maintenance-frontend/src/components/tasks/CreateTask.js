@@ -12,11 +12,10 @@ const CreateTask = (props) => {
     let placeholderObj = {task: "Add a task"}
     const [task, setTask] = useState({
         task: "",
-        workOrder_id: workOrder.id
+        work_order_id: workOrder.id
     })
 
     const [placeholder,setPlacehoder] = useState(placeholderObj)
-
     const handleOnChange = (e) => {
         e.target.style.height = "1px";
         e.target.style.height = (e.target.scrollHeight)+"px";

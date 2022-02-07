@@ -1,11 +1,21 @@
 class TasksController < ApplicationController
+    def index
+
+        work_order = WorkOrder.find_by_id(params[:id])
+     
+        if  work_order
+            render json: TasksSerializer.new(work_order.tasks).to_serialized_json
+        else
+            render json: {error: "Something Went Wrong"}
+        end
+    end
     def create
         user = User.find_by_id(session[:user_id])
         work_order = WorkOrder.find_by_id(params[:task][:work_order_id])
         task = Task.new(task_params)
         if user && task.valid?
             task.save
-            render json: TasksSerializer.new(work_order.tasks)
+            render json: TasksSerializer.new(work_order.tasks).to_serialized_json
         else
             render json:{error: task.errors.full_messages}
         end

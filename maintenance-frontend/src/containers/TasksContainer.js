@@ -2,26 +2,26 @@ import React, {useEffect,useState } from 'react';
 import { connect } from 'react-redux';
 // import {createComment,fetchComments} from '../actions/commentsActions'
 // import {Link,useParams,useLocation} from 'react-router-dom';
-import Reply  from '../components/replies/Reply';
-// import {fetchReplies} from '../actions/repliesActions'
+import Task  from '../components/tasks/Task';
+import {fetchTasks} from '../actions/tasksActions'
 import CreateTask from '../components/tasks/CreateTask';
 
 
 
 const TasksContainer = (props)=>{
-  const [accordion, setAccordion] = useState({
-    accordion: 'replies_accordion',
-    displayAccordion: 'hide_replies',
+//   const [accordion, setAccordion] = useState({
+//     accordion: 'replies_accordion',
+//     displayAccordion: 'hide_replies',
 
-  })
+//   })
 
 
-//   let {tasks} = props.workOrders
-  let {user,admin,workOrder,loading} = props
 
-  // useEffect(() => {
-  //   props.fetchReplies(comment.id) 
-  // },[ ]);
+  let {tasks,user,admin,workOrder,loading} = props
+
+  useEffect(() => {
+    props.fetchTasks(workOrder.id) 
+  },[ ]);
 
 //   const handleOnclickReply = (e)=>{
 //     if(accordion.accordion !== 'replies_accordion active'){
@@ -36,36 +36,34 @@ const TasksContainer = (props)=>{
 //     })
 //   }
 //   }
+
+
   
   return (
   <div>
-    {/* <button onClick={handleOnclickReply} className={accordion.accordion}> {`${replies.length} Replies`} </button> */}
-    {/* <div className={accordion.displayAccordion}> */}
       <div >
-        <div className={'reply_wall'}>
-          {/* {replies ? replies.map((reply)=>{return <Reply user={user} admin={admin} key={reply.id} reply={reply}/> }):null} */}
-        </div>
-        <div className="reply_input">
+        <div >
           <CreateTask workOrder={workOrder} admin={admin} user={user}/>
         </div>
+        <div>
+           {tasks.map((task)=>{return <Task key={task.id} admin={admin} user={user} task={task}/>})}
         </div>
-    {/* </div> */}
+        </div>
   </div>
 
   )
 }
 
-// const mapStateToProps = state => {  
-//     return {
-//       replies: state.replies.replies,
-//       loading: state.replies.loading,
-//     }
-// }
+const mapStateToProps = state => {  
+    return {
+      tasks: state.tasks.tasks,
+      loading: state.tasks.loading,
+    }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    // createReply: (action) => dispatch(createReply(action)),
-    // fetchReplies: (action) => dispatch(fetchReplies(action))
+    fetchTasks: (action) => dispatch(fetchTasks(action))
   }
 }
-export default connect(null, mapDispatchToProps)(TasksContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TasksContainer)

@@ -1,5 +1,5 @@
 class TasksSerializer
-    def initialize(robject)
+    def initialize(object)
        @tasks = object
     end
 

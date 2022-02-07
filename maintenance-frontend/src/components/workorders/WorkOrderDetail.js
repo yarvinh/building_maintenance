@@ -31,7 +31,7 @@ const WorkOrderDetails = (props)=>{
             <div> 
             {workOrder.employee_id === user.id  || admin ?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null}
             </div> 
-           
+            
             <div className="container d-flex justify-content-center"> 
                 <div className="card-container mb-3">
                     <div className="card-header">
@@ -39,7 +39,10 @@ const WorkOrderDetails = (props)=>{
                         {workOrder.employee?<Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link>:null}
                         {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link> :null}
                         {workOrder.employee?<p>{workOrder.building.super_name}</p>:null}
-                        {workOrder.employee?<p>{workOrder.building.phone_number}</p>:null}        
+                        {workOrder.employee?<p>{workOrder.building.phone_number}</p>:null} 
+                        <div> 
+                           {workOrder.employee_id === user.id  || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}  
+                        </div>    
                     </div>
 
                     <div className="card-body">
@@ -53,7 +56,7 @@ const WorkOrderDetails = (props)=>{
                       <div>
                           <TasksContainer workOrder={workOrder} user={user} admin={admin}/>
                       </div>
-                      {workOrder.employee_id === user.id  || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}
+                      
                     </div> 
                 </div>
             </div> 
