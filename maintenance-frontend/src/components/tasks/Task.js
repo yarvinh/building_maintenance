@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import {changeStatus} from '../../actions/tasksActions'
 // import {deleteReply} from '../../actions/repliesActions'
 const Task = (props)=>{
-   console.log(props)
-   let {task,admin,user} = props
+//    console.log(props)
+   let {task,admin,user,loading} = props
 
     // const handleOnClick = (e) =>{
     //     props.deleteReply(reply.id)
     // }
 
     const handleOnChange = (e) =>{
-      console.log(e.target.value)
+      props.changeStatus(task.id)
     }
 
 
@@ -21,7 +22,7 @@ const Task = (props)=>{
     //     }
     // } 
 
-        return (   
+        return (     
           <div className={'tasks'}> 
               <div > 
                 <div>
@@ -29,7 +30,7 @@ const Task = (props)=>{
                   {/* {reply.user? <span >Reply by: {reply.user.company_name} {dateAndTime()}</span>:<span >Reply by: <Link to={`/employees/${reply.employee_id}`}>{reply.employee.name}</Link> {dateAndTime()}</span>} */}
                 </div>
                 <div className='task'>
-                   <input onChange={handleOnChange} type="checkbox"  value={task.id} />
+                   {task.completed? <input onChange={handleOnChange} type="checkbox"  defaultValue={task.id} defaultChecked="checked"/>: <input onChange={handleOnChange} type="checkbox" defaultValue={task.id}/> }
                    <label>{task.task}</label>   
                 </div> 
   
@@ -38,15 +39,18 @@ const Task = (props)=>{
                 </div>
               </div>
            </div>
-            )    
+        )  
+
+
+
   }
 
 
 
-//   const mapDispatchToProps = dispatch => {
-//     return {
-//       deleteReply: (action) => dispatch(deleteReply(action))
-//     }
-//   }
-//   export default connect(null, mapDispatchToProps)(Reply)
-export default Task
+  const mapDispatchToProps = dispatch => {
+    return {
+    //   deleteReply: (action) => dispatch(deleteReply(action))
+    changeStatus: (action) => dispatch(changeStatus(action))
+    }
+  }
+  export default connect(null, mapDispatchToProps)(Task)
