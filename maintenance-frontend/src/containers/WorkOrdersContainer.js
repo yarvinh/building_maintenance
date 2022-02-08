@@ -44,7 +44,7 @@ const WorkOrdersContainer = (props)=>{
     }
 
    return(
-       <div>
+       <div className="center">
            <div>
               {props.user.admin ?<CreateWorkOrder employees={employees} buildings={buildings}/>:null}
            </div>

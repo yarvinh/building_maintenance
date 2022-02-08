@@ -20,13 +20,13 @@ const Building = (props)=>{
     id? building = props.buildingById.building: building = props.building
     if(id){
     return (
-        <div>
+        <div className="center">
             <div>
               {id && props.user.admin?<EditBuilding/>:null}
             </div>
             <div className="container d-flex justify-content-center">
                 <div className="card-container mb-3">
-                    <div>
+                    <div >
                     <Link to={`/buildings/${building.id}`}>  
                         <h3 className="card-header">{building.address}</h3>
                     </Link>

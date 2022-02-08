@@ -54,7 +54,7 @@ const EditEmployee = (props) =>{
     }
 
   return(   
-      <div >
+      <div className="center">
             <button onClick={handleOnclick} className={acordion.acordion}> Edit Employee</button>
             <div className={acordion.display}>
             <div className="container d-flex justify-content-center align-items-center" > 

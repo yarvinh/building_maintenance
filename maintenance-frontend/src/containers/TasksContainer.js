@@ -43,10 +43,10 @@ const TasksContainer = (props)=>{
   <div>
       <div >
         <div >
-          <CreateTask workOrder={workOrder} admin={admin} user={user}/>
+          {!workOrder.status? <CreateTask workOrder={workOrder} admin={admin} user={user}/>: null}
         </div>
         <div>
-           {tasks.map((task)=>{return <div key={task.id} ><Task admin={admin} user={user} task={task}/> </div>})}
+           {tasks.map((task)=>{return <div key={task.id} ><Task workOrder={workOrder} admin={admin} user={user} task={task}/> </div>})}
         </div>
         </div>
   </div>

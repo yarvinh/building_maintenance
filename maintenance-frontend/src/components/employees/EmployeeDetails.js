@@ -58,7 +58,7 @@ const EmployeeDetails = (props)=>{
                     </div>
                 </div>
 
-                <h3>Work Orders</h3>
+                <h3 className="center">Work Orders</h3>
                 <div>
                     <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                         <option value='all'>All</option>

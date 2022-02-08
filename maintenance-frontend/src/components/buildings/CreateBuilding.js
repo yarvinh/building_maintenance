@@ -45,7 +45,7 @@ const CreateBuilding = (props) =>{
 
   return(   
   
-    <div>
+    <div className="center">
     <button onClick={handleOnclick} className={acordion.acordion}> Create A Building</button>
     <div className={acordion.display}>
     <div className="container d-flex justify-content-center align-items-center">

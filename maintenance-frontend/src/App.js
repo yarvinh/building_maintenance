@@ -46,11 +46,47 @@ class App extends Component{
 
 
     render = () => {
+      console.log(this.props)
       this.loading()
       return (
         <BrowserRouter >
-        <div className="App">
-            <nav  className="navbar navbar-dark bg-primary">
+          <div className="App">
+            <nav className="navbar navbar-expand-lg navbar navbar-dark bg-primary bg-lightnavbar">
+              <div className="container-fluid">
+              {this.props.user.user? <p className="navbar-brand" >Welcome {this.props.user.user.name} </p>:null}
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                    {this.props.user.is_login? <Link to='/buildings' className="nav-link custom-nav-link">Buildings</Link>: null}
+                    </li>
+                    <li className="nav-item">
+                      {this.props.user.is_login? <Link to='/work_orders' className="nav-link custom-nav-link">Work Orders</Link>: null}
+                    </li>
+                    <li className="nav-item">
+                       {this.props.user.is_login? <Link to='/my_work_orders' className="nav-link custom-nav-link">My Work Orders</Link>: null}
+                    </li>
+                    <li className="nav-item">
+                      {this.props.user.is_login? <Link to='/employees' className="nav-link custom-nav-link">employees</Link>: null}
+                    </li>
+                    <li className="nav-item">
+                      {!this.props.user.is_login? <Link to='/signup' className="nav-link custom-nav-link">Sign Up</Link>: null}
+                    </li>
+                    <li className="nav-item">
+                      {!this.props.user.is_login? <Link to='/login' className="nav-link custom-nav-link">Log In</Link>:  <Link to='/signout' className="nav-link custom-nav-link">Sign Out</Link>  }
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+
+
+
+
+
+          {/* <nav  className="navbar navbar-dark bg-primary">
           <div className="container"> 
               <p className="navbar-brand">Maintenance</p>
               {this.props.user.is_login? <Link to='/buildings' className="nav-link custom-nav-link">Buildings</Link>: null}
@@ -60,10 +96,10 @@ class App extends Component{
               {!this.props.user.is_login? <Link to='/signup' className="nav-link custom-nav-link">Sign Up</Link>: null}
               {!this.props.user.is_login? <Link to='/login' className="nav-link custom-nav-link">Log In</Link>:  <Link to='/signout' className="nav-link custom-nav-link">Sign Out</Link>  }
           </div>    
-        </nav>
-          <div>
+        </nav> */}
+          {/* <div>
            {this.props.user.user? <p>Welcome {this.props.user.user.name} </p>:null}
-          </div>
+          </div> */}
         <Routes>
             <Route exact path='/login' element={<LogIn/>} />
             <Route exact path='/signout' element={<LogOut/>}/>
@@ -75,7 +111,7 @@ class App extends Component{
             {this.props.employees.length > 0?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
             {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer myWorkOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
             <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
-            {this.props.workOrders.length > 0? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
+            {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
         </Routes>
  
         </div>

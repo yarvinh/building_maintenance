@@ -58,7 +58,7 @@ class CreateEmployees extends Component {
 
     render() {  
       return(
-        <div>
+        <div className="center">
             <button onClick={this.handleOnclick} className={this.state.acordion}> Create An Employee</button>
             <div className={this.state.display}>
             <div className="container d-flex justify-content-center align-items-center">

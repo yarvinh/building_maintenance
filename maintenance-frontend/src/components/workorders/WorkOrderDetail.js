@@ -28,10 +28,10 @@ const WorkOrderDetails = (props)=>{
     let {admin} = props.user 
     return (
         <div> 
-            <div> 
+            <div className="center"> 
             {workOrder.employee_id === user.id  || admin ?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null}
             </div> 
-            
+
             <div className="container d-flex justify-content-center"> 
                 <div className="card-container mb-3">
                     <div className="card-header">
@@ -40,8 +40,8 @@ const WorkOrderDetails = (props)=>{
                         {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link> :null}
                         {workOrder.employee?<p>{workOrder.building.super_name}</p>:null}
                         {workOrder.employee?<p>{workOrder.building.phone_number}</p>:null} 
-                        <div> 
-                           {workOrder.employee_id === user.id  || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}  
+                        <div className="center"> 
+                           {workOrder.employee_id === user.id || admin ? <CloseWorkOrder workOrder={workOrder}/>:null}  
                         </div>    
                     </div>
 

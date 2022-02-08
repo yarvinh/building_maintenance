@@ -1,17 +1,24 @@
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import {changeStatus} from '../../actions/tasksActions'
+import WorkOrder from '../workorders/WorkOrder';
 // import {deleteReply} from '../../actions/repliesActions'
 const Task = (props)=>{
 //    console.log(props)
-   let {task,admin,user,loading} = props
+   let {task,admin,user,workOrder,loading} = props
 
     // const handleOnClick = (e) =>{
     //     props.deleteReply(reply.id)
     // }
 
     const handleOnChange = (e) =>{
-      props.changeStatus(task.id)
+        if (!workOrder.status){
+          props.changeStatus(task.id)
+        } else {
+            e.target.checked = true
+        }
+
+        // console.log(e.target.checked)
     }
 
 
