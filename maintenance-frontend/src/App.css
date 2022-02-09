@@ -355,6 +355,9 @@
  
 }
 .task { 
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   background-color: white;
   color: #444;
   padding: 6px;
@@ -365,4 +368,10 @@
   transition: 0.4s;
   border-radius: .6rem;
   overflow-wrap: break-word;
+}
+
+
+.delete-task{ 
+  cursor: pointer;
+  margin-left: auto;  
 }

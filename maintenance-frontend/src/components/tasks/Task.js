@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import {changeStatus} from '../../actions/tasksActions'
-import WorkOrder from '../workorders/WorkOrder';
-// import {deleteReply} from '../../actions/repliesActions'
+// import WorkOrder from '../workorders/WorkOrder';
+import {deleteTask} from '../../actions/tasksActions'
 const Task = (props)=>{
 //    console.log(props)
    let {task,admin,user,workOrder,loading} = props
 
-    // const handleOnClick = (e) =>{
-    //     props.deleteReply(reply.id)
-    // }
+
+    const handleOnClick = (e) =>{
+        props.deleteTask(task.id)
+    }
 
     const handleOnChange = (e) =>{
         if (!workOrder.status){
@@ -17,33 +18,16 @@ const Task = (props)=>{
         } else {
             e.target.checked = true
         }
-
-        // console.log(e.target.checked)
     }
-
-
-
-    // const deleteReply = ()=>{
-    //     if(admin && user.id.toString() === reply.user_id || user.id.toString() === reply.employee_id){
-    //        return <button onClick={handleOnClick} className='delete' value={reply.id}>X</button>
-    //     }
-    // } 
 
         return (     
           <div className={'tasks'}> 
               <div > 
-                <div>
-                  {/* {deleteReply()} */}
-                  {/* {reply.user? <span >Reply by: {reply.user.company_name} {dateAndTime()}</span>:<span >Reply by: <Link to={`/employees/${reply.employee_id}`}>{reply.employee.name}</Link> {dateAndTime()}</span>} */}
-                </div>
                 <div className='task'>
                    {task.completed? <input onChange={handleOnChange} type="checkbox"  defaultValue={task.id} defaultChecked="checked"/>: <input onChange={handleOnChange} type="checkbox" defaultValue={task.id}/> }
-                   <label>{task.task}</label>   
+                   <label>{task.task}</label>  
+                   {admin && !workOrder.status ? <i onClick={handleOnClick} className="fa-solid fa-trash-can delete-task"></i>:null} 
                 </div> 
-  
-                <div>
-  
-                </div>
               </div>
            </div>
         )  
@@ -56,7 +40,7 @@ const Task = (props)=>{
 
   const mapDispatchToProps = dispatch => {
     return {
-    //   deleteReply: (action) => dispatch(deleteReply(action))
+    deleteTask: (action) => dispatch(deleteTask(action)),
     changeStatus: (action) => dispatch(changeStatus(action))
     }
   }

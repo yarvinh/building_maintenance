@@ -36,6 +36,17 @@ class TasksController < ApplicationController
         end
     end
 
+    def destroy
+        user = User.find_by_id(session[:user_id])
+        task = Task.find_by_id(params[:id])
+        work_order = task.work_order
+        if user
+            task.delete
+            # render json: TasksSerializer.new(work_order.tasks).to_serialized_json
+        end
+        render json: TasksSerializer.new(work_order.tasks).to_serialized_json
+    end
+
     def task_params
         params.require(:task).permit(:task, :work_order_id, :completed)
       end

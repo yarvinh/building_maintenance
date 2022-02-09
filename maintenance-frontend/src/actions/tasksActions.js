@@ -15,8 +15,7 @@ export const fetchTasks = (id) => {
 }
 
 
-export const createTask  = (task) => {
-  
+export const createTask  = (task) => { 
     return (dispatch) => {
         dispatch({type: "LOADING_TASKS"})
         axios.post('http://localhost:3000/tasks', task ,{withCredentials: true})
@@ -36,5 +35,15 @@ export const changeStatus = (id) => {
             dispatch({ type: 'ADD_TASKS', tasks: response.data})
         })
     } 
+}
+
+export const deleteTask = (id) => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING_TASKS'})
+      axios.delete(`http://localhost:3000/tasks/${id}`,{withCredentials: true}
+      ).then(response => {   
+        dispatch({ type: 'ADD_TASKS', tasks: response.data })
+      })
+    }
 }
 

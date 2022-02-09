@@ -1,7 +1,5 @@
 import React, {useEffect,useState } from 'react';
 import { connect } from 'react-redux';
-// import {createComment,fetchComments} from '../actions/commentsActions'
-// import {Link,useParams,useLocation} from 'react-router-dom';
 import Task  from '../components/tasks/Task';
 import {fetchTasks} from '../actions/tasksActions'
 import CreateTask from '../components/tasks/CreateTask';
@@ -9,41 +7,16 @@ import CreateTask from '../components/tasks/CreateTask';
 
 
 const TasksContainer = (props)=>{
-//   const [accordion, setAccordion] = useState({
-//     accordion: 'replies_accordion',
-//     displayAccordion: 'hide_replies',
-
-//   })
-
-
-
   let {tasks,user,admin,workOrder,loading} = props
-
   useEffect(() => {
     props.fetchTasks(workOrder.id) 
   },[ ]);
 
-//   const handleOnclickReply = (e)=>{
-//     if(accordion.accordion !== 'replies_accordion active'){
-//     setAccordion({
-//       accordion: 'replies_accordion active',
-//       displayAccordion: 'display_replies'
-//     })
-//   }else{
-//     setAccordion({
-//       accordion: 'replies_accordion',
-//       displayAccordion: 'hide_replies'
-//     })
-//   }
-//   }
-
-
-  
   return (
   <div>
       <div >
         <div >
-          {!workOrder.status? <CreateTask workOrder={workOrder} admin={admin} user={user}/>: null}
+          {!workOrder.status && admin? <CreateTask workOrder={workOrder} admin={admin} user={user}/>: null}
         </div>
         <div>
            {tasks.map((task)=>{return <div key={task.id} ><Task workOrder={workOrder} admin={admin} user={user} task={task}/> </div>})}
