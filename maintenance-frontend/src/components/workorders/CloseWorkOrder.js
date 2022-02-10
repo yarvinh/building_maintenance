@@ -1,4 +1,4 @@
-import React, {useState,useEffect } from 'react';
+import React, {useState} from 'react';
 
 import { connect } from 'react-redux';
 import {editWorkOrder} from '../../actions/workOrdersActions'
@@ -7,20 +7,24 @@ import '../../styles/styles.css'
 const CloseWorkOrder = (props) => {
     let {workOrder} = props
 
-    // const [work, setWork] = useState({
-    //     status: true,
-    //     title: "12345678",
-    //     id: workOrder.id
-    // })
+    const [button, setButton] = useState("active_button")
 
     const workOrderStatus = () => {
-        let value = ""
         if (workOrder.status){
-            return value = "Open Work Order"
+            return "Open Work Order"
            } else {
-            return value = "Close Work Order"
+            return "Close Work Order"
            }
     }
+
+    const buttonColor = () => {
+        if (workOrder.status){
+            return "inactive_color"
+           } else {
+            return "active_color"
+           }
+    }
+
     const handleOnClick = (e) => { 
         e.preventDefault()
        if (!workOrder.status){
@@ -35,7 +39,7 @@ const CloseWorkOrder = (props) => {
     return (
         <div>
             <form onSubmit={handleOnClick}>
-               <input  className='work_order_button' type="submit" value={workOrderStatus()}/>
+               <input  className={`work_order_button ${buttonColor()}`} type="submit" value={workOrderStatus()}/>
             </form>
         </div>
     )

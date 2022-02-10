@@ -324,7 +324,7 @@
 }
 
 .work_order_button {
-  background-color: #0d6efd;
+  /* background-color: #0d6efd; */
   color: white;
   cursor: pointer;
   padding: 8px;
@@ -337,6 +337,14 @@
   font-size: 12px;
   /* transition: 0.4s; */
   border-radius: .25rem;
+}
+
+.inactive_color {
+  background-color: #777
+}
+
+.active_color {
+  background-color: #0d6efd;
 }
 
 

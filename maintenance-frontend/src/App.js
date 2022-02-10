@@ -17,11 +17,9 @@ import UsersContainer from './containers/UsersContainer'
 import { fetchBuildings} from './actions/buildingsActions'
 import './styles/styles.css'
 import WorkOrderDetail from './components/workorders/WorkOrderDetail';
-
+import Home from './components/Home';
 
 class App extends Component{
-
-
   fetchingInf = ()=>{
     this.props.fetchCurrentUser()  
     this.props.fetchBuildings()
@@ -46,7 +44,6 @@ class App extends Component{
 
 
     render = () => {
-      console.log(this.props)
       this.loading()
       return (
         <BrowserRouter >
@@ -59,6 +56,9 @@ class App extends Component{
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                      {this.props.user.is_login? <Link to='/' className="nav-link custom-nav-link">Home</Link>: null}
+                    </li>
                     <li className="nav-item">
                     {this.props.user.is_login? <Link to='/buildings' className="nav-link custom-nav-link">Buildings</Link>: null}
                     </li>
@@ -100,21 +100,22 @@ class App extends Component{
           {/* <div>
            {this.props.user.user? <p>Welcome {this.props.user.user.name} </p>:null}
           </div> */}
-        <Routes>
-            <Route exact path='/login' element={<LogIn/>} />
-            <Route exact path='/signout' element={<LogOut/>}/>
-            <Route exact path='/signup'  element={<UsersContainer />}/>
-            <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
-            <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-            <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
-            <Route exact path='/login' /> 
-            {this.props.employees.length > 0?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
-            {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer myWorkOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
-            <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
-            {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
-        </Routes>
+            <Routes>
+                <Route exact path='/' element={<Home/>} />
+                <Route exact path='/login' element={<LogIn/>} />
+                <Route exact path='/signout' element={<LogOut/>}/>
+                <Route exact path='/signup'  element={<UsersContainer />}/>
+                <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
+                <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
+                <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
+                <Route exact path='/login' /> 
+                {this.props.employees.length > 0?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
+                {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer myWorkOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
+                <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
+                {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
+            </Routes>
  
-        </div>
+          </div>
         </BrowserRouter>
             
     );
