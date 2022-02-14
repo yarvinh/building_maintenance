@@ -31,7 +31,6 @@ export const changeStatus = (id) => {
         dispatch({type: "LOADING_TASKS"})
         axios.patch(`http://localhost:3000/tasks/${id}`,{withCredentials: true})
         .then(response => {
-            console.log(response)
             dispatch({ type: 'ADD_TASKS', tasks: response.data})
         })
     } 

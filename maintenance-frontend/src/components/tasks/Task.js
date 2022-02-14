@@ -1,22 +1,22 @@
 import { connect } from 'react-redux';
-// import {Link} from 'react-router-dom';
 import {changeStatus} from '../../actions/tasksActions'
-// import WorkOrder from '../workorders/WorkOrder';
 import {deleteTask} from '../../actions/tasksActions'
 const Task = (props)=>{
-//    console.log(props)
    let {task,admin,user,workOrder,loading} = props
+   let disable = false
 
+   if(workOrder.status){
+    disable = true
+   }
 
     const handleOnClick = (e) =>{
         props.deleteTask(task.id)
     }
-
+    
     const handleOnChange = (e) =>{
-        if (!workOrder.status){
+        if (!workOrder.status ){
           props.changeStatus(task.id)
-        } else {
-            e.target.checked = true
+        } else if(workOrder.status) {
         }
     }
 
@@ -24,7 +24,7 @@ const Task = (props)=>{
           <div className={'tasks'}> 
               <div > 
                 <div className='task'>
-                   {task.completed? <input onChange={handleOnChange} type="checkbox"  defaultValue={task.id} defaultChecked="checked"/>: <input onChange={handleOnChange} type="checkbox" defaultValue={task.id}/> }
+                   {task.completed? <input onChange={handleOnChange} type="checkbox"  defaultValue={task.id} defaultChecked="checked"  disabled={disable} />: <input onChange={handleOnChange} type="checkbox" defaultValue={task.id}  disabled={disable} /> }
                    <label>{task.task}</label>  
                    {admin && !workOrder.status ? <i onClick={handleOnClick} className="fa-solid fa-trash-can delete-task"></i>:null} 
                 </div> 

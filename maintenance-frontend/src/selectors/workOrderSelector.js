@@ -7,7 +7,7 @@ export const workOrderSelector = (workOrders,filterBy)=>{
 
         } else if (filterBy === 'pending'){
         return  workOrders.filter((workOrder)=>{
-              return !workOrder.status
+              return !workOrder.status 
           })
 
         } else if (filterBy === 'closed'){
@@ -17,24 +17,14 @@ export const workOrderSelector = (workOrders,filterBy)=>{
             })
 
         } else {
-
             return workOrders
-
         }
 }
 
-export const workOrderDetailsSelector =(workOrders, id) =>{
- if(id){
-  return workOrders.find((workOrder)=>{
-    //   console.log(workOrder.id.toString() === id)
-      return workOrder.id.toString() === id   
-  })
+export const workOrderDetailsSelector = (workOrders, id) =>{
+    if(id){
+        return workOrders.find((workOrder)=>{
+            return workOrder.id.toString() === id   
+        })
+    }
 }
-  
-
-}
-
-
-
-// export default workOrderSelector
-// export default workOrderDetailsSelector
