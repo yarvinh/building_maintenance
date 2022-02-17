@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import ReviewsContainer from '../../containers/ReviewsContainer';
-
 import '../../styles/styles.css'
 
 class SignUp extends Component {

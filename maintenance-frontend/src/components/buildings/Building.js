@@ -8,11 +8,13 @@ import { fetchBuilding } from '../../actions/buildingsActions';
 
 
 const Building = (props)=>{
+    
     const {id} = useParams()
+    console.log(props)
     let err = props.buildingById.building.error
-    useEffect(() => {
+    useEffect((fetchBuilding = props.fetchBuilding) => {
         if(id){
-            props.fetchBuilding(id) 
+            fetchBuilding(id) 
         }
     },[]);
  

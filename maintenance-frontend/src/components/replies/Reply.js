@@ -51,18 +51,6 @@ const Reply = (props)=>{
             )    
   }
 
-  // const mapStateToProps = state => { 
-  //   if(state.comment.comment.id){
-  //       return {
-  //      comment: state.comment.comment,
-  //      loading: state.comment.loading
-  //      }
-  //   }else{
-  //     return {
-  //       loading: state.comment.loading
-  //     }
-  //   }
-  // }
 
   const mapDispatchToProps = dispatch => {
     return {

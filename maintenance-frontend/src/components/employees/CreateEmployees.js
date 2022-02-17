@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  createEmployee} from '../../actions/employeesActions'
 import '../../styles/styles.css'
-// import {Navigate} from 'react-router-dom'
-
-
-
 
 class CreateEmployees extends Component {
     state = {

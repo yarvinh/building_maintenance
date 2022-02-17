@@ -1,8 +1,8 @@
 
-import React, {useEffect,useState } from 'react';
+import React, {useEffect } from 'react';
 import { connect } from 'react-redux';
 import {createComment,fetchComments} from '../actions/commentsActions'
-import {Link,useParams,useLocation} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Comment  from '../components/comments/Comment';
 import CreateComment from '../components/comments/CreateComment';
 

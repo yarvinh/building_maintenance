@@ -102,13 +102,7 @@ const EditEmployee = (props) =>{
   )
 }
 
-// const mapStateToProps = state => { 
-//     return {
-//         employees: state.employees,
-//         loading: state.employees.loading
-//     }
-// }
-      
+
 const mapDispatchToProps = dispatch => {
     return {
         editEmployee: (action) => dispatch(editEmployee(action)),

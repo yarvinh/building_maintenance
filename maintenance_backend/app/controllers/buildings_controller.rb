@@ -4,13 +4,23 @@ class BuildingsController < ApplicationController
         employee = Employee.find_by_id(session[:employee_id])
         if user 
             building = user.buildings.find_by_id(params[:id])
-            render json: building
+            if building
+                render json: building
+            else
+                render json: {error: ["No building was found"]}
+            end
+
         elsif employee
             user = employee.user
             building = user.buildings.find_by_id(params[:id])
-            render json: building
+            if building
+                render json: building
+            else
+                render json: {error: ["No building was found"]}
+            end
+
         else
-            render json: {error_message: ["No building was found"]}
+            render json: {error: ["No building was found"]}
         end
     end
 

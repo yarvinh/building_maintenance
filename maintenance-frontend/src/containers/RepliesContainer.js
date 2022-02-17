@@ -1,7 +1,5 @@
-import React, {useEffect,useState } from 'react';
+import React, {useState } from 'react';
 import { connect } from 'react-redux';
-import {createComment,fetchComments} from '../actions/commentsActions'
-import {Link,useParams,useLocation} from 'react-router-dom';
 import Reply  from '../components/replies/Reply';
 import {fetchReplies} from '../actions/repliesActions'
 import CreateReply from '../components/replies/CreateReply';
@@ -12,16 +10,11 @@ const RepliesContainer = (props)=>{
   const [accordion, setAccordion] = useState({
     accordion: 'replies_accordion',
     displayAccordion: 'hide_replies',
-    // displayReplies: 3,
   })
 
 
   let {replies} = props.comment
-  let {user,admin,comment,loading} = props
-
-  // useEffect(() => {
-  //   props.fetchReplies(comment.id) 
-  // },[ ]);
+  let {user,admin,comment} = props
 
   const handleOnclickReply = (e)=>{
     if(accordion.accordion !== 'replies_accordion active'){
@@ -55,16 +48,10 @@ const RepliesContainer = (props)=>{
   )
 }
 
-// const mapStateToProps = state => {  
-//     return {
-//       replies: state.replies.replies,
-//       loading: state.replies.loading,
-//     }
-// }
+
 
 const mapDispatchToProps = dispatch => {
   return {
-    // createReply: (action) => dispatch(createReply(action)),
     fetchReplies: (action) => dispatch(fetchReplies(action))
   }
 }

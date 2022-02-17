@@ -2,6 +2,7 @@ import React, {useState } from 'react';
 import { connect } from 'react-redux';
 import '../../styles/styles.css'
 import { createBuilding} from '../../actions/buildingsActions'
+
 const CreateBuilding = (props) =>{
     const [building, setBuilding] = useState({
         address: "",

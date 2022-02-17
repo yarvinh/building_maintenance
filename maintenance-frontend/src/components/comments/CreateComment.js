@@ -2,15 +2,13 @@ import React, {useState } from 'react';
 import { connect } from 'react-redux';
 import {createComment} from '../../actions/commentsActions'
 import {useParams} from 'react-router-dom';
-import Comment from './Comment';
+
 
 
 const CreateComment = (props) => {
 
     const {id} = useParams()
     let {error} = props.comment
-    // let {user,admin} = props
-    // let commentToProps = props.comment
   
     let placeholderObj = {subject: "Subject", comment: "Write a comment"}
     const [comment, setComment] = useState({

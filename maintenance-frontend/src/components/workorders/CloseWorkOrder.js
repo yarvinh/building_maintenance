@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 
 import { connect } from 'react-redux';
 import {editWorkOrder} from '../../actions/workOrdersActions'
-import {useParams} from 'react-router-dom';
 import '../../styles/styles.css'
 const CloseWorkOrder = (props) => {
     let {workOrder} = props

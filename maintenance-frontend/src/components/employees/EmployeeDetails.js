@@ -1,4 +1,3 @@
-// import React, {useEffect } from 'react';
 import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
 import {useParams} from 'react-router-dom';

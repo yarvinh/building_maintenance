@@ -2,8 +2,6 @@ import React, {useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 import {editWorkOrder} from '../../actions/workOrdersActions'
 import {useParams} from 'react-router-dom';
-import { fetchBuildings} from '../../actions/buildingsActions'
-import { fetchEmployees} from '../../actions/employeesActions'
 import '../../styles/styles.css'
 
 const EditWorkOrder = (props) =>{
@@ -18,10 +16,6 @@ const EditWorkOrder = (props) =>{
         title: "",
     })
 
-    // useEffect(() => {
-    //        props.fetchEmployees()
-    //        props.fetchBuildings() 
-    // },[ ]);
 
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -123,8 +117,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         editWorkOrder: (action) => dispatch(editWorkOrder(action)),
-        // fetchBuildings: (action) => dispatch(fetchBuildings(action)),
-        // fetchEmployees: (action) => dispatch(fetchEmployees(action)),
     }
 }   
       

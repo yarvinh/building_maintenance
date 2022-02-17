@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {changeStatus} from '../../actions/tasksActions'
 import {deleteTask} from '../../actions/tasksActions'
 const Task = (props)=>{
-   let {task,admin,user,workOrder,loading} = props
+   let {task,admin,workOrder,loading} = props
    let disable = false
 
    if(workOrder.status){

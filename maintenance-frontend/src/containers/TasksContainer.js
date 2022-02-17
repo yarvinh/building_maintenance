@@ -1,4 +1,4 @@
-import React, {useEffect,useState } from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import Task  from '../components/tasks/Task';
 import {fetchTasks} from '../actions/tasksActions'

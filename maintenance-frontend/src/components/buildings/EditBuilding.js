@@ -81,13 +81,7 @@ const EditBuilding = (props) =>{
   )
 }
 
-// const mapStateToProps = state => { 
-//     return {
-//         // e: state.employees,
-//         // loading: state.employees.loading
-//     }
-// }
-      
+
 const mapDispatchToProps = dispatch => {
     return {
         editBuilding: (action) => dispatch(editBuilding(action)),

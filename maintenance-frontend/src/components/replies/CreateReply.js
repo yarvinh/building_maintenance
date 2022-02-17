@@ -1,13 +1,9 @@
 import React, {useState } from 'react';
 import { connect } from 'react-redux';
 import {createReply} from '../../actions/repliesActions'
-import {useParams} from 'react-router-dom';
-
-
 
 const CreateReply = (props) => {
 
-    // const {id,admin,user} = useParams()
     let {comment} = props
 
     let placeholderObj = {reply: "Write a reply"}
