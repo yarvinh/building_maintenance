@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import '../../styles/styles.css'
+import {workOrderStatus} from "../../componentsHelpers/workOrdersHelper"
 
 
 
@@ -30,7 +31,7 @@ const WorkOrder = (props)=>{
                     
                     <td><Link to={`/employees/${workOrder.employee_id}`}><p>{workOrder.employee.name}</p></Link></td>
                     <td>  
-                        {workOrder.status ?<p style={{color: "red"}}>Closed</p>: <p style={{color: "green"}}>Pending</p>}
+                        {workOrderStatus(workOrder)}
                     </td>
                 </tr>
             </>

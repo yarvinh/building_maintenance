@@ -1,13 +1,14 @@
 export const workOrderSelector = (workOrders,filterBy)=>{
     const today = new Date()
-        if (filterBy === "expire"){
+        if (filterBy === "expire" ){
         return workOrders.filter((workOrder)=>{
-            return new Date(workOrder.date) < today
+            return new Date(workOrder.date) < today && !workOrder.status 
         })
 
         } else if (filterBy === 'pending'){
         return  workOrders.filter((workOrder)=>{
-              return !workOrder.status 
+        
+            return !workOrder.status && (new Date(workOrder.date) > today)
           })
 
         } else if (filterBy === 'closed'){

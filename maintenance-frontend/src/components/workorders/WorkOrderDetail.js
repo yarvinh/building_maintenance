@@ -13,9 +13,11 @@ const WorkOrderDetails = (props)=>{
     const {id} = useParams()
     let {workOrders} = props
     let {buildings,employees} = props
-    let workOrder = null
-    Object.keys(props.workOrder).length > 0 ? workOrder = props.workOrder : workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
-
+  
+    // let workOrder = null
+    // Object.keys(props.workOrder).length > 0 ? workOrder = props.workOrder : workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
+    const workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
+    console.log(workOrder)
     const date = () => {
         let date = workOrder.date
         if (date){
@@ -71,7 +73,7 @@ const WorkOrderDetails = (props)=>{
 const mapStateToProps = state => { 
     return {
        workOrders: state.workOrders.workOrders,
-       workOrder: state.workOrder.workOrder,
+    //    workOrder: state.workOrder.workOrder,
        loading: state.workOrder.loading
     }
   }

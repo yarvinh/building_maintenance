@@ -32,10 +32,10 @@ import axios from 'axios'
   export const editWorkOrder = (work_order) => {
 
     return (dispatch) => {
-        dispatch({type: "LOADING_WORK_ORDER"})
+        dispatch({type: "LOADING_WORK_ORDERS"})
         axios.patch(`http://localhost:3000/work_orders/${work_order.id}`, work_order ,{withCredentials: true})
         .then(response => {
-            dispatch({ type: 'ADD_WORK_ORDER', workOrder: response.data})
+            dispatch({ type: 'ADD_WORK_ORDERS', workOrders: response.data})
         })
     } 
 }

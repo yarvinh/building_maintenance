@@ -42,12 +42,12 @@ class WorkOrdersController < ApplicationController
     if user
       work_order = user.work_orders.find_by_id(params[:id])
       if work_order.update(work_order_params)
-        render json:WorkOrderSerializer.new(work_order).to_serialized_json
+        render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
       end
     elsif employee
         work_order = employee.work_orders.find_by_id(params[:id])
         if work_order.update(work_order_params)
-          render json:WorkOrderSerializer.new(work_order).to_serialized_json
+          render json:WorkOrdersSerializer.new(employee.user.work_orders).to_serialized_json
         end
     else
       render json: {error: work_order.errors.full_messages}
