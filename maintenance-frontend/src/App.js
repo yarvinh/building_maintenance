@@ -107,10 +107,10 @@ class App extends Component{
                 <Route exact path='/signup'  element={<UsersContainer />}/>
                 <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
                 <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-                <Route exact path='/work_orders'  element={<WorkOdersContainer user={this.props.user}/>}/>
+                <Route exact path='/work_orders'  element={<WorkOdersContainer workOrders={this.props.workOrders} user={this.props.user}/>}/>
                 <Route exact path='/login' /> 
                 {this.props.employees.length > 0?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
-                {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer myWorkOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
+                {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.props.user.user.work_orders} user={this.props.user.user}/>}/>: null}
                 <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
                 {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
             </Routes>

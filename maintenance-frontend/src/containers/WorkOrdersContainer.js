@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
-
+import {useMatch} from 'react-router-dom';
 const WorkOrdersContainer = (props)=>{  
-    const {workOrders,myWorkOrders } = props
+//    const myWorkOrderPath = useMatch('/my_work_orders')
+    const {workOrders } = props
     const {employees} = props.employees
     const {buildings} = props.buildings
-    let filteredWorkOrders = null
-    myWorkOrders ? filteredWorkOrders = myWorkOrders : filteredWorkOrders = props.filteredWorkOrders
+    const {filteredWorkOrders,user} = props
     const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
@@ -30,7 +30,7 @@ const WorkOrdersContainer = (props)=>{
             </tr>
             </thead>
             <tbody>
-              {filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)}) }
+              {filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)})  }
             </tbody>
             </table>
             </>
@@ -40,7 +40,7 @@ const WorkOrdersContainer = (props)=>{
     }
 
     const handleOnclick = (e) => {
-       props.workOrderFilter({workOrders, filter_by: e.target.value})
+            props.workOrderFilter({workOrders, filter_by: e.target.value})  
     }
 
    return(
@@ -68,7 +68,6 @@ const mapStateToProps = state => {
     return {
         employees: state.employees,
         buildings: state.buildings,
-        workOrders: state.workOrders.workOrders,
         filteredWorkOrders: workOrderSelector(state.workOrders.workOrders,state.workOrders.filter_by),
         loading: state.workOrders.loading
     }
