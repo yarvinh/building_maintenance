@@ -1,4 +1,5 @@
 export const workOrderSelector = (workOrders,filterBy)=>{
+    // console.log(workOrders,filterBy)
     const today = new Date()
         if (filterBy === "expire" ){
         return workOrders.filter((workOrder)=>{

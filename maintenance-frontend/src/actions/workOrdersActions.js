@@ -41,12 +41,17 @@ import axios from 'axios'
 }
 
 export const  workOrderFilter = (workOrders) => {
-  return ({ type: 'ADD_WORK_ORDERS', workOrders: workOrders.workOrders,filter_by: workOrders.filter_by})
+// console.log(workOrders)
+  return ({ type: 'ADD_WORK_ORDERS_TO_FILTER', workOrders: workOrders.workOrders,filter_by: workOrders.filter_by})
 }
 
 export const getEmployeeWorkOrders = (employeeWorkOrders) =>{
   return ({ type: 'EMPLOYEE_WORK_ORDERS', employeeWorkOrders: employeeWorkOrders.workOrders, filter_by: employeeWorkOrders.filter_by})     
 }
+
+// export const myWorkOrders = (myWorkOrders) =>{
+//   return ({ type: 'MY_WORK_ORDERS', myWorkOrders: myWorkOrders.workOrders, filter_by: myWorkOrders.filter_by})     
+// }
 
 
 

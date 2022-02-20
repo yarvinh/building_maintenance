@@ -133,8 +133,21 @@ const UserReducer = (state = { user: {}, loading: true }, action) => {
     }
   }
 
+  const WorkOrdersToFilterReducer = (state = { workOrdersToFilter: [] ,filter_by: ""}, action) => {
+    switch(action.type) {
+        case 'ADD_WORK_ORDERS_TO_FILTER':
+          return {
+             ...state,
+            workOrdersToFilter: action.workOrders,
+            filter_by: action.filter_by,
+        } 
+
+      default:
+        return state;
+    }
+  }
+
   const EmployeeWorkOrdersReducer = (state = { employeeWorkOrders: [], loading: false ,filter_by: ""}, action) => {
-    // console.log(action)
     switch(action.type) {
         case 'EMPLOYEE_WORK_ORDERS':
           return {
@@ -304,6 +317,7 @@ const rootReducer = combineReducers({
    workOrders: WorkOrdersReducer,
    employeeWorkOrders: EmployeeWorkOrdersReducer,
    workOrder: WorkOrderReducer,
+   workOrdersToFilter: WorkOrdersToFilterReducer,
    comments: CommentsReducer,
    comment:  commentReducer,
    replies: RepliesReducer,
