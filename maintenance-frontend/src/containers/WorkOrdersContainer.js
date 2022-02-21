@@ -9,8 +9,8 @@ const WorkOrdersContainer = (props)=>{
     const {employees} = props.employees
     const {buildings} = props.buildings
     const {filteredWorkOrders} = props
-    // console.log(filteredWorkOrders)
-    
+    const [selector,setSelector] = useState("all")
+
     const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
@@ -19,30 +19,36 @@ const WorkOrdersContainer = (props)=>{
         }else {
             return (
                 <>
-            <table className="table table-striped" > 
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Due Date</th>
-                <th scope="col">Address</th>
-                <th scope="col">Summary</th>
-                <th scope="col">Assigned </th>
-                <th scope="col">status</th>
-            </tr>
-            </thead>
-            <tbody>
-              {filteredWorkOrders.length > 0 ? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)})  }
-            </tbody>
-            </table>
-            </>
+                    <table className="table table-striped" > 
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Summary</th>
+                        <th scope="col">Assigned </th>
+                        <th scope="col">status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {console.log('filtered workorder',filteredWorkOrders)}
+                        {console.log('workorder',workOrders)}
+                    {selector !== "all"? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)})  }
+                    </tbody>
+                    </table>
+                </>
             ) 
         }
     
     }
 
     const handleOnclick = (e) => {  
-            props.workOrderFilter({workOrders, filter_by: e.target.value})  
+        props.workOrderFilter({workOrders, filter_by: e.target.value}) 
+        setSelector(e.target.value) 
+        
     }
+
+    
 
    return(
        <div className="center">

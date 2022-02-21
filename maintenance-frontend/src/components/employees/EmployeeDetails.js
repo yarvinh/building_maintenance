@@ -39,7 +39,7 @@ const EmployeeDetails = (props)=>{
     //     </table>
     //     )
     // }
-        console.log(employee)
+
         return (
             <>
                 <div>
