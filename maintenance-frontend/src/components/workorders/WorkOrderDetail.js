@@ -17,7 +17,7 @@ const WorkOrderDetails = (props)=>{
     // let workOrder = null
     // Object.keys(props.workOrder).length > 0 ? workOrder = props.workOrder : workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
     const workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
-    console.log(workOrder)
+//    console.log(workOrder)
     const date = () => {
         let date = workOrder.date
         if (date){
@@ -57,6 +57,9 @@ const WorkOrderDetails = (props)=>{
                       </div>
                       <div>
                           <TasksContainer workOrder={workOrder} user={user} admin={admin}/>
+                      </div>
+                      <div>
+                      {/* <SignatureCanvas /> */}
                       </div>
                       
                     </div> 

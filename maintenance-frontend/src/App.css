@@ -383,3 +383,7 @@
   cursor: pointer;
   margin-left: auto;  
 }
+
+.notifications{
+  background-color: orange;
+}

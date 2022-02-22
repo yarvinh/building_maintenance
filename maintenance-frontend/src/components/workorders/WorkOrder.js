@@ -1,11 +1,12 @@
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../styles/styles.css'
 import {workOrderStatus} from "../../componentsHelpers/workOrdersHelper"
-
-
+import {editWorkOrder} from '../../actions/workOrdersActions'
 
 const WorkOrder = (props)=>{
     let {workOrder} = props
+    const {user,admin} = props.user
     const date = () => {
         let date = workOrder.date
         if (date){
@@ -14,9 +15,19 @@ const WorkOrder = (props)=>{
         }
     }
 
+    
+    const handleOnClick=(e)=>{
+        if (!workOrder.accepted){
+          props.editWorkOrder({accepted: true, id: workOrder.id })
+        }
+        
+    }
+    let accepted = null
+    !workOrder.accepted && !admin && workOrder.employee_id === user.id ? accepted =  "notifications"  : accepted = "accepted"
+ 
         return (
            <>
-                <tr>
+                <tr className={accepted}>
                     <th scope="row">{props.index}</th>
                     <td>  
                         <p>{date()}</p>
@@ -25,7 +36,7 @@ const WorkOrder = (props)=>{
                     <td><Link to={`/buildings/${workOrder.building_id}`}><p>{workOrder.building.address}</p> </Link></td>
                     <td>
                         <Link to={`/work_orders/${workOrder.id}`}> 
-                          {workOrder.title}
+                          <span onClick={handleOnClick}>{workOrder.title}</span>
                         </Link>   
                     </td>
                     
@@ -40,4 +51,11 @@ const WorkOrder = (props)=>{
 
 
 
-  export default WorkOrder
+
+const mapDispatchToProps = dispatch => {
+    return {
+        editWorkOrder: (action) => dispatch(editWorkOrder(action)),
+    }
+}   
+      
+export default connect(null, mapDispatchToProps)(WorkOrder)

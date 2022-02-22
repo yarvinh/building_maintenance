@@ -5,12 +5,11 @@ import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
 const WorkOrdersContainer = (props)=>{  
-    const {workOrders } = props
+    const {workOrders} = props
     const {employees} = props.employees
     const {buildings} = props.buildings
     const {filteredWorkOrders} = props
     const [selector,setSelector] = useState("all")
-
     const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
                 return workOrders.error_message.map((err, i)=>{
@@ -31,9 +30,9 @@ const WorkOrdersContainer = (props)=>{
                     </tr>
                     </thead>
                     <tbody>
-                        {console.log('filtered workorder',filteredWorkOrders)}
-                        {console.log('workorder',workOrders)}
-                    {selector !== "all"? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  index={index + 1} workOrder={workOrder}/>)})  }
+                        {/* {console.log('filtered workorder',filteredWorkOrders)}
+                        {console.log('workorder',workOrders)} */}
+                    {selector !== "all"? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)})  }
                     </tbody>
                     </table>
                 </>

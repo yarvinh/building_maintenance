@@ -18,6 +18,7 @@ import { fetchBuildings} from './actions/buildingsActions'
 import './styles/styles.css'
 import WorkOrderDetail from './components/workorders/WorkOrderDetail';
 import Home from './components/Home';
+import Notification from './components/workorders/Notifications';
 
 class App extends Component{
   fetchingInf = ()=>{
@@ -42,9 +43,7 @@ class App extends Component{
     return this.props.loading
   }
 
-
     render = () => {
-      console.log("from App")
       this.loading()
       return (
         <BrowserRouter >
@@ -67,7 +66,7 @@ class App extends Component{
                       {this.props.user.is_login? <Link to='/work_orders' className="nav-link custom-nav-link">Work Orders</Link>: null}
                     </li>
                     <li className="nav-item">
-                       {this.props.user.is_login? <Link to='/my_work_orders' className="nav-link custom-nav-link">My Work Orders</Link>: null}
+                       {this.props.user.is_login && !this.props.user.admin? <Link to='/my_work_orders' className="nav-link custom-nav-link">My Work Orders</Link>: null}
                     </li>
                     <li className="nav-item">
                       {this.props.user.is_login? <Link to='/employees' className="nav-link custom-nav-link">employees</Link>: null}
@@ -82,25 +81,9 @@ class App extends Component{
                 </div>
               </div>
             </nav>
+            {this.props.user.is_login && !this.props.user.admin && this.props.user.user.work_orders?<Notification workOrders={this.props.user.user.work_orders}/>:null }
+            
 
-
-
-
-
-          {/* <nav  className="navbar navbar-dark bg-primary">
-          <div className="container"> 
-              <p className="navbar-brand">Maintenance</p>
-              {this.props.user.is_login? <Link to='/buildings' className="nav-link custom-nav-link">Buildings</Link>: null}
-              {this.props.user.is_login? <Link to='/work_orders' className="nav-link custom-nav-link">Work Orders</Link>: null}
-              {this.props.user.is_login? <Link to='/my_work_orders' className="nav-link custom-nav-link">My Work Orders</Link>: null}
-              {this.props.user.is_login? <Link to='/employees' className="nav-link custom-nav-link">employees</Link>: null}
-              {!this.props.user.is_login? <Link to='/signup' className="nav-link custom-nav-link">Sign Up</Link>: null}
-              {!this.props.user.is_login? <Link to='/login' className="nav-link custom-nav-link">Log In</Link>:  <Link to='/signout' className="nav-link custom-nav-link">Sign Out</Link>  }
-          </div>    
-        </nav> */}
-          {/* <div>
-           {this.props.user.user? <p>Welcome {this.props.user.user.name} </p>:null}
-          </div> */}
             <Routes>
                 <Route exact path='/' element={<Home/>} />
                 <Route exact path='/login' element={<LogIn/>} />
@@ -111,12 +94,13 @@ class App extends Component{
                 <Route exact path='/work_orders'  element={<WorkOdersContainer workOrders={this.props.workOrders} user={this.props.user}/>}/>
                 <Route exact path='/login' /> 
                 {this.props.employees.length > 0 && this.props.user.user?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
-                {!this.loading() && this.props.user.is_login? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.props.user.user.work_orders} user={this.props.user.user}/>}/>: null}
+                {this.props.user.is_login && !this.props.user.admin? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
                 <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
                 {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
             </Routes>
  
           </div>
+          
         </BrowserRouter>
             
     );
