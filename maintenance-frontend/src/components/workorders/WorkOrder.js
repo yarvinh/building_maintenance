@@ -17,7 +17,7 @@ const WorkOrder = (props)=>{
 
     
     const handleOnClick=(e)=>{
-        if (!workOrder.accepted){
+        if (!workOrder.accepted && user.id === workOrder.employee_id){
           props.editWorkOrder({accepted: true, id: workOrder.id })
         }
         

@@ -39,11 +39,21 @@ class App extends Component{
 
   }
 
+  userWorkOrders=()=>{
+    // console.log(this.props.workOrders)
+    if (this.props.workOrders.error_message){
+      return []
+    } else {
+      return this.props.workOrders.filter(wo => wo.employee_id == this.props.user.user.id)
+    }
+  }
+
   loading = () => {
     return this.props.loading
   }
 
     render = () => {
+      // console.log(this.userWorkOrders())
       this.loading()
       return (
         <BrowserRouter >
@@ -81,7 +91,7 @@ class App extends Component{
                 </div>
               </div>
             </nav>
-            {this.props.user.is_login && !this.props.user.admin && this.props.user.user.work_orders?<Notification workOrders={this.props.user.user.work_orders}/>:null }
+            {this.props.user.is_login && !this.props.user.admin && this.props.user.user.work_orders?<Notification workOrders={this.userWorkOrders()}/>:null }
             
 
             <Routes>
@@ -94,7 +104,7 @@ class App extends Component{
                 <Route exact path='/work_orders'  element={<WorkOdersContainer workOrders={this.props.workOrders} user={this.props.user}/>}/>
                 <Route exact path='/login' /> 
                 {this.props.employees.length > 0 && this.props.user.user?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
-                {this.props.user.is_login && !this.props.user.admin? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.props.user.user.work_orders} user={this.props.user}/>}/>: null}
+                {this.props.user.is_login && !this.props.user.admin? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.userWorkOrders()} user={this.props.user}/>}/>: null}
                 <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
                 {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
             </Routes>
