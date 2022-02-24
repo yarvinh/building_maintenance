@@ -2,21 +2,19 @@ import { connect } from 'react-redux';
 import {fetchEmployee } from '../../actions/employeesActions'
 import {useParams} from 'react-router-dom';
 import EditEmployee from "./EditEmployee"
-import {workOrderSelector} from '../../selectors/workOrderSelector'
-import {getEmployeeWorkOrders} from '../../actions/workOrdersActions'
 import WorkOrdersContainer from '../../containers/WorkOrdersContainer';
 import '../../styles/styles.css'
+
 
 const EmployeeDetails = (props)=>{
     const {admin,user} = props.user
     const {id} = useParams()
-    let {employees,employeeWorkOrders} = props
+    let {employees,workOrders} = props
     let err = props.employee.error
     let employee = null
+    let employeeWorkOrders = workOrders.filter(wo => wo.employee_id.toString() === id)
     Object.keys(props.employee).length > 0 ? employee = props.employee : employee = employees.find(employee => employee.id.toString() === id)   
-    let workOrders = null
-    employeeWorkOrders.length > 0 ? workOrders = employeeWorkOrders : workOrders = employee.work_orders
-    
+
         return (
             <>
                 <div>
@@ -37,7 +35,7 @@ const EmployeeDetails = (props)=>{
 
                 <h3 className="center">Work Orders</h3>
                {/* {!err?renderWorkOrders():null}    */}
-               <WorkOrdersContainer workOrders={employee.work_orders} user={props.user}/>
+               <WorkOrdersContainer workOrders={employeeWorkOrders} employee={employee} user={props.user}/>
             </>
         )
 
@@ -48,7 +46,7 @@ const mapStateToProps = state => {
     return {
        employees: state.employees.employees,
        employee: state.employee.employee,
-       employeeWorkOrders: workOrderSelector(state.employeeWorkOrders.employeeWorkOrders,state.employeeWorkOrders.filter_by),
+       workOrders: state.workOrders.workOrders,
        loading: state.employee.loading
     }
 }
@@ -56,7 +54,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
        fetchEmployee: (action) => dispatch(fetchEmployee(action)),
-       getEmployeeWorkOrders: (action) => dispatch(getEmployeeWorkOrders(action))   
     }
   }
   export default connect(mapStateToProps, mapDispatchToProps)(EmployeeDetails)

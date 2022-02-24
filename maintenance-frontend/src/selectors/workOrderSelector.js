@@ -1,5 +1,4 @@
 export const workOrderSelector = (workOrders,filterBy)=>{
-    // console.log(workOrders,filterBy)
     const today = new Date()
         if (filterBy === "expire" ){
         return workOrders.filter((workOrder)=>{
@@ -23,10 +22,10 @@ export const workOrderSelector = (workOrders,filterBy)=>{
         }
 }
 
-export const workOrderDetailsSelector = (workOrders, id) =>{
-    if(id){
-        return workOrders.find((workOrder)=>{
-            return workOrder.id.toString() === id   
-        })
-    }
-}
+// export const workOrderDetailsSelector = (workOrders, id) =>{
+//     if(id){
+//         return workOrders.find((workOrder)=>{
+//             return workOrder.id.toString() === id   
+//         })
+//     }
+// }

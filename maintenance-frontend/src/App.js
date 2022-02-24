@@ -40,7 +40,6 @@ class App extends Component{
   }
 
   userWorkOrders=()=>{
-    // console.log(this.props.workOrders)
     if (this.props.workOrders.error_message){
       return []
     } else {
@@ -53,7 +52,6 @@ class App extends Component{
   }
 
     render = () => {
-      // console.log(this.userWorkOrders())
       this.loading()
       return (
         <BrowserRouter >
