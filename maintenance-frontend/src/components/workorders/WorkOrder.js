@@ -9,8 +9,12 @@ const WorkOrder = (props)=>{
     const {user,admin} = props.user
     const date = () => {
         let date = workOrder.date
+        
         if (date){
-            date = new Date(date)
+            console.log(date.split('-').join("-").split("T")[0].replace(/-/g, '\/'))
+            // date = date.replace(/-/g, '\/')
+            date = new Date(date.split('-').join("-").split("T")[0].replace(/-/g, '\/'))
+            console.log(date)
           return date.toDateString()
         }
     }

@@ -1,6 +1,6 @@
 export const workOrderStatus = (workOrder) => {
     const today = new Date()
-    if (new Date(workOrder.date) < today && !workOrder.status){
+    if (new Date(workOrder.date) < today && !workOrder.status && new Date(workOrder.date).toDateString() !== today.toDateString()){
        return <p style={{color: "red"}}>Expired</p>
 
     } else if (!workOrder.status){

@@ -93,7 +93,7 @@ class App extends Component{
             
 
             <Routes>
-                <Route exact path='/' element={<Home/>} />
+                <Route exact path='/' element={<Home workOrders={this.userWorkOrders()} user={this.props.user}/>} />
                 <Route exact path='/login' element={<LogIn/>} />
                 <Route exact path='/signout' element={<LogOut/>}/>
                 <Route exact path='/signup'  element={<UsersContainer />}/>

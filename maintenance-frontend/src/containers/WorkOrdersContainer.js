@@ -56,6 +56,7 @@ const WorkOrdersContainer = (props)=>{
            <div>
                 <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                     <option value='all'>All</option>
+                    <option value='today'>Today</option>
                     <option value='closed'>Closed work orders</option>
                     <option value='pending'>Pending Work Orders</option>
                     <option value='expire'>Expire work orders</option>

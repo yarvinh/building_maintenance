@@ -2,13 +2,12 @@ export const workOrderSelector = (workOrders,filterBy)=>{
     const today = new Date()
         if (filterBy === "expire" ){
         return workOrders.filter((workOrder)=>{
-            return new Date(workOrder.date) < today && !workOrder.status 
+            return new Date(workOrder.date) < today && !workOrder.status && new Date(workOrder.date).toDateString() !== today.toDateString()
         })
 
         } else if (filterBy === 'pending'){
-        return  workOrders.filter((workOrder)=>{
-        
-            return !workOrder.status && (new Date(workOrder.date) > today)
+          return  workOrders.filter((workOrder)=>{
+            return (!workOrder.status && new Date(workOrder.date) > today) || (!workOrder.status &&  new Date(workOrder.date).toDateString() === today.toDateString())
           })
 
         } else if (filterBy === 'closed'){
@@ -17,15 +16,10 @@ export const workOrderSelector = (workOrders,filterBy)=>{
           
             })
 
+        } else if(filterBy === "today"){
+            return workOrders.filter(workOrder => new Date(workOrder.date).toDateString() === today.toDateString())
         } else {
             return workOrders
         }
 }
 
-// export const workOrderDetailsSelector = (workOrders, id) =>{
-//     if(id){
-//         return workOrders.find((workOrder)=>{
-//             return workOrder.id.toString() === id   
-//         })
-//     }
-// }
