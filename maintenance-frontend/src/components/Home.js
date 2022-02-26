@@ -1,12 +1,29 @@
 import { workOrderSelector } from "../selectors/workOrderSelector";
 import WorkOrder from "./workorders/WorkOrder";
-
+import React, {useState } from 'react';
 // import '../../styles/styles.css'
 
 const Home = (props)=>{
-   const {workOrders } = props
+    const {workOrders } = props
     const pendingWorkOrders = workOrderSelector(workOrders,"pending")
-    console.log(pendingWorkOrders)
+    const [acordion,setAcordion] = useState({
+        acordion: 'display_accordion', 
+        display: 'hide_elements',
+    })
+ 
+    const handleOnclick = (e)=>{  
+      if(acordion.acordion !== 'display_accordion active'){
+        setAcordion({
+          acordion: 'display_accordion active',
+          display: 'display_elements',
+        })
+      }else{
+        setAcordion({
+          acordion: 'display_accordion',
+          display: 'hide_elements', 
+        })
+      }
+    }
 
 
     const renderWorkOrders = () => {  
@@ -39,7 +56,11 @@ const Home = (props)=>{
     }
     return (
         <div>
-           {renderWorkOrders() }
+
+            <button onClick={handleOnclick} className={acordion.acordion}> Pending Work Orders</button>
+            <div className={acordion.display}>
+              {renderWorkOrders() }
+            </div>
         </div>
     )
 }

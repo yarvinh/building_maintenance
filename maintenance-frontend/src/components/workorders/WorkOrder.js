@@ -11,10 +11,8 @@ const WorkOrder = (props)=>{
         let date = workOrder.date
         
         if (date){
-            console.log(date.split('-').join("-").split("T")[0].replace(/-/g, '\/'))
-            // date = date.replace(/-/g, '\/')
+            console.log(date.split(/-\S/))
             date = new Date(date.split('-').join("-").split("T")[0].replace(/-/g, '\/'))
-            console.log(date)
           return date.toDateString()
         }
     }

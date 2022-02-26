@@ -42,8 +42,10 @@ class App extends Component{
   userWorkOrders=()=>{
     if (this.props.workOrders.error_message){
       return []
+    } else if (this.props.user.is_login){
+      return this.props.workOrders.filter(wo => wo.employee_id === this.props.user.user.id)
     } else {
-      return this.props.workOrders.filter(wo => wo.employee_id == this.props.user.user.id)
+      return []
     }
   }
 
