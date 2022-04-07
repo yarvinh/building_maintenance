@@ -1,4 +1,4 @@
-import React, {useState,useEffect } from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import {editWorkOrder} from '../../actions/workOrdersActions'
 import {useParams} from 'react-router-dom';
@@ -37,6 +37,7 @@ const EditWorkOrder = (props) =>{
     }
     
     let handleOnChange = (e)=>{
+      console.log(e.target.value)
       setWorkOrder({
        ...workOrder,[e.target.name]: e.target.value
       })

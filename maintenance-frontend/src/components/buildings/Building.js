@@ -17,6 +17,14 @@ const Building = (props)=>{
             fetchBuilding(id) 
         }
     },[]);
+
+    const handleOnClick = (e) =>{
+
+    }
+
+    const handleOnChange=(e)=>{
+        
+    }
  
     let building = null
     id? building = props.buildingById.building: building = props.building
@@ -38,7 +46,15 @@ const Building = (props)=>{
                         <p>{building.super_name}</p>
                         <p>{building.phone_number}</p>
                     </div>   
+
+                    <div>
+                        <form onSubmit={handleOnClick}>
+                            <input onChange={handleOnChange} type="text"/>
+                            <input  className="work_order_button" type="Add unit" />
+                        </form>
+                    </div>
                 </div>
+
             </div>
         </div>
             

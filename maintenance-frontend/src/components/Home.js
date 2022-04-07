@@ -1,10 +1,13 @@
 import { workOrderSelector } from "../selectors/workOrderSelector";
 import WorkOrder from "./workorders/WorkOrder";
+import CreateWorkOrder from "./workorders/CreateWorkOrder"
 import React, {useState } from 'react';
+import { connect } from 'react-redux';
 // import '../../styles/styles.css'
 
 const Home = (props)=>{
-    const {workOrders } = props
+    const {workOrders,user,employees,buildings } = props
+    console.log(employees)
     const pendingWorkOrders = workOrderSelector(workOrders,"pending")
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -27,11 +30,7 @@ const Home = (props)=>{
 
 
     const renderWorkOrders = () => {  
-        if (workOrders.error_message){ 
-                return workOrders.error_message.map((err, i)=>{
-                    return <p key={i}>{err}</p>
-                })      
-        }else {
+
             return (
                 <>
                     <table className="table table-striped" > 
@@ -51,17 +50,27 @@ const Home = (props)=>{
                     </table>
                 </>
             ) 
-        }
     
     }
     return (
         <div>
-
             <button onClick={handleOnclick} className={acordion.acordion}> Pending Work Orders</button>
             <div className={acordion.display}>
               {renderWorkOrders() }
             </div>
+            <div className="center">
+              {user.admin ?<CreateWorkOrder employees={employees}  buildings={buildings}/>:null}
+           </div>
         </div>
     )
 }
-export default Home ;
+const mapStateToProps = state => { 
+    return {
+        employees: state.employees.employees,
+        buildings: state.buildings.buildings,
+        loading: state.workOrders.loading
+    }
+}
+      
+
+export default connect(mapStateToProps,null)(Home)
