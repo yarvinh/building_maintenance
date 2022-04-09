@@ -9,7 +9,7 @@ const EditWorkOrder = (props) =>{
     let {buildings} = props.buildings
     let {id} = useParams()
     const [workOrder, setWorkOrder] = useState({
-        task: "",
+        unit: "",
         date: "",
         building_id: "",
         employee_id: "",
@@ -37,7 +37,7 @@ const EditWorkOrder = (props) =>{
     }
     
     let handleOnChange = (e)=>{
-      console.log(e.target.value)
+     
       setWorkOrder({
        ...workOrder,[e.target.name]: e.target.value
       })
@@ -95,9 +95,9 @@ const EditWorkOrder = (props) =>{
             </div>
 
             <div className="container d-flex justify-content-center align-items-center"> 
-                <form onSubmit={ e=> handleOnSubmit(e,'task')}>
-                  <label>Tasks</label> <br/>
-                  <textarea onChange={handleOnChange} row='1' className='auto_height' name="task" value={workOrder.task}></textarea> 
+                <form onSubmit={ e=> handleOnSubmit(e,'unit')}>
+                  <label>Unit</label> <br/>
+                  <textarea onChange={handleOnChange} row='1' className='auto_height' name="unit" value={workOrder.unit}></textarea> 
                   <button type='submit' className="btn btn-primary">Save</button>
                 </form>
             </div>

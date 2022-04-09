@@ -56,6 +56,6 @@ class WorkOrdersController < ApplicationController
   end
 
   def work_order_params
-    params.require(:work_order).permit(:title,:task,:date,:building_id,:employee_id, :status, :accepted)
+    params.require(:work_order).permit(:title,:unit,:date,:building_id,:employee_id, :status, :accepted)
   end
 end

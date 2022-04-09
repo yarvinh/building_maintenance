@@ -9,7 +9,7 @@ const CreateWorkOrder = (props) => {
     const {id} = useParams()
     const {employees,buildings} = props
     const [workOrder, setWorkOrder] = useState({
-        task: "",
+        unit: "",
         date: "",
         building_id: "",
         employee_id: "",
@@ -44,7 +44,7 @@ const CreateWorkOrder = (props) => {
       e.preventDefault()
       props.createWorkOrder(workOrder)
       setWorkOrder({
-        task: "",
+        unit: "",
         date: "",
         building_id: "",
         employee_id: "",
@@ -83,8 +83,8 @@ const CreateWorkOrder = (props) => {
             <input onChange={handleOnChange}  name="date" className="form-control" type="date" value={workOrder.date}/><br/>
             <label>Title</label>
             <input onChange={handleOnChange} name="title" className="form-control" type="text" value={workOrder.title}/><br/>
-            <label>Tasks</label> <br/>
-            <textarea onChange={handleOnChange} row='1' className='auto_height' name="task" value={workOrder.task}></textarea> 
+            <label>Unit</label> <br/>
+            <textarea onChange={handleOnChange} row='1' className='auto_height' name="unit" value={workOrder.unit}></textarea> 
             <button type='submit' className="btn btn-primary">Submit</button>
         </form>     
     </div>

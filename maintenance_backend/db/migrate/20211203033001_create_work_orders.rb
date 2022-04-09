@@ -1,7 +1,7 @@
 class CreateWorkOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :work_orders do |t|
-      t.string :task
+      t.string :unit
       t.string :comment
       t.string :phone_number  
       t.datetime :date

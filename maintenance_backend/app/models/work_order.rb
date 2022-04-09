@@ -5,7 +5,7 @@ class WorkOrder < ApplicationRecord
     has_many :comments
     has_many :tasks
 
-    validates :task, :date, presence: true
+    validates :unit, :date, presence: true
     
     def self.sort_comments_by_date()
         self.comments.reverse{|comment|

@@ -14,10 +14,7 @@ const WorkOrderDetails = (props)=>{
     let {workOrders} = props
     let {buildings,employees} = props
   
-    // let workOrder = null
-    // Object.keys(props.workOrder).length > 0 ? workOrder = props.workOrder : workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
     const workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
-//    console.log(workOrder)
     const date = () => {
         let date = workOrder.date
         if (date){
@@ -40,6 +37,7 @@ const WorkOrderDetails = (props)=>{
                         <h4>{date()}</h4>
                         {workOrder.employee?<Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link>:null}
                         {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link> :null}
+                        <p>Unit: {workOrder.unit}</p>
                         {workOrder.employee?<p>{workOrder.building.super_name}</p>:null}
                         {workOrder.employee?<p>{workOrder.building.phone_number}</p>:null} 
                         <div className="center"> 
@@ -53,15 +51,10 @@ const WorkOrderDetails = (props)=>{
                       </div>
                       <div>
                         <h3>Job Title: {workOrder.title}</h3> 
-                         <p>{workOrder.task}</p>
                       </div>
                       <div>
                           <TasksContainer workOrder={workOrder} user={user} admin={admin}/>
-                      </div>
-                      <div>
-                      {/* <SignatureCanvas /> */}
-                      </div>
-                      
+                      </div>      
                     </div> 
                 </div>
             </div> 
@@ -76,7 +69,6 @@ const WorkOrderDetails = (props)=>{
 const mapStateToProps = state => { 
     return {
        workOrders: state.workOrders.workOrders,
-    //    workOrder: state.workOrder.workOrder,
        loading: state.workOrder.loading
     }
   }
