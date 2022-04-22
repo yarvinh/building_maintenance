@@ -8,12 +8,13 @@ class User < ApplicationRecord
   
     validates :username, :email, :company_name, presence: true
     validates :username, :email, uniqueness: true
+    PASSWORD_REQUIREMENT = /\A (?=.*[[:^alnum:]])/x
     # validates_with OldPasswordValidator , :if => :password_required?
 
   
     
      
-    validates :password, :presence =>true, :confirmation =>true , :if => :password_required?
+    validates :password, :presence =>true, :confirmation =>true, format: PASSWORD_REQUIREMENT,:length => {:within => 6..40}, :if => :password_required?
     validates_confirmation_of :password , :if => :password_required?
 
    def old_password=(password)

@@ -11,7 +11,7 @@ class Employee < ApplicationRecord
     validates :name, :email, :username, :phone,  presence: true
     validates  :email, :username, uniqueness: true
 
-    validates :password,  :presence =>true, :confirmation =>true , :if => :password_required?
+    validates :password,  :presence =>true, :confirmation =>true ,:length => {:within => 6..40}, :if => :password_required?
     validates_confirmation_of :password , :if => :password_required?
     
     scope :find_employees, -> {order(:name) }

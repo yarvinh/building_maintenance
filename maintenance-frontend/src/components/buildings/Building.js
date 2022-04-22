@@ -10,7 +10,6 @@ import { fetchBuilding } from '../../actions/buildingsActions';
 const Building = (props)=>{
     
     const {id} = useParams()
-    console.log(props)
     let err = props.buildingById.building.error
     useEffect((fetchBuilding = props.fetchBuilding) => {
         if(id){
@@ -18,13 +17,7 @@ const Building = (props)=>{
         }
     },[]);
 
-    const handleOnClick = (e) =>{
 
-    }
-
-    const handleOnChange=(e)=>{
-        
-    }
  
     let building = null
     id? building = props.buildingById.building: building = props.building
@@ -46,13 +39,6 @@ const Building = (props)=>{
                         <p>{building.super_name}</p>
                         <p>{building.phone_number}</p>
                     </div>   
-
-                    <div>
-                        <form onSubmit={handleOnClick}>
-                            <input onChange={handleOnChange} type="text"/>
-                            <input  className="work_order_button" type="Add unit" />
-                        </form>
-                    </div>
                 </div>
 
             </div>
