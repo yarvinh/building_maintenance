@@ -14,7 +14,7 @@ const EmployeeDetails = (props)=>{
     let employee = null
     let employeeWorkOrders = workOrders.filter(wo => wo.employee_id.toString() === id)
     Object.keys(props.employee).length > 0 ? employee = props.employee : employee = employees.find(employee => employee.id.toString() === id)   
-
+    
         return (
             <>
                 <div>
@@ -35,7 +35,8 @@ const EmployeeDetails = (props)=>{
 
                 <h3 className="center">Work Orders</h3>
                {/* {!err?renderWorkOrders():null}    */}
-               <WorkOrdersContainer workOrders={employeeWorkOrders} employee={employee} user={props.user}/>
+               <WorkOrdersContainer   workOrders={employeeWorkOrders} employee={employee} user={props.user}/>
+
             </>
         )
 
@@ -44,6 +45,7 @@ const EmployeeDetails = (props)=>{
 
 const mapStateToProps = state => { 
     return {
+    //    errors: state.errors.errors,
        employees: state.employees.employees,
        employee: state.employee.employee,
        workOrders: state.workOrders.workOrders,

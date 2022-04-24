@@ -7,7 +7,7 @@ import {workOrderSelector} from '../selectors/workOrderSelector'
 const WorkOrdersContainer = (props)=>{  
     const {employees} = props.employees
     const {buildings} = props.buildings
-    const {filteredWorkOrders,workOrders,employee} = props
+    const {filteredWorkOrders,workOrders,employee,errors} = props
     const [selector,setSelector] = useState("all")
     const renderWorkOrders = () => {  
         if (workOrders.error_message){ 
@@ -51,7 +51,7 @@ const WorkOrdersContainer = (props)=>{
    return(
        <div className="center">
            <div>
-              {props.user.admin ?<CreateWorkOrder employees={employees} employee={employee} buildings={buildings}/>:null}
+              {props.user.admin ?<CreateWorkOrder errors={errors} employees={employees} employee={employee} buildings={buildings}/>:null}
            </div>
            <div>
                 <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 

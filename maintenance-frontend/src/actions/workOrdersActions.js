@@ -14,7 +14,8 @@ import axios from 'axios'
           dispatch({type: "LOADING_WORK_ORDERS"})
           axios.post('http://localhost:3000/work_orders', workOrders ,{withCredentials: true})
           .then(response => {
-              dispatch({ type: 'ADD_WORK_ORDERS', workOrders: response.data})
+              const error = response.data.error_message
+              error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_WORK_ORDERS', workOrders: response.data})
           })
       }  
   }

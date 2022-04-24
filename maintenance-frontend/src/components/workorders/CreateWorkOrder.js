@@ -7,7 +7,7 @@ import '../../styles/styles.css'
 
 const CreateWorkOrder = (props) => {
     const {id} = useParams()
-    const {employees,buildings} = props
+    const {employees,buildings,errors} = props
     const [workOrder, setWorkOrder] = useState({
         unit: "",
         date: "",
@@ -26,6 +26,7 @@ const CreateWorkOrder = (props) => {
       if (id && workOrder.employee_id !== id){
         setWorkOrder( {...workOrder,employee_id: id} )
       }
+
       if(acordion.acordion !== 'display_accordion active'){
         setAcordion({
           acordion: 'display_accordion active',
@@ -86,13 +87,21 @@ const CreateWorkOrder = (props) => {
             <label>Unit</label> <br/>
             <textarea onChange={handleOnChange} row='1' className='auto_height' name="unit" value={workOrder.unit}></textarea> 
             <button type='submit' className="btn btn-primary">Submit</button>
-        </form>     
+        </form>  
     </div>
+    <div className="center"> 
+        {errors? errors.map((e,k) => {return <p key={k}>{e}</p>}):null}
+    </div>   
     </div>
       </div>
   )
 }
 
+const mapStateToProps = state => { 
+  return {
+     errors: state.errors.errors,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -100,4 +109,4 @@ const mapDispatchToProps = dispatch => {
     }
 }   
       
-export default connect(null, mapDispatchToProps)(CreateWorkOrder)
+export default connect(mapStateToProps , mapDispatchToProps)(CreateWorkOrder)
