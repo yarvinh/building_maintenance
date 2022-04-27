@@ -10,11 +10,11 @@ const WorkOrdersContainer = (props)=>{
     const {filteredWorkOrders,workOrders,employee,errors} = props
     const [selector,setSelector] = useState("all")
     const renderWorkOrders = () => {  
-        if (workOrders.error_message){ 
-                return workOrders.error_message.map((err, i)=>{
-                    return <p key={i}>{err}</p>
-                })      
-        }else {
+        // if (workOrders.error_message){ 
+        //         return workOrders.error_message.map((err, i)=>{
+        //             return <p key={i}>{err}</p>
+        //         })      
+        // }else {
             return (
                 <>
                     <table className="table table-striped" > 
@@ -36,7 +36,7 @@ const WorkOrdersContainer = (props)=>{
                     </table>
                 </>
             ) 
-        }
+        // }
     
     }
 
@@ -70,7 +70,9 @@ const WorkOrdersContainer = (props)=>{
 
 
 const mapStateToProps = state => { 
+    console.log(state)
     return {
+        errors: state.workOrders.errors,
         employees: state.employees,
         buildings: state.buildings,
         filteredWorkOrders: workOrderSelector(state.workOrdersToFilter.workOrdersToFilter,state.workOrdersToFilter.filter_by),

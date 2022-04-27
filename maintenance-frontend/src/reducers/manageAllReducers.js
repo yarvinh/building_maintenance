@@ -109,7 +109,7 @@ const UserReducer = (state = { user: {}, loading: true }, action) => {
     }
   }
 
-  const WorkOrdersReducer = (state = { workOrders: [], loading: false ,filter_by: ""}, action) => {
+  const WorkOrdersReducer = (state = { workOrders: [], errors: [], loading: false ,filter_by: ""}, action) => {
 
     switch(action.type) {
         case 'LOADING_WORK_ORDERS':
@@ -125,6 +125,13 @@ const UserReducer = (state = { user: {}, loading: true }, action) => {
              ...state,
             workOrders: action.workOrders,
             filter_by: action.filter_by,
+            loading: false
+        } 
+
+        case 'ADD_ERROR':
+          return {
+             ...state,
+            errors: action.errors,
             loading: false
         } 
 
@@ -307,26 +314,26 @@ const taskReducer = (state = { reply: {}, loading: true }, action)=>{
 }
 
 
-const errorMessages = (state = { errors: [], loading: false }, action)=>{
-  switch(action.type) {
-    case 'LOADING_ERROR':
-    return state = {
-      ...state,
-      errors: state.errors,
-      loading: true,    
-    }
+// const errorMessages = (state = { errors: [], loading: false }, action)=>{
+//   switch(action.type) {
+//     case 'LOADING_ERROR':
+//     return state = {
+//       ...state,
+//       errors: state.errors,
+//       loading: true,    
+//     }
 
-    case 'ADD_ERROR':
-      return {
-         ...state,
-        errors: action.errors,
-        loading: false
-    } 
+//     case 'ADD_ERROR':
+//       return {
+//          ...state,
+//         errors: action.errors,
+//         loading: false
+//     } 
 
-  default:
-    return state;
-  }
-}
+//   default:
+//     return state;
+//   }
+// }
 
 
 
@@ -346,7 +353,7 @@ const rootReducer = combineReducers({
    reply: ReplyReducer ,
    tasks: TasksReducer,
    task: taskReducer ,
-   errors: errorMessages
+  //  errors: errorMessages
 });
    
   export default rootReducer;

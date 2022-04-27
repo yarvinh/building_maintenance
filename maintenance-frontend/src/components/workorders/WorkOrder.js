@@ -11,7 +11,6 @@ const WorkOrder = (props)=>{
         let date = workOrder.date
         
         if (date){
-            console.log(date.split(/-\S/))
             date = new Date(date.split('-').join("-").split("T")[0].replace(/-/g, '\/'))
           return date.toDateString()
         }
@@ -19,7 +18,9 @@ const WorkOrder = (props)=>{
 
     
     const handleOnClick=(e)=>{
-        if (!workOrder.accepted && user.id === workOrder.employee_id){
+        
+        if (!workOrder.accepted && user.id === workOrder.employee_id && !admin){
+
           props.editWorkOrder({accepted: true, id: workOrder.id })
         }
         

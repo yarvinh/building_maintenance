@@ -1,11 +1,13 @@
 
 import { connect } from 'react-redux';
-import {Link,useParams} from 'react-router-dom';
+import {Link,useParams,Navigate} from 'react-router-dom';
 import EditWorkOrder from "./EditWorkOrder"
 import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
 import CloseWorkOrder from './CloseWorkOrder';
 import TasksContainer from '../../containers/TasksContainer';
+
+
 
 
 
@@ -25,6 +27,7 @@ const WorkOrderDetails = (props)=>{
 
     let {user} = props.user
     let {admin} = props.user 
+    if (workOrder){
     return (
         <div> 
             <div className="center"> 
@@ -47,9 +50,6 @@ const WorkOrderDetails = (props)=>{
 
                     <div className="card-body">
                       <div>
-                        {/* {err? err.map(e => e):null} */}
-                      </div>
-                      <div>
                         <h3>Job Title: {workOrder.title}</h3> 
                       </div>
                       <div>
@@ -63,6 +63,9 @@ const WorkOrderDetails = (props)=>{
             </div>
         </div>
     )
+    } else {
+        return <Navigate to='/work_orders'/>
+    }
 };
 
 

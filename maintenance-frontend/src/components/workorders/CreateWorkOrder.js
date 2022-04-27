@@ -12,7 +12,7 @@ const CreateWorkOrder = (props) => {
         unit: "",
         date: "",
         building_id: "",
-        employee_id: "",
+        employee_id: id? id :"",
         title: "",
     })
     
@@ -22,11 +22,6 @@ const CreateWorkOrder = (props) => {
     })
  
     const handleOnclick = (e)=>{
-      
-      if (id && workOrder.employee_id !== id){
-        setWorkOrder( {...workOrder,employee_id: id} )
-      }
-
       if(acordion.acordion !== 'display_accordion active'){
         setAcordion({
           acordion: 'display_accordion active',
@@ -48,7 +43,7 @@ const CreateWorkOrder = (props) => {
         unit: "",
         date: "",
         building_id: "",
-        employee_id: "",
+        employee_id: id? id :"",
         title: "",
       })
     }
@@ -97,11 +92,11 @@ const CreateWorkOrder = (props) => {
   )
 }
 
-const mapStateToProps = state => { 
-  return {
-     errors: state.errors.errors,
-  }
-}
+// const mapStateToProps = state => { 
+//   return {
+//      errors: state.errors.errors,
+//   }
+// }
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -109,4 +104,4 @@ const mapDispatchToProps = dispatch => {
     }
 }   
       
-export default connect(mapStateToProps , mapDispatchToProps)(CreateWorkOrder)
+export default connect(null, mapDispatchToProps)(CreateWorkOrder)

@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 const Home = (props)=>{
     const {workOrders,user,employees,buildings } = props
-    console.log(employees)
     const pendingWorkOrders = workOrderSelector(workOrders,"pending")
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 

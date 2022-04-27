@@ -13,13 +13,7 @@ class SignUp extends Component {
   handleOnSubmit = (e) => {
       e.preventDefault()
       this.props.creatingUser({user: this.state})
-      // this.setState({
-      //   company_name: "",
-      //   email: "",
-      //   username: "",
-      //   password: "",
-      //   password_confirmation: ""
-      // })
+
   }
 
   handleOnChange = (e) => {

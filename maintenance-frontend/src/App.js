@@ -6,7 +6,7 @@ import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
 import LogOut from './components/users/LogOut'
 import LogIn from './components/users/LogIn'
 import EmployeeDetails from './components/employees/EmployeeDetails'
-import Building from './components/buildings/Building'
+import BuildingDetail from './components/buildings/BuildingDetail'
 import EmployeesContainer from './containers/EmployeesContainer'
 import WorkOdersContainer from './containers/WorkOrdersContainer'
 import BuildingsContainer from './containers/BuildingsContainer'
@@ -49,12 +49,12 @@ class App extends Component{
     }
   }
 
-  loading = () => {
-    return this.props.loading
-  }
+  // loading = () => {
+  //   return this.props.loading
+  // }
 
     render = () => {
-      this.loading()
+      // this.loading()
       return (
         <BrowserRouter >
           <div className="App">
@@ -105,7 +105,7 @@ class App extends Component{
                 <Route exact path='/login' /> 
                 {this.props.employees.length > 0 && this.props.user.user?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
                 {this.props.user.is_login && !this.props.user.admin? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.userWorkOrders()} user={this.props.user}/>}/>: null}
-                <Route exact path='/buildings/:id' element={<Building user={this.props.user}/>}/>
+                {this.props.buildings.length > 0 && this.props.user.user? <Route exact path='/buildings/:id' element={<BuildingDetail user={this.props.user}/>}/>: null}
                 {this.props.workOrders.length > 0 && this.props.user.is_login? <Route exact path='/work_orders/:id' element={<WorkOrderDetail  user={this.props.user}/>}/>: null}
             </Routes>
  
@@ -122,6 +122,7 @@ const mapStateToProps = state => {
   return {
     employees: state.employees.employees,
     user: state.user.user,
+    buildings: state.buildings.buildings,
     workOrders: state.workOrders.workOrders,
     loading: state.user.loading
   }

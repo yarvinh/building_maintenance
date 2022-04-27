@@ -20,15 +20,17 @@ import axios from 'axios'
       }  
   }
 
-  export const fetchWorkOrder = (id) =>{
-    return (dispatch) => {
-      dispatch({ type: 'LOADING_WORK_ORDER'})
-      axios.get(`http://localhost:3000/work_orders/${id}`,{withCredentials: true})
-      .then(response => {
-        dispatch({ type: 'ADD_WORK_ORDER', workOrder: response.data})
-      })    
-    }
-  }
+  // export const fetchWorkOrder = (id) =>{
+  //   return (dispatch) => {
+  //     dispatch({ type: 'LOADING_WORK_ORDER'})
+  //     axios.get(`http://localhost:3000/work_orders/${id}`,{withCredentials: true})
+  //     .then(response => {
+  //       dispatch({ type: 'ADD_WORK_ORDER', workOrder: response.data})
+  //     }).catch(error =>{
+  //       console.log("error",error)
+  //     })   
+  //   }
+  // }
 
   export const editWorkOrder = (work_order) => {
 
@@ -42,7 +44,6 @@ import axios from 'axios'
 }
 
 export const  workOrderFilter = (workOrders) => {
-// console.log(workOrders)
   return ({ type: 'ADD_WORK_ORDERS_TO_FILTER', workOrders: workOrders.workOrders,filter_by: workOrders.filter_by})
 }
 

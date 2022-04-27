@@ -32,15 +32,15 @@ import axios from 'axios'
   
 }
 
-export const fetchEmployee = (id) =>{
-  return (dispatch) => {
-    dispatch({ type: 'LOADING_EMPLOYEE'})
-    axios.get(`http://localhost:3000/employees/${id}`,{withCredentials: true})
-    .then(response => {
-      dispatch({ type: 'ADD_EMPLOYEE', employee: response.data})
-    })    
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
-}
+// export const fetchEmployee = (id) =>{
+//   return (dispatch) => {
+//     dispatch({ type: 'LOADING_EMPLOYEE'})
+//     axios.get(`http://localhost:3000/employees/${id}`,{withCredentials: true})
+//     .then(response => {
+//       dispatch({ type: 'ADD_EMPLOYEE', employee: response.data})
+//     })    
+//     .catch((error) => {
+//       console.error('Error:', error);
+//     });
+//   }
+// }
