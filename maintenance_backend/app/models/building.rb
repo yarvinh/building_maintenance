@@ -8,9 +8,10 @@ class Building < ApplicationRecord
 
     def self.current_user_buildings(id)
         user = User.find_by_id(id)
-        buildings = Building.all
-        if !buildings.empty? && user
-          buildings.select{|b|b.user_id.to_s === user.id.to_s}
+        # buildings = Building.all
+        if user
+          user.buildings
+          # buildings.select{|b|b.user_id.to_s === user.id.to_s}
         else
          buildings = {error_message: ["No buildings has been created."]}
         end

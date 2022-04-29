@@ -12,23 +12,26 @@ class EmployeesController < ApplicationController
     
   end
   def index
-    id =  session[:user_id]
+    user = User.find_by_id(session[:user_id])
     employee = Employee.find_by_id(session[:employee_id])
-    if employee
-      id ||= employee.user_id
-    end 
-    employees = Employee.current_user_employees(id)
-    render json:EmployeesSerializer.new(employees).to_serialized_json
+     if employee
+      user ||= employee.user
+     end 
+    if user
+       render json:EmployeesSerializer.new(user.employees).to_serialized_json
+    else
+      render json:{error_message: ["Sigh Up or Login"]}
+    end
   end
   def create
     employee = Employee.new(employee_params)
-    employee.user_id = session[:user_id]
-    if employee.valid? 
+    user = User.find_by_id(session[:user_id])
+    employee.user = user
+    if employee.valid?  
         employee.save
-        employees = Employee.current_user_employees(session[:user_id])
-        render json:EmployeesSerializer.new(employees).to_serialized_json
+        render json:EmployeesSerializer.new(user.employees).to_serialized_json
     else
-         render json: {id: "error_1", error_message: employee.errors.full_messages}
+        render json: {id: "error_1", error_message: employee.errors.full_messages}
     end
   end
 
