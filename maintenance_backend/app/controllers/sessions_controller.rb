@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
     def show   
+        # logout!
+        # raise session[:user_id].inspect
         if logged_in? 
             user = User.find_by_id(session[:user_id])
             employee = Employee.find_by_id(session[:employee_id])
@@ -11,6 +13,7 @@ class SessionsController < ApplicationController
                 render json: SessionSerializer.new(employee, false).to_serialized_json
                 # render json: {admin: false, is_login: true, user: employee , work_orders: employee.work_orders}
             end
+            # render json: {is_login: false}
         else
             render json: {is_login: false}
        end

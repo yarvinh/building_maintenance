@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # devise  :registerable,:recoverable, :rememberable, :validatable
+         
     has_secure_password
     has_many :work_orders
     has_many :comments
@@ -11,7 +15,8 @@ class User < ApplicationRecord
     PASSWORD_REQUIREMENT = /\A (?=.*[[:^alnum:]])/x
     # validates_with OldPasswordValidator , :if => :password_required?
 
-  
+    # devise  :database_authenticatable, :registerable,
+    #         :recoverable, :rememberable, :validatable, :confirmable
     
      
     validates :password, :presence =>true, :confirmation =>true, format: PASSWORD_REQUIREMENT,:length => {:within => 6..40}, :if => :password_required?

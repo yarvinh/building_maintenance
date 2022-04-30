@@ -10,11 +10,7 @@ const WorkOrdersContainer = (props)=>{
     const {filteredWorkOrders,workOrders,employee,errors} = props
     const [selector,setSelector] = useState("all")
     const renderWorkOrders = () => {  
-        // if (workOrders.error_message){ 
-        //         return workOrders.error_message.map((err, i)=>{
-        //             return <p key={i}>{err}</p>
-        //         })      
-        // }else {
+            console.log(workOrders)
             return (
                 <>
                     <table className="table table-striped" > 
@@ -29,9 +25,7 @@ const WorkOrdersContainer = (props)=>{
                     </tr>
                     </thead>
                     <tbody>
-                        {/* {console.log('filtered workorder',filteredWorkOrders)}
-                        {console.log('workorder',workOrders)} */}
-                    {selector !== "all"? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)})  }
+                       {selector !== "all" ? filteredWorkOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)}) :workOrders.map((workOrder,index) => {return (<WorkOrder key={workOrder.id}  user={props.user} index={index + 1} workOrder={workOrder}/>)})  }
                     </tbody>
                     </table>
                 </>
@@ -70,7 +64,6 @@ const WorkOrdersContainer = (props)=>{
 
 
 const mapStateToProps = state => { 
-    console.log(state)
     return {
         errors: state.workOrders.errors,
         employees: state.employees,
