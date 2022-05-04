@@ -66,6 +66,17 @@ class BuildingsController < ApplicationController
         end
       end
 
+      def destroy
+
+        if current_user
+          building = Building.find_by_id(params[:id])
+          building.delete
+          render json:BuildingsSerializer.new(current_user.buildings).to_serialized_json
+        else
+          render json: {error_message: ["you are not outhorize to delete action"]}
+        end
+      end
+
       private
 
       def building_params

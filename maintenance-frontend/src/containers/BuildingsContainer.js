@@ -26,7 +26,7 @@ const BuildingsContainer = (props) => {
             </tr>
             </thead>
             <tbody>
-              {buildings.map((building,index) => {return (<Building key={building.id} building={building} index={index + 1} />)}) }
+              {buildings.map((building,index) => {return (<Building key={building.id} admin={admin} building={building} index={index + 1} />)}) }
             </tbody>
             </table>
             </>

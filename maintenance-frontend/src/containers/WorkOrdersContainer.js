@@ -5,12 +5,13 @@ import {workOrderFilter} from '../actions/workOrdersActions'
 import WorkOrder from "../components/workorders/WorkOrder"
 import {workOrderSelector} from '../selectors/workOrderSelector'
 const WorkOrdersContainer = (props)=>{  
+
     const {employees} = props.employees
     const {buildings} = props.buildings
     const {filteredWorkOrders,workOrders,employee,errors} = props
     const [selector,setSelector] = useState("all")
     const renderWorkOrders = () => {  
-            console.log(workOrders)
+     
             return (
                 <>
                     <table className="table table-striped" > 

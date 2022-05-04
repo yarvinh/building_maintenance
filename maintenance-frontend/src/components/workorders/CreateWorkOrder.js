@@ -49,10 +49,10 @@ const CreateWorkOrder = (props) => {
     }
 
     const handleOnChange=(e)=>{
-        if (e.target.name === "task" ){
-            e.target.style.height = "1px";
-            e.target.style.height = (e.target.scrollHeight)+"px"; 
-        }
+        // if (e.target.name === "task" ){
+        //     e.target.style.height = "1px";
+        //     e.target.style.height = (e.target.scrollHeight)+"px"; 
+        // }
   
         setWorkOrder({
             ...workOrder,[e.target.name]: e.target.value
@@ -80,7 +80,7 @@ const CreateWorkOrder = (props) => {
             <label>Title</label>
             <input onChange={handleOnChange} name="title" className="form-control" type="text" value={workOrder.title}/><br/>
             <label>Unit</label> <br/>
-            <textarea onChange={handleOnChange} row='1' className='auto_height' name="unit" value={workOrder.unit}></textarea> 
+            <input onChange={handleOnChange}  name="unit" value={workOrder.unit}/><br/><br/>
             <button type='submit' className="btn btn-primary">Submit</button>
         </form>  
     </div>

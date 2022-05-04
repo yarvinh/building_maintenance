@@ -10,7 +10,13 @@ const Task = (props)=>{
    }
 
     const handleOnClick = (e) =>{
+      const confirmBox = window.confirm(
+        "Are you sure to delete this task?"
+      )
+      if (confirmBox === true) {
         props.deleteTask(task.id)
+      }
+       
     }
     
     const handleOnChange = (e) =>{
@@ -26,7 +32,7 @@ const Task = (props)=>{
                 <div className='task'>
                    {task.completed? <input onChange={handleOnChange} type="checkbox"  defaultValue={task.id} defaultChecked="checked"  disabled={disable} />: <input onChange={handleOnChange} type="checkbox" defaultValue={task.id}  disabled={disable} /> }
                    <label>{task.task}</label>  
-                   {admin && !workOrder.status ? <i onClick={handleOnClick} className="fa-solid fa-trash-can delete-task"></i>:null} 
+                   {admin && !workOrder.status ? <i onClick={handleOnClick}  className="fa-solid fa-trash-can delete-task"></i>:null} 
                 </div> 
               </div>
            </div>

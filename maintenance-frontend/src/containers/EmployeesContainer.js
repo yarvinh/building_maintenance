@@ -27,7 +27,7 @@ const EmployeesContainer = (props) => {
             </tr>
             </thead>
             <tbody>
-              {employees.map((employee,index) => {return (<Employee key={employee.id} employee={employee} index={index + 1} />)}) }
+              {employees.map((employee,index) => {return (<Employee key={employee.id} admin={admin} employee={employee} index={index + 1} />)}) }
             </tbody>
             </table>
             </>

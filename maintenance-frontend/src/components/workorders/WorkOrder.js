@@ -17,8 +17,7 @@ const WorkOrder = (props)=>{
     }
 
     
-    const handleOnClick=(e)=>{
-        
+    const handleOnClick=(e)=>{  
         if (!workOrder.accepted && user.id === workOrder.employee_id && !admin){
 
           props.editWorkOrder({accepted: true, id: workOrder.id })
@@ -27,7 +26,7 @@ const WorkOrder = (props)=>{
     }
     let accepted = null
     !workOrder.accepted && !admin && workOrder.employee_id === user.id ? accepted =  "notifications"  : accepted = "accepted"
- 
+    if (workOrder && workOrder.employee && workOrder.building){
         return (
            <>
                 <tr className={accepted}>
@@ -50,6 +49,11 @@ const WorkOrder = (props)=>{
                 </tr>
             </>
         )
+    }else{
+        return (
+            null
+        )
+    }
 };
 
 

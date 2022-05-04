@@ -43,6 +43,18 @@ import axios from 'axios'
     } 
 }
 
+
+export const deleteWorkOrder = (id) => {
+  return (dispatch) => {
+    dispatch({ type: 'LOADING_WORK_ORDERS'})
+    axios.delete(`http://localhost:3000/work_orders/${id}`,{withCredentials: true}
+    ).then(response => {   
+      dispatch({ type: 'ADD_WORK_ORDERS', workOrders: response.data })
+    })
+  }
+}
+
+
 export const  workOrderFilter = (workOrders) => {
   return ({ type: 'ADD_WORK_ORDERS_TO_FILTER', workOrders: workOrders.workOrders,filter_by: workOrders.filter_by})
 }

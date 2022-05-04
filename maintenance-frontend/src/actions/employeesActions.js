@@ -44,3 +44,13 @@ import axios from 'axios'
 //     });
 //   }
 // }
+
+export const deleteEmployee = (id) => {
+  return (dispatch) => {
+    dispatch({ type: 'LOADING_EMPLOYEES'})
+    axios.delete(`http://localhost:3000/employees/${id}`,{withCredentials: true}
+    ).then(response => {   
+      dispatch({ type: 'ADD_EMPLOYEES', employees: response.data })
+    })
+  }
+}

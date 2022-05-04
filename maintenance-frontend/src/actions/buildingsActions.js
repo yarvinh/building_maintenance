@@ -44,3 +44,15 @@ export const createBuilding = (building) => {
     }
   
 }
+
+
+export const deleteBuilding = (id) => {
+  return (dispatch) => {
+    dispatch({ type: 'LOADING_BUILDING'})
+    axios.delete(`http://localhost:3000/buildings/${id}`,{withCredentials: true}
+    ).then(response => {   
+      dispatch({ type: 'ADD_BUILDINGS', buildings: response.data })
+    })
+  }
+}
+

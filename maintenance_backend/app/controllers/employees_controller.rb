@@ -46,7 +46,17 @@ class EmployeesController < ApplicationController
       end
     end
   end
+  
 
+  def destroy
+    if current_user
+      employee = Employee.find_by_id(params[:id])
+      employee.delete
+      render json:BuildingsSerializer.new(current_user.employees).to_serialized_json
+    else
+      render json: {error_message: ["you are not outhorize to delete action"]}
+    end
+  end
   private
 
   def employee_params

@@ -1,10 +1,22 @@
 
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import '../../styles/styles.css'
+import {deleteEmployee} from "../../actions/employeesActions"
 
 
 const Employee = (props)=>{
-    const {employee} = (props)
+    const {employee,admin} = (props)
+
+    const handleOnClick = (e)=> {
+        const confirmBox = window.confirm(
+            "Are you sure you want to delete this employee?!"     
+          )
+          if (confirmBox === true) {
+            props.deleteEmployee(employee.id)  
+          }
+           
+     }
    
     return (
         <>
@@ -15,6 +27,7 @@ const Employee = (props)=>{
                 </td>
                 <td><p>{employee.email}</p></td>
                 <td><p>{employee.phone}</p></td>
+                <td>{admin ? <i onClick={handleOnClick}  className="fa-solid fa-trash-can delete-task "></i>:null} </td>
             </tr>
    
         </>        
@@ -22,4 +35,11 @@ const Employee = (props)=>{
 };
 
 
-export default Employee 
+const mapDispatchToProps = dispatch => {
+    return {
+    deleteEmployee: (action) => dispatch(deleteEmployee(action)),
+   
+    }
+  }
+
+  export default connect(null, mapDispatchToProps)(Employee)

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :users
   resources :tasks
   resources :pay_roles
   resources :replies
@@ -8,7 +7,7 @@ Rails.application.routes.draw do
   resources :work_orders
   resources :employees
   resources :users
-  # resources :sessions
+  resources :sessions
   get '/checklogin' => "sessions#show"
   delete '/logout' => 'sessions#destroy'
   post '/admins_login' => 'sessions#admins_login'

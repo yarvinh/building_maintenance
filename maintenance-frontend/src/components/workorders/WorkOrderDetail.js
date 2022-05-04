@@ -6,6 +6,7 @@ import CommentsContainer from '../../containers/CommentsContainer'
 import '../../styles/styles.css'
 import CloseWorkOrder from './CloseWorkOrder';
 import TasksContainer from '../../containers/TasksContainer';
+import {deleteWorkOrder} from "../../actions/workOrdersActions"
 
 
 
@@ -15,6 +16,8 @@ const WorkOrderDetails = (props)=>{
     const {id} = useParams()
     let {workOrders} = props
     let {buildings,employees} = props
+    let {user,admin} = props.user
+
   
     const workOrder = workOrders.find(workOrder => workOrder.id.toString() === id)
     const date = () => {
@@ -25,9 +28,19 @@ const WorkOrderDetails = (props)=>{
         }
     }
 
-    let {user} = props.user
-    let {admin} = props.user 
-    if (workOrder){
+
+    const handleOnClick = (e) =>{
+        const confirmBox = window.confirm(
+          "Are you sure you want to delete this work order?  you will lose all comments and ryplies on this work Order!"     
+        )
+        if (confirmBox === true) {
+            props.deleteWorkOrder(workOrder.id)  
+        }
+         
+      }
+  
+
+    if (workOrder && workOrder.employee && workOrder.building){
     return (
         <div> 
             <div className="center"> 
@@ -35,8 +48,14 @@ const WorkOrderDetails = (props)=>{
             </div> 
 
             <div className="container d-flex justify-content-center"> 
+
+
                 <div className="card-container mb-3">
+
+                {admin ? <i onClick={handleOnClick}  className="fa-solid fa-trash-can delete-task "></i>:null} 
+
                     <div className="card-header">
+
                         <h4>{date()}</h4>
                         {workOrder.employee?<Link to={`/employees/${workOrder.employee.id}`}><p>{workOrder.employee.name}</p></Link>:null}
                         {workOrder.building?<Link to={`/buildings/${workOrder.building.id}`}><p>{workOrder.building.address}</p> </Link> :null}
@@ -76,4 +95,11 @@ const mapStateToProps = state => {
     }
   }
 
-  export default connect(mapStateToProps ,null)(WorkOrderDetails)
+  const mapDispatchToProps = dispatch => {
+    return {
+    deleteWorkOrder: (action) => dispatch(deleteWorkOrder(action)),
+   
+    }
+  }
+
+  export default connect(mapStateToProps ,mapDispatchToProps )(WorkOrderDetails)

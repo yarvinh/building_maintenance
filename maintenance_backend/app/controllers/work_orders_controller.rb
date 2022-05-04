@@ -55,6 +55,22 @@ class WorkOrdersController < ApplicationController
  
   end
 
+  def destroy 
+    work_order = WorkOrder.find_by_id(params[:id])
+    user = User.find_by_id(session[:user_id])
+    if user 
+      work_order.tasks.each{|e|e.delete}
+      work_order.comments.each{|comment|
+         comment.replies.each{|reply| reply.delete}
+         comment.delete
+      }
+      work_order.delete
+      render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
+    else
+      render json: {error_message: ["you are not authorize to delete this item."]}
+    end
+end
+
   def work_order_params
     params.require(:work_order).permit(:title,:unit,:date,:building_id,:employee_id, :status, :accepted)
   end
