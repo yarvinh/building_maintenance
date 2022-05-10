@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../../styles/styles.css'
 import {workOrderStatus} from "../../componentsHelpers/workOrdersHelper"
-import {editWorkOrder} from '../../actions/workOrdersActions'
+import {editWorkOrder,deleteWorkOrder} from '../../actions/workOrdersActions'
 
 const WorkOrder = (props)=>{
     let {workOrder} = props
@@ -18,10 +18,21 @@ const WorkOrder = (props)=>{
 
     
     const handleOnClick=(e)=>{  
+    //   console.log(e.target.name = "ee")
+      console.log(e.target.name)
         if (!workOrder.accepted && user.id === workOrder.employee_id && !admin){
 
           props.editWorkOrder({accepted: true, id: workOrder.id })
         }
+        if(e.target.name === 'delete'){
+          const confirmBox = window.confirm(
+            "Are you sure you want to delete this work order?  you will lose all comments and ryplies on this work Order!"     
+          )
+          if (confirmBox === true) {
+              props.deleteWorkOrder(workOrder.id)  
+          }
+        }
+           
         
     }
     let accepted = null
@@ -46,6 +57,9 @@ const WorkOrder = (props)=>{
                     <td>  
                         {workOrderStatus(workOrder)}
                     </td>
+                    <td>
+                      {admin ? <button onClick={handleOnClick}  className="fa-solid fa-trash-can delete-task "  name='delete'></button>:null} 
+                    </td>
                 </tr>
             </>
         )
@@ -62,7 +76,10 @@ const WorkOrder = (props)=>{
 const mapDispatchToProps = dispatch => {
     return {
         editWorkOrder: (action) => dispatch(editWorkOrder(action)),
+        deleteWorkOrder: (action) => dispatch(deleteWorkOrder(action)),
     }
 }   
       
+
+
 export default connect(null, mapDispatchToProps)(WorkOrder)

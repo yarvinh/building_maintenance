@@ -3,11 +3,13 @@ import React, {useState } from 'react';
 import {useParams} from 'react-router-dom';
 import {connect } from 'react-redux';
 import {createWorkOrder} from '../../actions/workOrdersActions'
+import {clearErrors} from '../../actions/errorsActions'
 import '../../styles/styles.css'
 
 const CreateWorkOrder = (props) => {
     const {id} = useParams()
     const {employees,buildings,errors} = props
+   console.log(errors)
     const [workOrder, setWorkOrder] = useState({
         unit: "",
         date: "",
@@ -39,6 +41,15 @@ const CreateWorkOrder = (props) => {
     const handleOnSubmit=(e)=>{
       e.preventDefault()
       props.createWorkOrder(workOrder)
+      e.target.children[0].value = "select_employee"
+      e.target.children[1].value = "select_location"
+      
+      if (errors.length > 0){
+        props.clearErrors()
+      }
+     
+      
+   
       setWorkOrder({
         unit: "",
         date: "",
@@ -49,16 +60,13 @@ const CreateWorkOrder = (props) => {
     }
 
     const handleOnChange=(e)=>{
-        // if (e.target.name === "task" ){
-        //     e.target.style.height = "1px";
-        //     e.target.style.height = (e.target.scrollHeight)+"px"; 
-        // }
-  
         setWorkOrder({
             ...workOrder,[e.target.name]: e.target.value
         })
 
     }
+
+  
     return (
       <div>
         <button onClick={handleOnclick} className={acordion.acordion}> Create A Work Order</button>
@@ -66,13 +74,12 @@ const CreateWorkOrder = (props) => {
         <div className="container d-flex justify-content-center align-items-center">
     
         <form onSubmit={handleOnSubmit}>
-           {!id? <select className="form-select mx-auto mb-3" onChange={handleOnChange} name="employee_id">
-              <option value=''>Select Employee</option>
-              
+           {!id? <select className="form-select mx-auto mb-3" onChange={handleOnChange} name="employee_id" defaultValue="select_employee">
+              <option name="employee" value="select_employee">Select Employee</option> 
               {!employees.error_message? employees.map(e => <option key={e.id} value={e.id}>{e.name}</option>):null}
             </select> :null}
-            <select className="form-select mx-auto mb-3" onChange={handleOnChange} name="building_id">
-              <option value=''>Select Location</option>
+            <select className="form-select mx-auto mb-3" onChange={handleOnChange} name="building_id" defaultValue="select_location">
+              <option value="select_location">Select Location</option>
               {!buildings.error_message ? buildings.map(b => <option key={b.id} value={b.id}>{b.address}</option>):null}
             </select>
             <label>Date</label>
@@ -92,16 +99,18 @@ const CreateWorkOrder = (props) => {
   )
 }
 
-// const mapStateToProps = state => { 
-//   return {
-//      errors: state.errors.errors,
-//   }
-// }
+const mapStateToProps = state => { 
+  console.log(state.errors.errors)
+  return {
+     errors: state.errors.errors,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
         createWorkOrder: (action) => dispatch(createWorkOrder(action)),
+        clearErrors: () => dispatch(clearErrors()),
     }
 }   
       
-export default connect(null, mapDispatchToProps)(CreateWorkOrder)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkOrder)

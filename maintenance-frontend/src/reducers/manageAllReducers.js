@@ -128,13 +128,6 @@ const UserReducer = (state = { user: {}, loading: true }, action) => {
             loading: false
         } 
 
-        case 'ADD_ERROR':
-          return {
-             ...state,
-            errors: action.errors,
-            loading: false
-        } 
-
       default:
         return state;
     }
@@ -314,26 +307,34 @@ const taskReducer = (state = { reply: {}, loading: true }, action)=>{
 }
 
 
-// const errorMessages = (state = { errors: [], loading: false }, action)=>{
-//   switch(action.type) {
-//     case 'LOADING_ERROR':
-//     return state = {
-//       ...state,
-//       errors: state.errors,
-//       loading: true,    
-//     }
+const errorMessages = (state = { errors: [], loading: false }, action)=>{
+  switch(action.type) {
+    case 'LOADING_ERROR':
+    return state = {
+      ...state,
+      errors: state.errors,
+      loading: true,    
+    }
 
-//     case 'ADD_ERROR':
-//       return {
-//          ...state,
-//         errors: action.errors,
-//         loading: false
-//     } 
+    case 'ADD_ERROR':
+      return {
+         ...state,
+        errors: action.errors,
+        loading: false
+    } 
+    case 'CLEARING_ERRORS':
+      return {
+         ...state,
+        errors: action.errors,
+        loading: false
+    } 
 
-//   default:
-//     return state;
-//   }
-// }
+
+
+  default:
+    return state;
+  }
+}
 
 
 
@@ -353,7 +354,7 @@ const rootReducer = combineReducers({
    reply: ReplyReducer ,
    tasks: TasksReducer,
    task: taskReducer ,
-  //  errors: errorMessages
+   errors: errorMessages
 });
    
   export default rootReducer;

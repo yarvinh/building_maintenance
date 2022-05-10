@@ -46,7 +46,7 @@ const WorkOrdersContainer = (props)=>{
    return(
        <div className="center">
            <div>
-              {props.user.admin ?<CreateWorkOrder errors={errors} employees={employees} employee={employee} buildings={buildings}/>:null}
+              {props.user.admin ?<CreateWorkOrder  employees={employees} employee={employee} buildings={buildings}/>:null}
            </div>
            <div>
                 <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
