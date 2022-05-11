@@ -49,12 +49,9 @@ class App extends Component{
     }
   }
 
-  // loading = () => {
-  //   return this.props.loading
-  // }
 
     render = () => {
-      // this.loading()
+    
       return (
         <BrowserRouter >
           <div className="App">
@@ -119,6 +116,7 @@ class App extends Component{
 
 
 const mapStateToProps = state => { 
+
   return {
     employees: state.employees.employees,
     user: state.user.user,

@@ -40,9 +40,9 @@ class EmployeesController < ApplicationController
      if user
       employee = user.employees.find_by_id(params[:id])
       if employee.update(employee_params)
-        render json:EmployeeSerializer.new(employee).to_serialized_json
+        render json:EmployeesSerializer.new(user.employees).to_serialized_json
       else
-      render json: {error: employee.errors.full_messages}
+      render json: {error_message: employee.errors.full_messages}
       end
     end
   end

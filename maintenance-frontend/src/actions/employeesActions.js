@@ -15,7 +15,9 @@ import axios from 'axios'
           dispatch({type: "LOADING_EMPLOYEE"})
           axios.post('http://localhost:3000/employees', employee ,{withCredentials: true})
           .then(response => {
-              dispatch({ type: 'ADD_EMPLOYEES', employees: response.data})
+              // dispatch({ type: 'ADD_EMPLOYEES', employees: response.data})
+              const error = response.data.error_message
+              error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_EMPLOYEES', employees: response.data})
           })
       }
     
@@ -26,7 +28,9 @@ import axios from 'axios'
         dispatch({type: "LOADING_EMPLOYEE"})
         axios.patch(`http://localhost:3000/employees/${params.id}`, params ,{withCredentials: true})
         .then(response => {
-            dispatch({ type: 'ADD_EMPLOYEE', employee: response.data})
+            // dispatch({ type: 'ADD_EMPLOYEE', employee: response.data})
+            const error = response.data.error_message
+            error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_EMPLOYEES', employees: response.data})
         })
     }
   

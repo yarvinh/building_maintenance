@@ -2,9 +2,11 @@ import React, {useState } from 'react';
 import { connect } from 'react-redux';
 import {editEmployee} from '../../actions/employeesActions'
 import {useParams} from 'react-router-dom';
+import {clearErrors} from '../../actions/errorsActions'
 import '../../styles/styles.css'
 
 const EditEmployee = (props) =>{
+    const {errors} = props
     let {id} = useParams()
     const [employee, setEmployee] = useState({
         name: "",
@@ -14,6 +16,8 @@ const EditEmployee = (props) =>{
         password: "",
         old_password: '',
     })
+
+    
 
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -96,11 +100,24 @@ const EditEmployee = (props) =>{
                 </form>  
             </div>  
             </div>
+            <div className="center"> 
+              {errors.map((e,k) => {return <p key={k}>{e}</p>})}
+            </div> 
           
         </div>
       
   )
 }
+
+
+const mapStateToProps = state => { 
+    console.log(state)
+    return {
+      loading: state.employees.loading,
+      errors: state.errors.errors
+    }
+  }
+  
 
 
 const mapDispatchToProps = dispatch => {
@@ -109,7 +126,7 @@ const mapDispatchToProps = dispatch => {
     }
 }   
       
-export default connect(null, mapDispatchToProps)(EditEmployee)
+export default connect(mapStateToProps, mapDispatchToProps)(EditEmployee)
 
 
 

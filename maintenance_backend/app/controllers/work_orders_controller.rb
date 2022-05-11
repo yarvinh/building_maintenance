@@ -28,7 +28,6 @@ class WorkOrdersController < ApplicationController
     work_order.user = user
     if work_order.valid? 
         work_order.save
-        # work_orders = WorkOrder.current_user_work_orders(session[:user_id])
         render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
     else
 
@@ -43,14 +42,18 @@ class WorkOrdersController < ApplicationController
       work_order = user.work_orders.find_by_id(params[:id])
       if work_order.update(work_order_params)
         render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
+      else
+        render json: {error_message: work_order.errors.full_messages}
       end
     elsif employee
         work_order = employee.work_orders.find_by_id(params[:id])
         if work_order.update(work_order_params)
           render json:WorkOrdersSerializer.new(employee.user.work_orders).to_serialized_json
+        else
+          render json: {error_message: work_order.errors.full_messages}
         end
     else
-      render json: {error: work_order.errors.full_messages}
+      render json: {error_message: work_order.errors.full_messages}
     end
  
   end

@@ -8,13 +8,15 @@ const EmployeesContainer = (props) => {
     let {admin} = props.user
     const {employees} = props.employees
     const {id} = useParams()
+
+    
      
     const renderEmployees = () => {   
-        if (employees.error_message){ 
-                return employees.error_message.map((err, i)=>{
-                    return <li key={i}>{err}</li>
-                })      
-        }else{
+        // if (employees.error_message){ 
+        //         return employees.error_message.map((err, i)=>{
+        //             return <li key={i}>{err}</li>
+        //         })      
+        // }else{
             return (
                 <>
             <table className="table table-striped" > 
@@ -33,7 +35,7 @@ const EmployeesContainer = (props) => {
             </>
              ) 
 
-        }
+        // }
     }
 
 

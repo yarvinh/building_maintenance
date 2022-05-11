@@ -1,5 +1,5 @@
 
-import React, {useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import {connect } from 'react-redux';
 import {createWorkOrder} from '../../actions/workOrdersActions'
@@ -9,7 +9,6 @@ import '../../styles/styles.css'
 const CreateWorkOrder = (props) => {
     const {id} = useParams()
     const {employees,buildings,errors} = props
-   console.log(errors)
     const [workOrder, setWorkOrder] = useState({
         unit: "",
         date: "",
@@ -17,6 +16,13 @@ const CreateWorkOrder = (props) => {
         employee_id: id? id :"",
         title: "",
     })
+
+
+      useEffect(() => {
+        if (errors.length > 0){
+          props.clearErrors()
+        }
+      },[ ]);
     
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -92,7 +98,7 @@ const CreateWorkOrder = (props) => {
         </form>  
     </div>
     <div className="center"> 
-        {errors? errors.map((e,k) => {return <p key={k}>{e}</p>}):null}
+        {errors.map((e,k) => {return <p key={k}>{e}</p>})}
     </div>   
     </div>
       </div>
@@ -100,7 +106,6 @@ const CreateWorkOrder = (props) => {
 }
 
 const mapStateToProps = state => { 
-  console.log(state.errors.errors)
   return {
      errors: state.errors.errors,
   }

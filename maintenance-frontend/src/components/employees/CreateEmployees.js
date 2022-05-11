@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  createEmployee} from '../../actions/employeesActions'
+import {clearErrors} from '../../actions/errorsActions'
 import '../../styles/styles.css'
 
 class CreateEmployees extends Component {
@@ -15,6 +16,12 @@ class CreateEmployees extends Component {
         },
         acordion: 'display_accordion', 
         display: 'hide_elements',
+    }
+
+    componentDidMount(){  
+      if (this.props.errors.length > 0){
+        this.props.clearErrors()
+      }
     }
 
 
@@ -44,6 +51,9 @@ class CreateEmployees extends Component {
             phone: "",
           }
          })
+         if (this.props.errors.length > 0){
+          this.props.clearErrors()
+        }
     }
 
     handleOnChange = (e) =>{  
@@ -72,8 +82,12 @@ class CreateEmployees extends Component {
                     <label>Confirm Password:</label>
                     <input onChange={this.handleOnChange}  name="password_confirmation" className="form-control" type="password" value={this.state.employee.password_confirmation}/><br/>
                     <button type='submit' className="btn btn-primary">Submit</button>
-                </form>     
+                </form>    
             </div>
+            <br/>
+            <div > 
+                {this.props.errors.map((e,k) => {return <p key={k}>{e}</p>})}
+            </div>  
             </div>
         </div>
       );    
@@ -84,13 +98,15 @@ class CreateEmployees extends Component {
 const mapStateToProps = state => { 
   return {
     employees: state.employees,
-    loading: state.employees.loading
+    loading: state.employees.loading,
+    errors: state.errors.errors
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     createEmployee: (action) => dispatch(createEmployee(action)),
+    clearErrors: () => dispatch(clearErrors()),
   }
 }
 

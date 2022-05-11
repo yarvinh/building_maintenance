@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import { connect } from 'react-redux';
 import {editWorkOrder} from '../../actions/workOrdersActions'
+import {clearErrors} from '../../actions/errorsActions'
 import {useParams} from 'react-router-dom';
 import '../../styles/styles.css'
 
 const EditWorkOrder = (props) =>{
-    let {employees} = props.employees
-    let {buildings} = props.buildings
-    let {id} = useParams()
+    const {employees,buildings,errors} = props
+    const {id} = useParams()
     const [workOrder, setWorkOrder] = useState({
         unit: "",
         date: "",
@@ -15,7 +15,12 @@ const EditWorkOrder = (props) =>{
         employee_id: "",
         title: "",
     })
-
+    useEffect(() => {
+      if (errors.length > 0){
+        props.clearErrors()
+      }
+    },[ ]);
+  
 
     const [acordion,setAcordion] = useState({
         acordion: 'display_accordion', 
@@ -48,7 +53,11 @@ const EditWorkOrder = (props) =>{
         props.editWorkOrder({[type]: workOrder[type],id: id})  
             setWorkOrder({
                 ...workOrder,[type]: ""
-        })    
+        }) 
+        if (errors.length > 0){
+          props.clearErrors()
+        }
+          
     }
 
   return(   
@@ -101,6 +110,9 @@ const EditWorkOrder = (props) =>{
                   <button type='submit' className="btn btn-primary">Save</button>
                 </form>
             </div>
+            <div>
+              <p>{errors}</p>
+            </div>
             </div>   
         </div>
       
@@ -109,8 +121,9 @@ const EditWorkOrder = (props) =>{
 
 const mapStateToProps = state => { 
     return {
-        employees: state.employees,
-        buildings: state.buildings,
+        employees: state.employees.employees,
+        buildings: state.buildings.buildings,
+        errors: state.errors.errors
     }
 }
 
@@ -118,6 +131,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         editWorkOrder: (action) => dispatch(editWorkOrder(action)),
+        clearErrors: () => dispatch(clearErrors()),
     }
 }   
       
