@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
    def index
-     user = User.all
-     render json: {users: user }
+     users = User.all
+     render json: {users: users }
    end
     def create
       user = User.new(user_params)
@@ -12,10 +12,9 @@ class UsersController < ApplicationController
         render json: {is_login: true, user: User.find_by_id(session[:user_id])}
 
       else
-        render json: {is_login: false,  messages: user.errors.full_messages}
-        # render json: {is_login: false, messages: ["something went wrong"]}
+        render json: {is_login: false,  error_message: user.errors.full_messages}
       end
-      # render json: {is_login: false, messages: ["something went wrong"]}
+
 
     end
 

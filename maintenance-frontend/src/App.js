@@ -29,7 +29,7 @@ class App extends Component{
   }
 
   componentDidMount(){  
-    this.fetchingInf()
+      this.fetchingInf()
   }
 
   componentDidUpdate(prevProps) {
@@ -96,10 +96,10 @@ class App extends Component{
                 <Route exact path='/login' element={<LogIn/>} />
                 <Route exact path='/signout' element={<LogOut/>}/>
                 <Route exact path='/signup'  element={<UsersContainer />}/>
-                <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>
-                <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>
-                <Route exact path='/work_orders'  element={<WorkOdersContainer workOrders={this.props.workOrders} user={this.props.user}/>}/>
-                <Route exact path='/login' /> 
+                {this.props.user.is_login ?  <Route exact path='/employees'  element={<EmployeesContainer user={this.props.user}/>}/>: null}
+                {this.props.user.is_login ? <Route exact path='/buildings'  element={<BuildingsContainer user={this.props.user}/>}/>: null}
+                {this.props.user.is_login ? <Route exact path='/work_orders'  element={<WorkOdersContainer workOrders={this.props.workOrders} user={this.props.user}/>}/>: null}
+                {/* <Route exact path='/login' />  */}
                 {this.props.employees.length > 0 && this.props.user.user?<Route exact path='/employees/:id' element={<EmployeeDetails user={this.props.user}/>}/>: null}
                 {this.props.user.is_login && !this.props.user.admin? <Route exact path='/my_work_orders' element={<WorkOdersContainer workOrders={this.userWorkOrders()} user={this.props.user}/>}/>: null}
                 {this.props.buildings.length > 0 && this.props.user.user? <Route exact path='/buildings/:id' element={<BuildingDetail user={this.props.user}/>}/>: null}

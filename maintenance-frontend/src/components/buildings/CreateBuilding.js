@@ -1,9 +1,11 @@
-import React, {useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 import '../../styles/styles.css'
 import { createBuilding} from '../../actions/buildingsActions'
+import {clearErrors} from '../../actions/errorsActions'
 
 const CreateBuilding = (props) =>{
+    const {errors } = props
     const [building, setBuilding] = useState({
         address: "",
         super_name: "",
@@ -13,6 +15,12 @@ const CreateBuilding = (props) =>{
         acordion: 'display_accordion', 
         display: 'hide_elements',
     })
+
+    useEffect(() => {
+      if (errors.length > 0){
+        props.clearErrors()
+      }
+    },[ ]);
 
     const handleOnclick = (e)=>{
         if(acordion.acordion !== 'display_accordion active'){
@@ -42,6 +50,10 @@ const CreateBuilding = (props) =>{
           super_name: "",
           phone_number: "",
         })
+
+        if (errors.length > 0){
+          props.clearErrors()
+        }
     }
 
   return(   
@@ -60,6 +72,10 @@ const CreateBuilding = (props) =>{
             <button type='submit' className="btn btn-primary">Submit</button>
         </form>     
     </div>
+    <br/>
+      <div> 
+          {errors.map((e,k) => {return <p key={k}>{e}</p>})}
+      </div>  
     </div>
 </div>
   )
@@ -67,6 +83,7 @@ const CreateBuilding = (props) =>{
 
 const mapStateToProps = state => { 
     return {
+        errors: state.errors.errors,
         buildings: state.buildings,
         loading: state.buildings.loading
     }
@@ -75,6 +92,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         createBuilding: (action) => dispatch(createBuilding(action)),
+        clearErrors: () => dispatch(clearErrors()),
     }
 }   
       

@@ -16,10 +16,6 @@ class LogIn extends Component {
       return <Navigate to='/home' /> 
     }
 
-    errorMessages = () => {
-        return this.props.user.user.messages? <p>{this.props.user.user.messages[0]}</p> :null
-    }
-   
     handleOnChangePassword = (e) => {
       
         this.setState({
@@ -67,7 +63,7 @@ class LogIn extends Component {
          {this.props.user.user.is_login? this.redirect():null}
       
       </div>
-      <div>{this.errorMessages()}</div>
+      {this.props.errors.map((e,k) => {return <p key={k}>{e}</p>})}
       </div>
     );
 
@@ -80,6 +76,7 @@ class LogIn extends Component {
 
 const mapStateToProps = state => { 
   return {
+    errors: state.errors.errors,
     user: state.user,
     loading: state.user.loading
   }

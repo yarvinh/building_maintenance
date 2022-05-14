@@ -1,10 +1,12 @@
-import React, {useState } from 'react';
+import React, {useState,useEffect } from 'react';
 import { connect } from 'react-redux';
 import {editBuilding} from '../../actions/buildingsActions'
 import {useParams} from 'react-router-dom';
+import {clearErrors} from '../../actions/errorsActions'
 import '../../styles/styles.css'
 
 const EditBuilding = (props) =>{
+    const {errors} = props
     let {id} = useParams()
     const [building, setBuilding] = useState({
         address: "",
@@ -12,6 +14,12 @@ const EditBuilding = (props) =>{
         phone_number: "",
  
     })
+
+    useEffect(() => {
+        if (errors.length > 0){
+          props.clearErrors()
+        }
+    },[ ]);
 
     
 
@@ -74,18 +82,30 @@ const EditBuilding = (props) =>{
                     <button type='submit' className="btn btn-primary">Save</button>
                 </form>
             </div>
+             <br/>
+            <div> 
+                {errors.map((e,k) => {return <p key={k}>{e}</p>})}
+            </div> 
             </div>
-          
+           
+  
         </div>
       
   )
 }
 
 
+const mapStateToProps = state => { 
+    return {
+        errors: state.errors.errors,
+    }
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         editBuilding: (action) => dispatch(editBuilding(action)),
+        clearErrors: () => dispatch(clearErrors()),
     }
 }   
       
-export default connect(null, mapDispatchToProps)(EditBuilding)
+export default connect(mapStateToProps, mapDispatchToProps)(EditBuilding)

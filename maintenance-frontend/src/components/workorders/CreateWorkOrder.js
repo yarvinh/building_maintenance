@@ -97,6 +97,7 @@ const CreateWorkOrder = (props) => {
             <button type='submit' className="btn btn-primary">Submit</button>
         </form>  
     </div>
+    <br/>
     <div className="center"> 
         {errors.map((e,k) => {return <p key={k}>{e}</p>})}
     </div>   

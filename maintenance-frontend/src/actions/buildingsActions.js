@@ -28,8 +28,8 @@ export const createBuilding = (building) => {
         dispatch({ type: 'LOADING_BUILDINGS'})
         axios.post('http://localhost:3000/buildings', building, {withCredentials: true})
         .then(response => {
-
-          dispatch({ type: 'ADD_BUILDINGS', buildings: response.data})
+          const error = response.data.error_message
+          error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_BUILDINGS', buildings: response.data})
       })
     }
   }
@@ -39,7 +39,8 @@ export const createBuilding = (building) => {
         dispatch({type: "LOADING_BUILDING"})
         axios.patch(`http://localhost:3000/buildings/${params.id}`, params ,{withCredentials: true})
         .then(response => {
-            dispatch({ type: 'ADD_BUILDING', building: response.data})
+          const error = response.data.error_message
+          error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_BUILDINGS', buildings: response.data})
         })
     }
   

@@ -27,8 +27,10 @@ const EmployeeDetails = (props)=>{
         return (
             <>
                 <div>
-                {employee.id === user.id  || admin ? <EditEmployee/> :null}
+                  {employee.id === user.id  || admin ? <EditEmployee/> :null}
                 </div>
+                <br/>
+                <br/>
                 <div className="container d-flex justify-content-center">
                     <div className="card-container mb-3"> 
 

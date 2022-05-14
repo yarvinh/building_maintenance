@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component } from 'react';
 import '../../styles/styles.css'
 
 class SignUp extends Component {
@@ -22,14 +22,6 @@ class SignUp extends Component {
     })
   }
 
-  errorMessages=()=>{
-   return this.props.errorMessages && this.props.errorMessages.map((err,i)=>{
-      return (
-        <p key={i}>{err}</p>
-      )
-    })
-  }
-
 
   render() {
     return (
@@ -50,9 +42,11 @@ class SignUp extends Component {
           </form>
           
         </div>
-        <div className="err_messages">
-          {this.errorMessages()}
-        </div>
+        <br/>
+        <br/>
+        <div className="center"> 
+            {this.props.errors.map((e,k) => {return <p key={k}>{e}</p>})}
+        </div>  
       </div>
     );
   }

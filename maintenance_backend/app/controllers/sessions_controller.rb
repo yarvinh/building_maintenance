@@ -1,8 +1,6 @@
 class SessionsController < ApplicationController
 
     def show   
-        # logout!
-        # raise session[:user_id].inspect
         if logged_in? 
             user = User.find_by_id(session[:user_id])
             employee = Employee.find_by_id(session[:employee_id])
@@ -11,9 +9,7 @@ class SessionsController < ApplicationController
             else
                 user = User.find_by_id(employee.user_id)
                 render json: SessionSerializer.new(employee, false).to_serialized_json
-                # render json: {admin: false, is_login: true, user: employee , work_orders: employee.work_orders}
             end
-            # render json: {is_login: false}
         else
             render json: {is_login: false}
        end
@@ -27,7 +23,7 @@ class SessionsController < ApplicationController
             login!  
             render json: {admin: true, is_login: true, user: @user }
         else
-            render json: {is_login: false, status: 401, messages: ['wrong password or username'] }
+            render json: {is_login: false, status: 401, error_message: ['wrong password or username'] }
         end  
     end
 
@@ -37,7 +33,7 @@ class SessionsController < ApplicationController
             session[:employee_id] = @employee.id
             render json: {admin: false, is_login: true, user: @employee }
         else
-            render json: {is_login: false, status: 401, messages: ['wrong password or username'] }
+            render json: {is_login: false, status: 401, error_message: ['wrong password or username'] }
         end  
     end
   

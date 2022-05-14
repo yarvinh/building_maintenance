@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createUser } from '../actions/usersActions'
 import SignUp from '../components/users/SignUp'
 import { Navigate} from 'react-router-dom'
+import {clearErrors} from '../actions/errorsActions'
 class UsersContainer extends Component {
 
   creatingUser = (user)=>{
@@ -13,7 +14,7 @@ class UsersContainer extends Component {
   render() {
     return (
       <div>
-        { this.props.user.is_login? <Navigate to="/home"/> :<SignUp isLogin={this.props.user.is_login} errorMessages={this.props.user.messages} creatingUser={this.creatingUser}/> }
+        { this.props.user.is_login? <Navigate to="/home"/> :<SignUp isLogin={this.props.user.is_login} errors={this.props.errors} creatingUser={this.creatingUser} clearErrors={this.props.clearErrors}/> }
       </div>
     );
   }
@@ -24,6 +25,7 @@ class UsersContainer extends Component {
 const mapStateToProps = state => { 
   return {
      user: state.user.user,
+     errors: state.errors.errors,
      loading: state.user.loading
   }
 }
@@ -31,7 +33,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-     createUser: (action) => dispatch(createUser(action))
+     createUser: (action) => dispatch(createUser(action)),
+     clearErrors: () => dispatch(clearErrors()),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

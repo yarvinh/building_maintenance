@@ -44,9 +44,10 @@ const WorkOrderDetails = (props)=>{
     return (
         <div> 
             <div className="center"> 
-            {workOrder.employee_id === user.id  || admin ?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null}
+              {workOrder.employee_id === user.id  || admin ?<EditWorkOrder buildings={buildings} employees={employees} workOrder={workOrder}/>:null}
             </div> 
-
+            <br/>
+            <br/>
             <div className="container d-flex justify-content-center"> 
 
 

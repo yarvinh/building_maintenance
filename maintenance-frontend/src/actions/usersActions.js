@@ -1,11 +1,11 @@
 import axios from 'axios'
 export const createUser = (user) => {
-  
     return (dispatch) => {
         dispatch({ type: 'LOADING_USER'})
         axios.post('http://localhost:3000/users', user, {withCredentials: true})
         .then(response => {
-          dispatch({ type: 'ADD_USER', user: response.data})
+          const error = response.data.error_message
+          error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_USER', user: response.data})
       })
     }
   }
@@ -44,7 +44,8 @@ export const createUser = (user) => {
         axios.post(url, 
         {user}, {withCredentials: true})
         .then(response=> {
-            dispatch({ type: 'ADD_USER', user: response.data })
+          const error = response.data.error_message
+          error? dispatch({ type: 'ADD_ERROR', errors: response.data.error_message}):  dispatch({ type: 'ADD_USER', user: response.data})
         })
   }
 }

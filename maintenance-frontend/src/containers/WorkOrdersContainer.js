@@ -48,6 +48,8 @@ const WorkOrdersContainer = (props)=>{
            <div>
               {props.user.admin ?<CreateWorkOrder  employees={employees} employee={employee} buildings={buildings}/>:null}
            </div>
+           <br/>
+           <br/>
            <div>
                 <select onChange={handleOnclick} className="form-select my-3 mx-auto"> 
                     <option value='all'>All</option>

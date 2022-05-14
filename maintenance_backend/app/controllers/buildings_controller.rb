@@ -1,28 +1,4 @@
 class BuildingsController < ApplicationController
-    # def show
-    #     user = User.find_by_id(session[:user_id])
-    #     employee = Employee.find_by_id(session[:employee_id])
-    #     if user 
-    #         building = user.buildings.find_by_id(params[:id])
-    #         if building
-    #             render json: building
-    #         else
-    #             render json: {error_message: ["No building was found"]}
-    #         end
-
-    #     elsif employee
-    #         user = employee.user
-    #         building = user.buildings.find_by_id(params[:id])
-    #         if building
-    #             render json: building
-    #         else
-    #             render json: {error_message: ["No building was found"]}
-    #         end
-
-    #     else
-    #         render json: {error_message: ["No building was found"]}
-    #     end
-    # end
 
     def index
         user = User.find_by_id(session[:user_id])
@@ -57,7 +33,7 @@ class BuildingsController < ApplicationController
         if user
             building = user.buildings.find_by_id(params[:id])
             if building.update(building_params)
-              render json: building
+              render json:BuildingsSerializer.new(current_user.buildings).to_serialized_json
             else
             render json: {error_message: building.errors.full_messages}
             end
@@ -67,7 +43,6 @@ class BuildingsController < ApplicationController
       end
 
       def destroy
-
         if current_user
           building = Building.find_by_id(params[:id])
           building.delete

@@ -28,6 +28,8 @@ const BuildingDetails = (props)=>{
             <div>
               {id && props.user.admin?<EditBuilding/>:null}
             </div>
+            <br/>
+            <br/>
  
             <div className="container d-flex justify-content-center">
 

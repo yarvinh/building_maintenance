@@ -19,7 +19,11 @@ class WorkOrdersController < ApplicationController
     if employee
       user ||= employee.user
     end 
-    render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
+    if user
+      render json:WorkOrdersSerializer.new(user.work_orders).to_serialized_json
+    else
+      render json: {error_message: ["Please Login!"]}
+    end
   end
 
   def create
